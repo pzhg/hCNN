@@ -1,4 +1,3 @@
-@@ -1 +1,43 @@
 # hCNN
 Hybrid CNN, a MATLAB CNN toolbox that supports complex valued data and insertion of Signal Processing Modules.
 
@@ -31,8 +30,8 @@ Hybrid CNN, a MATLAB CNN toolbox that supports complex valued data and insertion
 
 ## Insertion of SP Modules
 See examples of radar data layer:
->	cnnAddRadarLayer.m
->	cnnConvolveRadar.m
+>	cnnAddRadarLayer.m  
+>	cnnConvolveRadar.m  
 >	cnnDeconvolveRadar.m
 
 ## Example
