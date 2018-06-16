@@ -6,7 +6,8 @@ dbstop if error
 
 %% Load Data (MNIST)
 load MNIST.mat;
-% Training Options
+
+%% Training Options
 to.epochs=3;            % Epoch number
 to.batch=400;           % Batch number
 to.batch_size=150;      % Batch size
