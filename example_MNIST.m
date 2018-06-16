@@ -4,7 +4,7 @@ close all;
 reset(gpuDevice(1));    % Initialize GPU
 dbstop if error
 
-%% Load Paras
+%% Load Data (MNIST)
 load MNIST.mat;
 % Training Options
 to.epochs=3;            % Epoch number
