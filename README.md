@@ -11,18 +11,28 @@ Hybrid CNN, a MATLAB CNN toolbox that supports complex valued data and insertion
 
 ## Supported Pooling Methods
 * 'mean'
+
 	Mean pooling
+
 * 'max'
+
 	Max pooling
 
 ## Supported Activation Functions
 * 'ReLu'
+
 	ReLu
+
 * 'LReLu'
+
 	Leaked ReLu
+
 * 'Sigmoid'
+
 	Sigmoid
+
 * 'ABS'
+
 	Absolute value
 
 ## Supported Output Layer
