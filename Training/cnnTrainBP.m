@@ -1,11 +1,16 @@
-function cnn=cnnTrainBP(cnn, TrainData, LabelData, to)
+function [ERR, cnn]=cnnTrainBP(cnn, TrainData, LabelData, to)
 % Train CNN using BP gradient descend method
+% Input:
 %   TrainData: training data, [x-dim, y-dim, channel-num, batch-size,
 %                                batch-count]
 %   LabelData: label data, [1, batch-size, batch-count]
 %   to: training options
+% Output:
+%   ERR: array contains the accuracy and cost in each iteration
+%   cnn: the trained CNN
 
 C=[];
+A=[];
 [dW, dB]=cnnInitVelocity(cnn);
 for e_count=1:to.epochs
     for b_count=1:to.batch
@@ -63,13 +68,13 @@ for e_count=1:to.epochs
             end
         end
         
-        fprintf('Epoch %d: Cost on iteration %d is %f\n', e_count, b_count, cost);
+        %% Monitor Accuracy and Cost
+        [~, preds]=max(OutData{cnn.LNum}, [], 1);
+        acc=sum(preds==mb_labels)/numImages;
+        fprintf('Epoch %d: Cost on iteration %d is %f, accuracy is %f\n', e_count, b_count, cost, acc);
         C=[C, cost];
+        A=[A, acc];
     end
     to.alpha=to.alpha/2.0;
-    
-    [~, preds]=max(OutData{cnn.LNum}, [], 1);
-    acc=sum(preds==mb_labels)/numImages;
-    fprintf('Accuracy is %f\n', acc);
 end
-plot(C);
+ERR=[C; A];
