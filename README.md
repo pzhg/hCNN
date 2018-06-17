@@ -1,6 +1,8 @@
 # hCNN
 Hybrid CNN, a MATLAB CNN toolbox that supports complex valued data and insertion of Signal Processing Modules.
 
+**GPU supported enabled. Please use a CUDA enabled device.**
+
 ## Supported Layers
 * Convolutional Layer
 * Pooling Layer
@@ -38,11 +40,14 @@ Hybrid CNN, a MATLAB CNN toolbox that supports complex valued data and insertion
 ## Supported Output Layer
 * SoftMax
 
+## Supported Training Method
+* BP (Gradient descent)
+
 ## Insertion of SP Modules
 See examples of radar data layer:
->	cnnAddRadarLayer.m  
->	cnnConvolveRadar.m  
->	cnnDeconvolveRadar.m
+>	'cnnAddRadarLayer.m'  
+>	'cnnConvolveRadar.m'  
+>	'cnnDeconvolveRadar.m
 
 ## Example
 See the following file as an example of utilizing this toolbox:

@@ -15,7 +15,7 @@ switch ALayer.ActFunc
         actOutput(imag(actInput)<0)=ALayer.Leak*actInput(imag(actInput)<0);
     case 'ABS'
         % ABS Layer
-        absImage=abs(ActInput);
+        absImage=abs(actInput);
         maxImage=max(max(absImage(:, :, 1, 1:numImages)));
         actOutput=absImage./maxImage;
     case 'Sigmoid'

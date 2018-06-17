@@ -6,8 +6,8 @@ function cnn=cnnAddRadarLayer(cnn, FDim, Fsr, PRF)
 
 RLayer=struct;
 RLayer.type=1;
-RLayer.Ka=66.7134;
-RLayer.Kr=66.7134;
+RLayer.Ka=50;
+RLayer.Kr=50;
 RLayer.FDim=FDim;
 RLayer.OutDim=cnn.Layers{cnn.LNum}.OutDim-FDim+1;
 RLayer.FNum=cnn.Layers{cnn.LNum}.FNum;

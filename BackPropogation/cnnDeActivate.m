@@ -15,7 +15,7 @@ switch ALayer.ActFunc
         % ABS Layer
         Re=Delta_in.*real(Data_1)./Data_2;
         Im=Delta_in.*imag(Data_1)./Data_2;
-        Delta=Re+1j*Im;
+        Delta_out=Re+1j*Im;
     case 'Sigmoid'
         % Sigmoid Layer
         Delta_out=Delta_in.*Data_2.*(1-Data_2);

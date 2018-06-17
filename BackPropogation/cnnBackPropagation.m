@@ -23,6 +23,8 @@ for iLayer=cnn.LNum:-1:1
             Delta{iLayer}=reshape(Delta{iLayer+1}, size(OutData{iLayer-1}));
         case 1
             % Error of Hybrid Convolution Layer
-            [Delta{iLayer}.Ka, Delta{iLayer}.Kr]=cnnDeConvolveRadar(cnn.Layers{iLayer}, Delta{iLayer+1}, OutData{iLayers-1});
+            [Ka, Kr]=cnnDeconvolveRadar(cnn.Layers{iLayer}, Delta{iLayer+1}, OutData{iLayer-1});
+            Delta{iLayer}.Ka=Ka;
+            Delta{iLayer}.Kr=Kr;
     end
 end
