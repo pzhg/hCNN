@@ -8,6 +8,9 @@ for iLayer=1:cnn.LNum
         case 0
             % Input Layer
             OutData{iLayer}=gpuArray(images);
+            if size(cnn.Layers{iLayer}.OutDim, 2)==1
+                OutData{iLayer}=squeeze(OutData{iLayer});
+            end
         case 1
             % Hybrid Convolution Layer
             OutData{iLayer}=cnnConvolveRadar(cnn.Layers{iLayer}, OutData{iLayer-1});
@@ -31,5 +34,8 @@ for iLayer=1:cnn.LNum
         case 7
             % Activation Function Layer
             OutData{iLayer}=cnnActivate(cnn.Layers{iLayer}, OutData{iLayer-1});
+        case 8
+            % RMSE Layer
+            OutData{iLayer}=OutData{iLayer-1};
     end
 end

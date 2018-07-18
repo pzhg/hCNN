@@ -5,10 +5,11 @@ DeltaKa=gpuArray.zeros(RLayer.OutDim(1), RLayer.OutDim(2), numImages);
 DeltaKr=gpuArray.zeros(RLayer.OutDim(1), RLayer.OutDim(2), numImages);
 
 HFSize=floor((RLayer.FDim-1)/2);
-FKaSin=gpuArray(pi*(([-HFSize:HFSize].'/RLayer.PRF).^2).*sin(pi*RLayer.Ka*(([-HFSize:HFSize].'/RLayer.PRF).^2)))*gpuArray.ones(1, RLayer.FDim(1));
-FKaCos=gpuArray(pi*(([-HFSize:HFSize].'/RLayer.PRF).^2).*cos(pi*RLayer.Ka*(([-HFSize:HFSize].'/RLayer.PRF).^2)))*gpuArray.ones(1, RLayer.FDim(1));
-FKrSin=gpuArray.ones(RLayer.FDim(2), 1)*gpuArray(pi*([-HFSize:HFSize]/RLayer.Fsr).^2).*sin(pi*RLayer.Kr*(([-HFSize:HFSize]/RLayer.Fsr).^2));
-FKrCos=gpuArray.ones(RLayer.FDim(2), 1)*gpuArray(pi*([-HFSize:HFSize]/RLayer.Fsr).^2).*cos(pi*RLayer.Kr*(([-HFSize:HFSize]/RLayer.Fsr).^2));
+Theta=pi*RLayer.Ka*(([-HFSize:HFSize].'/RLayer.PRF).^2*gpuArray.ones(1, RLayer.FDim(1)))-pi*RLayer.Kr*(gpuArray.ones(RLayer.FDim(2),1)*pi*RLayer.Kr*(([-HFSize:HFSize]/RLayer.Fsr).^2));
+FKaSin=pi*([-HFSize:HFSize].'/RLayer.PRF).^2*gpuArray.ones(1, RLayer.FDim(1)).*sin(Theta);
+FKaCos=pi*([-HFSize:HFSize].'/RLayer.PRF).^2*gpuArray.ones(1, RLayer.FDim(1)).*cos(Theta);
+FKrSin=gpuArray.ones(RLayer.FDim(2),1)*pi*(([-HFSize:HFSize]/RLayer.Fsr).^2).*sin(Theta);
+FKrCos=gpuArray.ones(RLayer.FDim(2),1)*pi*(([-HFSize:HFSize]/RLayer.Fsr).^2).*cos(Theta);
 parfor i_im=1:numImages
     r_image=rot90(gpuArray(squeeze(real(images(:, :, i_im)))), 2);
     i_image=rot90(gpuArray(squeeze(imag(images(:, :, i_im)))), 2);

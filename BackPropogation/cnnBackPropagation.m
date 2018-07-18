@@ -3,7 +3,7 @@ function Delta=cnnBackPropagation(cnn, OutData, outPut)
 Delta=cell(1, cnn.LNum);
 for iLayer=cnn.LNum:-1:1
     switch cnn.Layers{iLayer}.type
-        case 4
+        case {4, 8}
             % Error of SoftMax Layer
             Delta{iLayer}=OutData{iLayer}-outPut;
         case 3

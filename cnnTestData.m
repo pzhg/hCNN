@@ -1,12 +1,12 @@
-function acc=cnnTestData(cnn, VData, VLabel, numImages)
+function acc=cnnTestData(cnn, VX, VY, numImages)
 % Validate CNN Accuracy
 %   VData: validation data, [x-dim, y-dim, channel-num, data-count]
 %   VLabel: validation label, [1, data-count]
 %   numImages: number of images that want to validate
 
-images=VData(:, :, :, 1:numImages);
+images=VX(:, :, :, 1:numImages);
 clear VData;
-mb_labels=VLabel(:, 1:numImages);
+mb_labels=VY(:, 1:numImages);
 clear VLabel;
 
 [~, OutData]=cnnFeedForward(cnn, images);
