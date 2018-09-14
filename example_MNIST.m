@@ -22,13 +22,15 @@ cnn=cnnInit;
 
 %% Configure Layers
 cnn=cnnAddInputLayer(cnn, [28, 28], 1);
-cnn=cnnAddConvLayer(cnn, [5, 5], 8, 'r');
+cnn=cnnAddConvLayer(cnn, [3, 3], 32, 'r');
 cnn=cnnAddActivationLayer(cnn, 'ReLu');
 cnn=cnnAddPoolLayer(cnn, 'max', [2, 2]);
-cnn=cnnAddConvLayer(cnn, [5, 5], 8, 'r');
+cnn=cnnAddConvLayer(cnn, [4, 4], 32, 'r');
 cnn=cnnAddActivationLayer(cnn, 'ReLu');
 cnn=cnnAddPoolLayer(cnn, 'max', [2, 2]);
 cnn=cnnAddReshapeLayer(cnn);
+cnn=cnnAddFCLayer(cnn, 128, 'r');
+cnn=cnnAddActivationLayer(cnn, 'ReLu');
 cnn=cnnAddFCLayer(cnn, 10, 'r');
 cnn=cnnAddSoftMaxLayer(cnn);
 
