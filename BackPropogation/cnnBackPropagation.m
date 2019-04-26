@@ -1,30 +1,58 @@
-function Delta=cnnBackPropagation(cnn, OutData, outPut)
+function cnn=cnnBackPropagation(cnn, outPut)
 
-Delta=cell(1, cnn.LNum);
+cnn.W_grad=cell(1, cnn.LNum);
+cnn.B_grad=cell(1, cnn.LNum);
 for iLayer=cnn.LNum:-1:1
     switch cnn.Layers{iLayer}.type
+        case 0
+            % Input
+            cnn.Delta{iLayer}=cnn.Delta{iLayer+1};
         case {4, 8}
             % Error of SoftMax Layer
-            Delta{iLayer}=OutData{iLayer}-outPut;
+            cnn.Delta{iLayer}=cnn.OutData{iLayer}-outPut;
         case 3
             % Error of Fully Connected Layer
-            Delta{iLayer}=cnnDeFullConnected(cnn.Layers{iLayer}, Delta{iLayer+1});
+            cnn.Delta{iLayer}=cnnDeFullConnected(cnn.Layers{iLayer}, cnn.Delta{iLayer+1});
         case 5
             % Error of Pooling Layer
-            Delta{iLayer}=cnnDePool(cnn.Layers{iLayer}, Delta{iLayer+1});
+            cnn.Delta{iLayer}=cnnDePool(cnn.Layers{iLayer}, cnn.Delta{iLayer+1});
         case 7
             % Error of Activation Layer
-            Delta{iLayer}=cnnDeActivate(cnn.Layers{iLayer}, Delta{iLayer+1}, OutData{iLayer}, OutData{iLayer-1});
+            cnn.Delta{iLayer}=cnnDeActivate(cnn.Layers{iLayer}, cnn.Delta{iLayer+1}, cnn.OutData{iLayer}, cnn.OutData{iLayer-1});
         case 2
             % Error of Convolution Layer
-            Delta{iLayer}=cnnDeConv(cnn.Layers{iLayer}, Delta{iLayer+1});
+            cnn.Delta{iLayer}=cnnDeConv(cnn.Layers{iLayer}, cnn.Delta{iLayer+1});
         case 6
             % Error of Reshape Layer
-            Delta{iLayer}=reshape(Delta{iLayer+1}, size(OutData{iLayer-1}));
+            if iLayer==cnn.LNum
+                cnn.Delta{iLayer}=reshape(outPut, size(cnn.OutData{iLayer-1}));
+            else
+                cnn.Delta{iLayer}=reshape(cnn.Delta{iLayer+1}, size(cnn.OutData{iLayer-1}));
+            end
         case 1
             % Error of Hybrid Convolution Layer
-            [Ka, Kr]=cnnDeconvolveRadar(cnn.Layers{iLayer}, Delta{iLayer+1}, OutData{iLayer-1});
-            Delta{iLayer}.Ka=Ka;
-            Delta{iLayer}.Kr=Kr;
+            [Ka, Kr]=cnnDeconvolveRadar(cnn.Layers{iLayer}, cnn.Delta{iLayer+1}, cnn.OutData{iLayer-1});
+            cnn.Delta{iLayer}.Ka=Ka;
+            cnn.Delta{iLayer}.Kr=Kr;
+        case 9
+            % (Deprecated) SP Filter Layer
+            cnn.Delta{iLayer}=cnn.Delta{iLayer+1}(1:cnn.Layers{iLayer-1}.OutDim, :);
+        case 10
+            % BLOB Layer
+            offset=0;
+            for inet=1:cnn.Layers{iLayer}.NNum
+                tcnn=cnn.Layers{iLayer}.Nets{inet};
+                Delta=cnn.Delta{iLayer+1}(offset+1:offset+tcnn.Layers{tcnn.LNum}.OutDim, :);
+                offset=offset+tcnn.Layers{tcnn.LNum}.OutDim;
+                tcnn=cnnBackPropagation(tcnn, Delta);
+                if tcnn.Layers{1}.type<9
+                    cnn.Delta{iLayer}=tcnn.Delta{1};
+                end
+                cnn.Layers{iLayer}.Nets{inet}=tcnn;
+            end
+        case 101
+            % CS
+        case 102
+            % CoPCA
     end
 end
