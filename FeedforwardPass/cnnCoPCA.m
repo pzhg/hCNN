@@ -16,6 +16,7 @@ if CLayer.CorrType==1
                     X=[X, temp];
                 end
             end
+            X=gpuArray(X);
             X_cov=X'*X;
             [U, S, V]=svds(X_cov, CLayer.PCADim);
             PCAImage=U*S*V';

@@ -1,12 +1,12 @@
-function acc=cnnTestData(cnn, VX, VY, numImages, to)
+function [acc, e]=cnnTestData(cnn, VX, VY, numImages)
 % Validate CNN Accuracy
 %   VData: validation data, [x-dim, y-dim, channel-num, data-count]
 %   VLabel: validation label, [1, data-count]
 %   numImages: number of images that want to validate
 
-images=VX(:, :, :, 1:numImages);
+images=gpuArray(VX(:, :, :, 1:numImages));
 clear VData;
-mb_labels=VY(:, 1:numImages);
+mb_labels=gpuArray(VY(:, 1:numImages));
 clear VLabel;
 
 % if to.PCAflag==1
@@ -23,4 +23,5 @@ clear VLabel;
 
 cnn=cnnFeedForward(cnn, images);
 [~, preds]=max(cnn.OutData{cnn.LNum}, [], 1);
+e=(preds==mb_labels);
 acc=sum(preds==mb_labels)/numImages;

@@ -61,5 +61,8 @@ for iLayer=1:cnn.LNum
         case 102
             % CoPCA
             cnn.OutData{iLayer}=cnnCoPCA(cnn.OutData{iLayer-1}, cnn.Layers{iLayer});
+        case 103
+            % End
+            cnn.OutData{iLayer}=cnn.OutData{iLayer-1};
     end
 end

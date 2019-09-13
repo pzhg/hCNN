@@ -24,11 +24,11 @@ for iLayer=cnn.LNum:-1:1
             cnn.Delta{iLayer}=cnnDeConv(cnn.Layers{iLayer}, cnn.Delta{iLayer+1});
         case 6
             % Error of Reshape Layer
-            if iLayer==cnn.LNum
-                cnn.Delta{iLayer}=reshape(outPut, size(cnn.OutData{iLayer-1}));
-            else
+%             if iLayer==cnn.LNum
+%                 cnn.Delta{iLayer}=reshape(outPut, size(cnn.OutData{iLayer-1}));
+%             else
                 cnn.Delta{iLayer}=reshape(cnn.Delta{iLayer+1}, size(cnn.OutData{iLayer-1}));
-            end
+%             end
         case 1
             % Error of Hybrid Convolution Layer
             [Ka, Kr]=cnnDeconvolveRadar(cnn.Layers{iLayer}, cnn.Delta{iLayer+1}, cnn.OutData{iLayer-1});
@@ -54,5 +54,8 @@ for iLayer=cnn.LNum:-1:1
             % CS
         case 102
             % CoPCA
+        case 103
+            % End
+            cnn.Delta{iLayer}=outPut;
     end
 end

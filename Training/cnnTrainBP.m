@@ -10,15 +10,15 @@ function [ERR, cnn]=cnnTrainBP(cnn, X, Y, to)
 %   cnn: the trained CNN
 
 ERR=[];
-for e_count=1:to.epochs
-    for b_count=1:to.batch
+for e_count=1:cnn.to.epochs
+    for b_count=1:cnn.to.batch
         %% Training Data
         mb_labels=squeeze(Y(:, :, b_count));
         images=X(:, :, :, :, b_count);
-        numImages=to.batch_size;
+        numImages=cnn.to.batch_size;
         % Momemtum
-        if b_count==to.momIncrease
-            to.mom=to.momentum;
+        if b_count==cnn.to.momIncrease
+            to.mom=cnn.to.momentum;
         end
 %         if to.PCAflag==1
 %             for iLayer=1:cnn.LNum
@@ -38,22 +38,22 @@ for e_count=1:to.epochs
         %% Calculate Cost
         switch cnn.Layers{cnn.LNum}.type
             case 4
-                index=sub2ind([cnn.outputDim, to.batch_size], squeeze(mb_labels), 1:to.batch_size);
-                outPut=gpuArray.zeros(cnn.outputDim, to.batch_size);
+                index=sub2ind([cnn.outputDim, cnn.to.batch_size], squeeze(mb_labels), 1:cnn.to.batch_size);
+                outPut=gpuArray.zeros(cnn.outputDim, cnn.to.batch_size);
                 outPut(index)=1;
                 ceCost=-sum(sum(log(cnn.OutData{cnn.LNum}(index))));
             case 8
                 outPut=gpuArray(squeeze(mb_labels));
                 ceCost=1/2*sum((cnn.OutData{cnn.LNum}(:)-outPut(:)).^2);
         end
-        wCost=to.lambda*cnn.wCost/2;
+        wCost=cnn.to.lambda*cnn.wCost/2;
         cost=ceCost/numImages+wCost;
         
         %% BackPropagation
         cnn=cnnBackPropagation(cnn, outPut);
 
         %% Gradient Calculation and Update
-        cnn=cnnUpdateWeight(cnn, to);
+        cnn=cnnUpdateWeight(cnn);
         
         %% Monitor Accuracy and Cost
         switch cnn.Layers{cnn.LNum}.type
@@ -67,7 +67,7 @@ for e_count=1:to.epochs
                 ERR=[ERR, cost];
                 
         end 
-        waitbar(((e_count-1)*to.batch+b_count)/(to.epochs*to.batch));
+        waitbar(((e_count-1)*cnn.to.batch+b_count)/(cnn.to.epochs*cnn.to.batch));
     end
-    to.alpha=to.alpha/2.0;
+    cnn.to.alpha=cnn.to.alpha/2.0;
 end

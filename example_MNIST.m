@@ -18,7 +18,7 @@ to.momIncrease=20;      % Momemtum change iteration count
 to.lambda=0.0001;       % Weight decay parameter (a.k.a. L2 regularization parameter)
 
 %% Initialize CNN
-cnn=cnnInit;
+cnn=cnnInit(to);
 
 %% Configure Layers
 cnn=cnnAddInputLayer(cnn, [28, 28], 1);
@@ -29,12 +29,13 @@ cnn=cnnAddConvLayer(cnn, [4, 4], 32, 'r');
 cnn=cnnAddActivationLayer(cnn, 'ReLu');
 cnn=cnnAddPoolLayer(cnn, 'max', [2, 2]);
 cnn=cnnAddReshapeLayer(cnn);
-cnn=cnnAddFCLayer(cnn, 128, 'r');
+cnn=cnnAddFCLayer(cnn, 128, 'r', 0);
 cnn=cnnAddActivationLayer(cnn, 'ReLu');
-cnn=cnnAddFCLayer(cnn, 10, 'r');
+cnn=cnnAddFCLayer(cnn, 10, 'r', 0);
 cnn=cnnAddSoftMaxLayer(cnn);
 
 %% Train CNN
+cnn=cnnInitVelocity(cnn);
 [ERR, cnn]=cnnTrainBP(cnn, TrainData, LabelData, to);
 figure;
 plot(ERR(1, :));

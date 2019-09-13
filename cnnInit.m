@@ -1,4 +1,4 @@
-function cnn=cnnInit
+function cnn=cnnInit(to)
 
 cnn=struct;
 cnn.LNum=0;
@@ -10,3 +10,4 @@ cnn.dW={};
 cnn.dB={};
 cnn.W_grad={};
 cnn.B_grad={};
+cnn.to=to;
