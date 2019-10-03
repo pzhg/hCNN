@@ -1,4 +1,4 @@
-function [ERR, cnn]=cnnTrainBP(cnn, X, Y, to)
+function [ERR, cnn]=cnnTrainBP(cnn, X, Y)
 % Train CNN using BP gradient descend method
 % Input:
 %   X: training data, [x-dim, y-dim, channel-num, batch-size,
@@ -17,8 +17,9 @@ for e_count=1:cnn.to.epochs
         images=X(:, :, :, :, b_count);
         numImages=cnn.to.batch_size;
         % Momemtum
+        cnn.to.mom=single(cnn.to.mom);
         if b_count==cnn.to.momIncrease
-            to.mom=cnn.to.momentum;
+            cnn.to.mom=single(cnn.to.momentum);
         end
 %         if to.PCAflag==1
 %             for iLayer=1:cnn.LNum
@@ -39,11 +40,11 @@ for e_count=1:cnn.to.epochs
         switch cnn.Layers{cnn.LNum}.type
             case 4
                 index=sub2ind([cnn.outputDim, cnn.to.batch_size], squeeze(mb_labels), 1:cnn.to.batch_size);
-                outPut=gpuArray.zeros(cnn.outputDim, cnn.to.batch_size);
+                outPut=single(gpuArray.zeros(cnn.outputDim, cnn.to.batch_size));
                 outPut(index)=1;
                 ceCost=-sum(sum(log(cnn.OutData{cnn.LNum}(index))));
             case 8
-                outPut=gpuArray(squeeze(mb_labels));
+                outPut=gpuArray(single(squeeze(mb_labels)));
                 ceCost=1/2*sum((cnn.OutData{cnn.LNum}(:)-outPut(:)).^2);
         end
         wCost=cnn.to.lambda*cnn.wCost/2;
@@ -56,11 +57,12 @@ for e_count=1:cnn.to.epochs
         cnn=cnnUpdateWeight(cnn);
         
         %% Monitor Accuracy and Cost
+        gpu=gpuDevice;
         switch cnn.Layers{cnn.LNum}.type
             case 4
                 [~, preds]=max(cnn.OutData{cnn.LNum}, [], 1);
                 acc=sum(preds==mb_labels)/numImages;
-                fprintf('Epoch %d: Cost on iteration %d is %f, accuracy is %f\n', e_count, b_count, cost, acc);
+                fprintf('Epoch %d: Cost on iteration %d is %f, accuracy is %f, avaliable memory is %f\n', e_count, b_count, cost, acc, gpu.AvailableMemory);
                 ERR=[ERR, [cost; acc]];
             case 8
                 fprintf('Epoch %d: Cost on iteration %d is %f\n', e_count, b_count, cost);
@@ -69,5 +71,5 @@ for e_count=1:cnn.to.epochs
         end 
         waitbar(((e_count-1)*cnn.to.batch+b_count)/(cnn.to.epochs*cnn.to.batch));
     end
-    cnn.to.alpha=cnn.to.alpha/2.0;
+    cnn.to.alpha=single(cnn.to.alpha)/single(2);
 end

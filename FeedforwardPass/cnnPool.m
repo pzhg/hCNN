@@ -3,15 +3,15 @@ function [PLayer, pooledFeatures]=cnnPool(PLayer, convolvedFeatures)
 numImages=size(convolvedFeatures, 4);
 numFilters=PLayer.FNum;
 
-pooledFeatures=gpuArray.zeros(PLayer.OutDim(1), PLayer.OutDim(2), PLayer.FNum, numImages);
-PLayer.poolLocation=gpuArray.ones(1, PLayer.OutDim(1)*PLayer.OutDim(2), PLayer.FNum, numImages);
+pooledFeatures=single(gpuArray.zeros(PLayer.OutDim(1), PLayer.OutDim(2), PLayer.FNum, numImages));
+PLayer.poolLocation=single(gpuArray.ones(1, PLayer.OutDim(1)*PLayer.OutDim(2), PLayer.FNum, numImages));
 
 switch PLayer.poolMethod
     case 'mean'
         parfor imageNum=1:numImages
             for featureNum=1:numFilters
                 featuremap=squeeze(convolvedFeatures(:, :, featureNum, imageNum));
-                pooledFeaturemap=conv2(featuremap, gpuArray.ones(PLayer.poolDim(1), PLayer.poolDim(2))/(PLayer.poolDim(1)*PLayer.poolDim(2)), 'valid');
+                pooledFeaturemap=single(conv2(featuremap, gpuArray.ones(PLayer.poolDim(1), PLayer.poolDim(2))/(PLayer.poolDim(1)*PLayer.poolDim(2)), 'valid'));
                 pooledFeatures(:, :, featureNum, imageNum)=pooledFeaturemap(1:PLayer.poolDim(1):end, 1:PLayer.poolDim(2):end);
             end
         end

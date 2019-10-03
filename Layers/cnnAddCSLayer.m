@@ -8,6 +8,6 @@ CLayer.type=101;
 CLayer.FNum=cnn.Layers{cnn.LNum}.FNum;
 % CLayer.FDim=OutDim;
 CLayer.OutDim=[OutDim, 1];
-CLayer.A=gpuArray.randn(CLayer.OutDim(1), cnn.Layers{cnn.LNum}.OutDim(1)*cnn.Layers{cnn.LNum}.OutDim(2));
+CLayer.A=single(gpuArray.randn(CLayer.OutDim(1), cnn.Layers{cnn.LNum}.OutDim(1)*cnn.Layers{cnn.LNum}.OutDim(2)));
 cnn.LNum=cnn.LNum+1;
 cnn.Layers{cnn.LNum}=CLayer;

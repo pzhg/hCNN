@@ -19,13 +19,14 @@ to.lambda=0.0001;       % Weight decay parameter (a.k.a. L2 regularization param
 
 %% Initialize CNN
 cnn=cnnInit(to);
+feature('SetPrecision', 24);
 
 %% Configure Layers
 cnn=cnnAddInputLayer(cnn, [28, 28], 1);
-cnn=cnnAddConvLayer(cnn, [3, 3], 32, 'r');
+cnn=cnnAddConvLayer(cnn, [3, 3], 8, 'r');
 cnn=cnnAddActivationLayer(cnn, 'ReLu');
 cnn=cnnAddPoolLayer(cnn, 'max', [2, 2]);
-cnn=cnnAddConvLayer(cnn, [4, 4], 32, 'r');
+cnn=cnnAddConvLayer(cnn, [4, 4], 8, 'r');
 cnn=cnnAddActivationLayer(cnn, 'ReLu');
 cnn=cnnAddPoolLayer(cnn, 'max', [2, 2]);
 cnn=cnnAddReshapeLayer(cnn);
@@ -36,7 +37,7 @@ cnn=cnnAddSoftMaxLayer(cnn);
 
 %% Train CNN
 cnn=cnnInitVelocity(cnn);
-[ERR, cnn]=cnnTrainBP(cnn, TrainData, LabelData, to);
+[ERR, cnn]=cnnTrainBP(cnn, TrainData, LabelData);
 figure;
 plot(ERR(1, :));
 figure;
