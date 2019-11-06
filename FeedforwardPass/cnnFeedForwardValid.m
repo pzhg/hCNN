@@ -1,4 +1,4 @@
-function cnn=cnnFeedForward(cnn, images)
+function cnn=cnnFeedForwardValid(cnn, images)
 
 numImages=size(images, 4);
 cnn.wCost=0;
@@ -53,7 +53,7 @@ for iLayer=1:cnn.LNum
                 tcnn=cnnFeedForward(tcnn, cnn.OutData{iLayer-1});
 %                 cnn.OutData{iLayer}(offset+1:offset+tcnn.Layers{tcnn.LNum}.OutDim, :)=tcnn.OutData{tcnn.LNum};
 %                 offset=offset+tcnn.Layers{tcnn.LNum}.OutDim;
-                cnn.OutData{iLayer}=cnn.OutData{iLayer}+tcnn.OutData{tcnn.LNum};
+                cnn.OutData{iLayer}=cnn.OutData{iLayer}+tcnn.OutData{tcnn.LNum}*norm(tcnn.OutData{tcnn.LNum});
                 cnn.Layers{iLayer}.Nets{inet}=tcnn;
             end
         case 101
@@ -74,8 +74,5 @@ for iLayer=1:cnn.LNum
         case 104
             % Transform
             cnn.OutData{iLayer}=cnnTransform(cnn.OutData{iLayer-1}, cnn.Layers{iLayer});
-        case 11
-            % Batched Normalization
-            cnn.OutData{iLayer}=cnnBatchedFilter(cnn.Layers{iLayer}, cnn.OutData{iLayer-1}, cnn.to.test);
     end
 end
