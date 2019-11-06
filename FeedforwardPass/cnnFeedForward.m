@@ -64,5 +64,8 @@ for iLayer=1:cnn.LNum
         case 103
             % End
             cnn.OutData{iLayer}=cnn.OutData{iLayer-1};
+        case 11
+            % Batched Normalization
+            cnn.OutData{iLayer}=cnnBatchedFilter(cnn.Layers{iLayer}, cnn.OutData{iLayer-1}, cnn.to.test);
     end
 end

@@ -11,5 +11,8 @@ for iLayer=1:cnn.LNum
             cnn.dW{iLayer}=struct;
             cnn.dW{iLayer}.Ka=0;
             cnn.dW{iLayer}.Kr=0;
+        case 11
+            cnn.dW{iLayer}.dgamma=0;
+            cnn.dW{iLayer}.dbeta=0;
     end
 end
