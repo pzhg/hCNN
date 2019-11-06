@@ -5,6 +5,7 @@ function cnn=cnnAddCSLayer(cnn, OutDim)
 
 CLayer=struct;
 CLayer.type=101;
+CLayer.calced=0;
 CLayer.FNum=cnn.Layers{cnn.LNum}.FNum;
 % CLayer.FDim=OutDim;
 CLayer.OutDim=[OutDim, 1];
