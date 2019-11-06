@@ -39,17 +39,18 @@ for iLayer=cnn.LNum:-1:1
             cnn.Delta{iLayer}=cnn.Delta{iLayer+1}(1:cnn.Layers{iLayer-1}.OutDim, :);
         case 10
             % BLOB Layer
-            offset=0;
+%             offset=0;
             for inet=1:cnn.Layers{iLayer}.NNum
                 tcnn=cnn.Layers{iLayer}.Nets{inet};
-                Delta=cnn.Delta{iLayer+1}(offset+1:offset+tcnn.Layers{tcnn.LNum}.OutDim, :);
-                offset=offset+tcnn.Layers{tcnn.LNum}.OutDim;
-                tcnn=cnnBackPropagation(tcnn, Delta);
+%                 Delta=cnn.Delta{iLayer+1}(offset+1:offset+tcnn.Layers{tcnn.LNum}.OutDim, :);
+%                 offset=offset+tcnn.Layers{tcnn.LNum}.OutDim;
+%                 tcnn=cnnBackPropagation(tcnn, Delta);
+                tcnn=cnnBackPropagation(tcnn, cnn.Delta{iLayer+1});
                 if tcnn.Layers{1}.type<9
                     cnn.Delta{iLayer}=tcnn.Delta{1};
                 end
                 cnn.Layers{iLayer}.Nets{inet}=tcnn;
-            end
+            en
         case 101
             % CS
         case 102
