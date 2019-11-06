@@ -34,6 +34,6 @@ for iLayer=1:cnn.LNum
             end
         case 11
             % Batched Normalization Layer
-            cnn.dW{iLayer}.dgamma=to.mom*cnn.dW{iLayer}.dgamma+cnn.to.alpha*cnn.W_grad{iLayer};
+            cnn.dW{iLayer}.dgamma=to.mom*cnn.dW{iLayer}.dgamma+cnn.to.alpha*cnn.W_grad{iLayer}
     end
 end
