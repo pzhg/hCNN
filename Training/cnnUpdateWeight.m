@@ -6,23 +6,23 @@ for iLayer=1:cnn.LNum
             % Fully Connected Layer
             cnn.W_grad{iLayer}=cnn.Delta{iLayer+1}*cnn.OutData{iLayer-1}';
             cnn.B_grad{iLayer}=sum(cnn.Delta{iLayer+1}, 2);
-            cnn.dW{iLayer}=cnn.to.mom*cnn.dW{iLayer}+single(cnn.to.alpha)*(cnn.W_grad{iLayer}/single(cnn.to.batch_size)+single(cnn.to.lambda)*cnn.dW{iLayer});
-            cnn.dB{iLayer}=cnn.to.mom*cnn.dB{iLayer}+single(cnn.to.alpha)*cnn.B_grad{iLayer}/single(cnn.to.batch_size);
+            cnn.dW{iLayer}=cnn.to.mom*cnn.dW{iLayer}+cnn.to.alpha*gather(cnn.W_grad{iLayer})/cnn.to.batch_size+cnn.to.lambda*cnn.dW{iLayer};
+            cnn.dB{iLayer}=cnn.to.mom*cnn.dB{iLayer}+cnn.to.alpha*gather(cnn.B_grad{iLayer})/cnn.to.batch_size;
             cnn.Layers{iLayer}.W=cnn.Layers{iLayer}.W-cnn.dW{iLayer};
             cnn.Layers{iLayer}.B=cnn.Layers{iLayer}.B-cnn.dB{iLayer};
         case 2
             % Convolutional Layer
             [cnn.W_grad{iLayer}, cnn.B_grad{iLayer}]=cnnConvGrad(cnn. OutData{iLayer-1}, cnn.Delta{iLayer+1});
-            cnn.dW{iLayer}=cnn.to.mom*cnn.dW{iLayer}+single(cnn.to.alpha)*(cnn.W_grad{iLayer}/single(cnn.to.batch_size)+single(cnn.to.lambda)*cnn.dW{iLayer});
-            cnn.dB{iLayer}=cnn.to.mom*cnn.dB{iLayer}+single(cnn.to.alpha)*cnn.B_grad{iLayer}/single(cnn.to.batch_size);
+            cnn.dW{iLayer}=cnn.to.mom*cnn.dW{iLayer}+cnn.to.alpha*gather(cnn.W_grad{iLayer})/cnn.to.batch_size+cnn.to.lambda*cnn.dW{iLayer};
+            cnn.dB{iLayer}=cnn.to.mom*cnn.dB{iLayer}+cnn.to.alpha*gather(cnn.B_grad{iLayer})/cnn.to.batch_size;
             cnn.Layers{iLayer}.W=cnn.Layers{iLayer}.W-cnn.dW{iLayer};
             cnn.Layers{iLayer}.B=cnn.Layers{iLayer}.B-cnn.dB{iLayer};
         case 1
             % Hybrid Convolutional Layer
             cnn.W_grad{iLayer}.Ka=sum(cnn.Delta{iLayer}.Ka(:));
             cnn.W_grad{iLayer}.Kr=sum(cnn.Delta{iLayer}.Kr(:));
-            cnn.dW{iLayer}.Ka=to.mom*cnn.dW{iLayer}.Ka+single(cnn.to.alpha)*cnn.W_grad{iLayer}.Ka/single(cnn.to.batch_size);
-            cnn.dW{iLayer}.Kr=to.mom*cnn.dW{iLayer}.Kr+single(cnn.to.alpha)*cnn.W_grad{iLayer}.Kr/single(cnn.to.batch_size);
+            cnn.dW{iLayer}.Ka=to.mom*cnn.dW{iLayer}.Ka+cnn.to.alpha*cnn.W_grad{iLayer}.Ka/single(cnn.to.batch_size);
+            cnn.dW{iLayer}.Kr=to.mom*cnn.dW{iLayer}.Kr+cnn.to.alpha*cnn.W_grad{iLayer}.Kr/single(cnn.to.batch_size);
             cnn.Layers{iLayer}.Ka=cnn.Layers{iLayer}.Ka-cnn.dW{iLayer}.Ka;
             cnn.Layers{iLayer}.Kr=cnn.Layers{iLayer}.Kr-cnn.dW{iLayer}.Kr;
         case 10
@@ -33,7 +33,10 @@ for iLayer=1:cnn.LNum
                 cnn.Layers{iLayer}.Nets{inet}=tcnn;
             end
         case 11
-            % Batched Normalization Layer
-            cnn.dW{iLayer}.dgamma=to.mom*cnn.dW{iLayer}.dgamma+cnn.to.alpha*cnn.W_grad{iLayer};
+% %             % Batched Normalization Layer
+%             cnn.dW{iLayer}.dgamma=cnn.to.mom*cnn.dW{iLayer}.dgamma+cnn.to.alpha*cnn.W_grad{iLayer}.dgamma/single(cnn.to.batch_size);
+%             cnn.dW{iLayer}.dbeta=cnn.to.mom*cnn.dW{iLayer}.dbeta+cnn.to.alpha*cnn.W_grad{iLayer}.dbeta/single(cnn.to.batch_size);
+            cnn.Layers{iLayer}.gamma=cnn.Layers{iLayer}.gamma+gather(cnn.dW{iLayer}.dgamma);
+            cnn.Layers{iLayer}.beta=cnn.Layers{iLayer}.beta+gather(cnn.dW{iLayer}.dbeta);
     end
 end

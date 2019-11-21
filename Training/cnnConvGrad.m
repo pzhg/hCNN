@@ -15,4 +15,5 @@ parfor fil2=1:numFilters2
     end
     temp=DeltaConv(:, :, fil2, :);
     bc_grad(fil2)=sum(temp(:));
+%     clear temp;
 end

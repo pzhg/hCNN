@@ -13,6 +13,7 @@ switch PLayer.poolMethod
                 featuremap=squeeze(convolvedFeatures(:, :, featureNum, imageNum));
                 pooledFeaturemap=single(conv2(featuremap, gpuArray.ones(PLayer.poolDim(1), PLayer.poolDim(2))/(PLayer.poolDim(1)*PLayer.poolDim(2)), 'valid'));
                 pooledFeatures(:, :, featureNum, imageNum)=pooledFeaturemap(1:PLayer.poolDim(1):end, 1:PLayer.poolDim(2):end);
+                clear pooledFeaturemap;
             end
         end
     case 'max'
@@ -22,6 +23,7 @@ switch PLayer.poolMethod
                 [m, i]=max(temp, [], 1);
                 PLayer.poolLocation(1, :, featureNum, imageNum)=i;
                 pooledFeatures(:, :, featureNum, imageNum)=reshape(m, PLayer.OutDim(1), PLayer.OutDim(2)); 
+                clear temp, m;
             end
         end    
 end

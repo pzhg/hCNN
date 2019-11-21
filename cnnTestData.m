@@ -4,10 +4,8 @@ function [acc, e]=cnnTestData(cnn, VX, VY, numImages)
 %   VLabel: validation label, [1, data-count]
 %   numImages: number of images that want to validate
 
-images=gpuArray(VX(:, :, :, 1:numImages));
-clear VData;
+images=gpuArray(single(VX(:, :, :, 1:numImages)));
 mb_labels=gpuArray(VY(:, 1:numImages));
-clear VLabel;
 
 % if to.PCAflag==1
 %             for iLayer=1:cnn.LNum
@@ -24,4 +22,4 @@ clear VLabel;
 cnn=cnnFeedForward(cnn, images);
 [~, preds]=max(cnn.OutData{cnn.LNum}, [], 1);
 e=(preds==mb_labels);
-acc=sum(preds==mb_labels)/numImages;
+acc=gather(sum(preds==mb_labels)/numImages);

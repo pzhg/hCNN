@@ -14,7 +14,7 @@ for e_count=1:cnn.to.epochs
     for b_count=1:cnn.to.batch
         %% Training Data
         mb_labels=squeeze(Y(:, :, b_count));
-        images=X(:, :, :, :, b_count);
+        images=single(gpuArray(X(:, :, :, :, b_count)));
         numImages=cnn.to.batch_size;
         % Momemtum
         cnn.to.mom=single(cnn.to.mom);
@@ -42,13 +42,13 @@ for e_count=1:cnn.to.epochs
                 index=sub2ind([cnn.outputDim, cnn.to.batch_size], squeeze(mb_labels), 1:cnn.to.batch_size);
                 outPut=single(gpuArray.zeros(cnn.outputDim, cnn.to.batch_size));
                 outPut(index)=1;
-                ceCost=-sum(sum(log(cnn.OutData{cnn.LNum}(index))));
+                ceCost=-sum(sum(1e-6+log(cnn.OutData{cnn.LNum}(index))));
             case 8
                 outPut=gpuArray(single(squeeze(mb_labels)));
                 ceCost=1/2*sum((cnn.OutData{cnn.LNum}(:)-outPut(:)).^2);
         end
         wCost=cnn.to.lambda*cnn.wCost/2;
-        cost=ceCost/numImages+wCost;
+        cost=gather(ceCost)/numImages+wCost;
         
         %% BackPropagation
         cnn=cnnBackPropagation(cnn, outPut);
@@ -61,7 +61,7 @@ for e_count=1:cnn.to.epochs
         switch cnn.Layers{cnn.LNum}.type
             case 4
                 [~, preds]=max(cnn.OutData{cnn.LNum}, [], 1);
-                acc=sum(preds==mb_labels)/numImages;
+                acc=gather(sum(preds==mb_labels)/numImages);
                 fprintf('Epoch %d: Cost on iteration %d is %f, accuracy is %f, avaliable memory is %f\n', e_count, b_count, cost, acc, gpu.AvailableMemory);
                 ERR=[ERR, [cost; acc]];
             case 8
@@ -69,6 +69,7 @@ for e_count=1:cnn.to.epochs
                 ERR=[ERR, cost];
                 
         end 
+        reset(gpu);
         waitbar(((e_count-1)*cnn.to.batch+b_count)/(cnn.to.epochs*cnn.to.batch));
     end
     cnn.to.alpha=single(cnn.to.alpha)/single(2);

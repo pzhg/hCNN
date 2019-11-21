@@ -50,7 +50,7 @@ for iLayer=cnn.LNum:-1:1
                     cnn.Delta{iLayer}=tcnn.Delta{1};
                 end
                 cnn.Layers{iLayer}.Nets{inet}=tcnn;
-            en
+            end
         case 101
             % CS
         case 102
@@ -58,8 +58,10 @@ for iLayer=cnn.LNum:-1:1
         case 103
             % End
             cnn.Delta{iLayer}=outPut;
+        case 104
+            % PCA
         case 11
-            [cnn.Delta{iLayer}, dgamma, dbeta]=cnnDeBatchedNormalization(cnn.Layers{iLayer}, cnn.Delta{iLayer+1}, cnn.OutData{iLayer-1}, cnn.OutData{iLayer});
+            [cnn.Delta{iLayer}, dgamma, dbeta]=cnnDeBatchedNormalization(cnn.Layers{iLayer}, cnn.Delta{iLayer+1}, cnn.OutData{iLayer-1});
             cnn.W_grad{iLayer}.dgamma=dgamma;
             cnn.W_grad{iLayer}.dbeta=dbeta;
     end

@@ -11,6 +11,7 @@ switch PLayer.poolMethod
             for filterNum=1:numFilters
                 unpool=DeltaPooled(:, :, filterNum, imNum);
                 DeltaUnpool(:, :, filterNum, imNum)=kron(unpool, single(gpuArray.ones(PLayer.poolDim)))./(PLayer.poolDim(1)*PLayer.poolDim(2)).*PLayer.poolLocation(:, :, filterNum, imNum);
+%                 clear unpool;
             end
         end
     case 'max'
@@ -21,6 +22,7 @@ switch PLayer.poolMethod
                 i=sub2ind(size(temp),PLayer.poolLocation(1, :, filterNum, imNum), 1:PLayer.OutDim(1)*PLayer.OutDim(2));
                 temp(i)=m;
                 DeltaUnpool(:, :, filterNum, imNum)=single(gpuArray(col2im(gather(temp), [PLayer.poolDim(1), PLayer.poolDim(2)], [convDim(1), convDim(2)], 'distinct')));
+%                 ckear temp, m;
 %                 for idx_j=1:PLayer.OutDim(1)
 %                     for idx_i=1:PLayer.OutDim(2)
 %                         startX=(idx_i-1)*PLayer.poolDim(1)+1;
