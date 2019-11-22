@@ -23,7 +23,7 @@ else
     BLayer.mean=single(zeros(BLayer.OutDim, 1));
     BLayer.var=single(zeros(BLayer.OutDim, 1));
 end
-BLayer.mom=0.8;
+BLayer.mom=0.9;
 cnn.LNum=cnn.LNum+1;
 cnn.Layers{cnn.LNum}=BLayer;
 
