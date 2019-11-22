@@ -1,3 +1,4 @@
+
 function actOutput=cnnActivate(ALayer, actInput)
 
 numImages=size(actInput, 4);

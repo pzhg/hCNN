@@ -61,7 +61,7 @@ for iLayer=cnn.LNum:-1:1
         case 104
             % PCA
         case 11
-            [cnn.Delta{iLayer}, dgamma, dbeta]=cnnDeBatchedNormalization(cnn.Layers{iLayer}, cnn.Delta{iLayer+1}, cnn.OutData{iLayer-1});
+            [cnn.Delta{iLayer}, dgamma, dbeta]=cnnDeBatchedNormalization(cnn.Layers{iLayer}, cnn.Delta{iLayer+1});
             cnn.W_grad{iLayer}.dgamma=dgamma;
             cnn.W_grad{iLayer}.dbeta=dbeta;
     end
