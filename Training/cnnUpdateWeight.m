@@ -34,8 +34,8 @@ for iLayer=1:cnn.LNum
             end
         case 11
 % %             % Batched Normalization Layer
-            cnn.dW{iLayer}.dgamma=cnn.to.mom*cnn.dW{iLayer}.dgamma+cnn.to.alpha*gather(cnn.W_grad{iLayer}.dgamma)/cnn.to.batch_size;
-            cnn.dW{iLayer}.dbeta=cnn.to.mom*cnn.dW{iLayer}.dbeta+cnn.to.alpha*gather(cnn.W_grad{iLayer}.dbeta)/cnn.to.batch_size;
+            cnn.dW{iLayer}.dgamma=cnn.to.mom*cnn.dW{iLayer}.dgamma+cnn.to.alpha*gather(cnn.W_grad{iLayer}.dgamma);
+            cnn.dW{iLayer}.dbeta=cnn.to.mom*cnn.dW{iLayer}.dbeta+cnn.to.alpha*gather(cnn.W_grad{iLayer}.dbeta);
             cnn.Layers{iLayer}.gamma=cnn.Layers{iLayer}.gamma-cnn.dW{iLayer}.dgamma;
             cnn.Layers{iLayer}.beta=cnn.Layers{iLayer}.beta-cnn.dW{iLayer}.dbeta;
     end
