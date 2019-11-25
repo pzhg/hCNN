@@ -1,0 +1,34 @@
+function out=cnnTransform(images, CLayer)
+
+switch CLayer.TName
+    case 'FFT'
+        out=fft(fft(images, [], 1), [], 2);
+    case 'DWT'
+        % Not installed
+    case 'PCA'
+    case 'ABS'
+    case 'ARG'
+        
+
+if test==0
+    if CLayer.mode==1
+    % CNN
+        CLayer.cache.sample_mean=gather(mean(x, [1, 2, 4]));
+        CLayer.cache.sample_var=gather(var(x, 0, [1, 2, 4]));
+        CLayer.cache.out=gather((x-CLayer.cache.sample_mean)./sqrt(CLayer.cache.sample_var+CLayer.eps));
+        CLayer.mean=gather(CLayer.mean*CLayer.mom+(1-CLayer.mom)*CLayer.cache.sample_mean);
+        CLayer.var=gather(CLayer.var*CLayer.mom+(1-CLayer.mom)*CLayer.cache.sample_var);
+        out=CLayer.gamma.*CLayer.cache.out+CLayer.beta;
+    else
+    % FC
+        CLayer.cache.sample_mean=gather(mean(x, 2));
+        CLayer.cache.sample_var=gather(var(x, 0, 2));
+        CLayer.cache.out=gather((x-CLayer.cache.sample_mean)./sqrt(CLayer.cache.sample_var+CLayer.eps));
+        CLayer.mean=gather(CLayer.mean*CLayer.mom+(1-CLayer.mom)*CLayer.cache.sample_mean);
+        CLayer.var=gather(CLayer.var*CLayer.mom+(1-CLayer.mom)*CLayer.cache.sample_var);
+        out=CLayer.gamma.*CLayer.cache.out+CLayer.beta;
+    end
+else
+    scale=CLayer.gamma./sqrt(CLayer.var+CLayer.eps);
+    out=x.*scale+(CLayer.beta-CLayer.mean.*scale);
+end

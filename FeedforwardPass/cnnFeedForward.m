@@ -47,14 +47,25 @@ for iLayer=1:cnn.LNum
         case 10
             % BLOB Layer
             cnn.OutData{iLayer}=single(gpuArray.zeros(cnn.Layers{iLayer}.OutDim, numImages));
+            if cnn.Layers{iLayer}.combineType==1
 %             offset=0;
-            for inet=1:cnn.Layers{iLayer}.NNum
-                tcnn=cnn.Layers{iLayer}.Nets{inet};
-                tcnn=cnnFeedForward(tcnn, cnn.OutData{iLayer-1});
-%                 cnn.OutData{iLayer}(offset+1:offset+tcnn.Layers{tcnn.LNum}.OutDim, :)=tcnn.OutData{tcnn.LNum};
-%                 offset=offset+tcnn.Layers{tcnn.LNum}.OutDim;
-                cnn.OutData{iLayer}=cnn.OutData{iLayer}+tcnn.OutData{tcnn.LNum};
-                cnn.Layers{iLayer}.Nets{inet}=tcnn;
+                for inet=1:cnn.Layers{iLayer}.NNum
+                    tcnn=cnn.Layers{iLayer}.Nets{inet};
+                    tcnn=cnnFeedForward(tcnn, cnn.OutData{iLayer-1});
+    %                 cnn.OutData{iLayer}(offset+1:offset+tcnn.Layers{tcnn.LNum}.OutDim, :)=tcnn.OutData{tcnn.LNum};
+    %                 offset=offset+tcnn.Layers{tcnn.LNum}.OutDim;
+                    cnn.OutData{iLayer}=cnn.OutData{iLayer}+tcnn.OutData{tcnn.LNum};
+                    cnn.Layers{iLayer}.Nets{inet}=tcnn;
+                end
+            else
+                offset=0;
+                for inet=1:cnn.Layers{iLayer}.NNum
+                    tcnn=cnn.Layers{iLayer}.Nets{inet};
+                    tcnn=cnnFeedForward(tcnn, cnn.OutData{iLayer-1});
+                    cnn.OutData{iLayer}(offset+1:offset+tcnn.Layers{tcnn.LNum}.OutDim, :)=tcnn.OutData{tcnn.LNum};
+                    offset=offset+tcnn.Layers{tcnn.LNum}.OutDim;
+                    cnn.Layers{iLayer}.Nets{inet}=tcnn;
+                end
             end
         case 101
             % CS

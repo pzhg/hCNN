@@ -1,12 +1,12 @@
-function cnn=cnnAddFilterLayer(cnn, FDim, PCADim, PCAStep)
+function cnn=cnnAddTransformLayer(cnn, TName)
 % Input Layer
 %   inputSize: dimensionality of input data, [x-dim, y-dim]
 %   channelNum: number of channels of input data
 
 CLayer=struct;
 CLayer.type=104;
-CLayer.FDim=FDim;
-% CLayer.FNum=cnn.Layers{cnn.LNum}.FNum;
+CLayer.TName=TName;
+CLayer.FNum=cnn.Layers{cnn.LNum}.FNum;
 CLayer.FltDim=((cnn.Layers{1}.OutDim(1)-FDim(1))/PCAStep(1)+1)*((cnn.Layers{1}.OutDim(2)-FDim(2))/PCAStep(2)+1);
 CLayer.A=gpuArray.randn(CLayer.FltDim, cnn.Layers{1}.OutDim(1)*cnn.Layers{1}.OutDim(2));
 CLayer.PCADim=PCADim;

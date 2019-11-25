@@ -47,15 +47,14 @@ for iLayer=cnn.LNum:-1:1
 %                 offset=offset+tcnn.Layers{tcnn.LNum}.OutDim;
 %                 tcnn=cnnBackPropagation(tcnn, Delta);
                     tcnn=cnnBackPropagation(tcnn, cnn.Delta{iLayer+1});
-                    if tcnn.Layers{1}.type<9
-                        cnn.Delta{iLayer}=tcnn.Delta{1};
-                    end
-                    cnn.Layers{iLayer}.Nets{inet}=tcnn;
                 end
+                if tcnn.Layers{1}.type<9
+                    cnn.Delta{iLayer}=tcnn.Delta{1};
+                end
+                cnn.Layers{iLayer}.Nets{inet}=tcnn;
             else
                 offset=0;
                 for inet=1:cnn.Layers{iLayer}.NNum
-                    tcnn=cnn.Layers{iLayer}.Nets{inet};
                     Delta=cnn.Delta{iLayer+1}(offset+1:offset+tcnn.Layers{tcnn.LNum}.OutDim, :);
                     offset=offset+tcnn.Layers{tcnn.LNum}.OutDim;
                     tcnn=cnnBackPropagation(tcnn, Delta);
