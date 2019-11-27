@@ -1,4 +1,5 @@
 function cnn=cnnAddBLOBLayer(cnn, Nets, NNum, OutDim, combineType)
+% combineType: 1 for addition, 2 for linking
 
 BLayer=struct;
 BLayer.type=10;

@@ -24,4 +24,10 @@ switch CLayer.TName
         out=real(images);
     case 'IMAG'
         out=imag(images);
+    case 'MAXPOOL'
+        CLayer.poolMethod='max';
+        [~, out]=cnnPool(CLayer, images);
+    case 'MEANPOOL'
+        CLayer.poolMethod='mean';
+        [~, out]=cnnPool(CLayer, images);
 end

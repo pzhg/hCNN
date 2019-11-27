@@ -1,7 +1,6 @@
 function cnn=cnnAddBNLayer(cnn, mode)
-% Convolutional Layer
-%   FDim: filter dimensionality, [x-dim, y-dim]
-%   FNum: filter number
+% Batched Normalization Layer
+% Mode: 1 for conv layer, 2 for FC layer
 
 BLayer=struct;
 BLayer.type=11;
