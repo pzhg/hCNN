@@ -11,7 +11,9 @@ switch CLayer.TName
         out=single(gpuArray.zeros(size(images)));
         parfor inum=1:numImage
             for iflt=1:numFilter
-                [U, S, V]=svds(double(images(:, :, iflt, inum)), CLayer.PCADim);
+                [U, S, V]=svd(double(images(:, :, iflt, inum)));
+                U=U(:, CLayer.PCADim);
+                S=S(CLayer.PCADim, :);
                 PCAImage=U*S*V';
                 out(:, :, iflt, inum)=single(PCAImage);
             end
