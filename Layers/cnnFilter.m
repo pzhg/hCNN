@@ -1,7 +1,12 @@
 function fltOutput=cnnFilter(images, CLayer)
 
 numImages=size(images, 4);
-fltOutput=gpuArray.zeros(CLayer.FltDim*(CLayer.FltDim+1), numImages);
+
+if CLayer.useGPU==1
+    fltOutput=gpuArray.zeros(CLayer.FltDim*(CLayer.FltDim+1), numImages);
+else
+    fltOutput=zeros(CLayer.FltDim*(CLayer.FltDim+1), numImages);
+end
 
 
         

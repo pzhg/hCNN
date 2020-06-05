@@ -12,7 +12,7 @@ for iLayer=1:cnn.LNum
             cnn.Layers{iLayer}.B=cnn.Layers{iLayer}.B-cnn.dB{iLayer};
         case 2
             % Convolutional Layer
-            [cnn.W_grad{iLayer}, cnn.B_grad{iLayer}]=cnnConvGrad(cnn. OutData{iLayer-1}, cnn.Delta{iLayer+1});
+            [cnn.W_grad{iLayer}, cnn.B_grad{iLayer}]=cnnConvGrad(cnn. OutData{iLayer-1}, cnn.Delta{iLayer+1}, cnn.to.useGPU);
             cnn.dW{iLayer}=cnn.to.mom*cnn.dW{iLayer}+cnn.to.alpha*gather(cnn.W_grad{iLayer})/cnn.to.batch_size+cnn.to.lambda*cnn.dW{iLayer};
             cnn.dB{iLayer}=cnn.to.mom*cnn.dB{iLayer}+cnn.to.alpha*gather(cnn.B_grad{iLayer})/cnn.to.batch_size;
             cnn.Layers{iLayer}.W=cnn.Layers{iLayer}.W-cnn.dW{iLayer};

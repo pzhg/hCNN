@@ -8,7 +8,11 @@ switch CLayer.TName
     case 'PCA'
         numImage=size(images, 4);
         numFilter=size(images, 3);
-        out=single(gpuArray.zeros(size(images)));
+        if CLayer.useGPU==1
+            out=single(gpuArray.zeros(size(images)));
+        else
+            out=single(zeros(size(images)));
+        end
         parfor inum=1:numImage
             for iflt=1:numFilter
                 [U, S, V]=svd(double(images(:, :, iflt, inum)));

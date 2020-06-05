@@ -11,5 +11,6 @@ BLayer.OutDim=OutDim;
 %     BLayer.OutDim=BLayer.OutDim+tcnn.Layers{tcnn.LNum}.OutDim;
 % end
 BLayer.combineType=combineType;
+BLayer.useGPU=cnn.to.useGPU;
 cnn.LNum=cnn.LNum+1;
 cnn.Layers{cnn.LNum}=BLayer;

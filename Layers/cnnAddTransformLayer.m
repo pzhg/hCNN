@@ -14,5 +14,6 @@ elseif isequal(TName, 'MAXPOOL') || isequal(TName, 'MEANPOOL')
     CLayer.poolDim=varargin{1};
     CLayer.OutDim=CLayer.OutDim./CLayer.poolDim;
 end
+CLayer.useGPU=cnn.to.useGPU;
 cnn.LNum=cnn.LNum+1;
 cnn.Layers{cnn.LNum}=CLayer;
