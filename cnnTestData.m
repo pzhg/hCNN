@@ -7,9 +7,11 @@ function [acc, e]=cnnTestData(cnn, VX, VY, numImages)
 if cnn.to.useGPU==1
     images=gpuArray(single(VX(:, :, :, 1:numImages)));
     mb_labels=gpuArray(VY(:, 1:numImages));
+    cnn=cnnFeedForward_GPU(cnn, images);
 else
     images=single(VX(:, :, :, 1:numImages));
     mb_labels=VY(:, 1:numImages);
+    cnn=cnnFeedForward(cnn, images);
 end
 
 % if to.PCAflag==1
@@ -24,7 +26,6 @@ end
 %             OptData=[];
 %         end
 
-cnn=cnnFeedForward(cnn, images);
 [~, preds]=max(cnn.OutData{cnn.LNum}, [], 1);
 e=(preds==mb_labels);
 acc=gather(sum(preds==mb_labels)/numImages);

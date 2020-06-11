@@ -81,7 +81,7 @@ for e_count=1:cnn.to.epochs
                 ERR=[ERR, cost];
                 
         end 
-        reset(gpu);
+%         reset(gpu);
         waitbar(((e_count-1)*cnn.to.batch+b_count)/(cnn.to.epochs*cnn.to.batch));
     end
     cnn.to.alpha=single(cnn.to.alpha)/single(2);

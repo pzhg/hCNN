@@ -1,5 +1,5 @@
 clc;
-clear all;
+clear;
 close all;
 dbstop if error
 
@@ -16,8 +16,8 @@ to.mom=0.5;             % Initial momentum
 to.momIncrease=20;      % Momemtum change iteration count
 to.lambda=0.0001;       % Weight decay parameter (a.k.a. L2 regularization parameter)
 to.test=0;
-to.useGPU=0;            % Use GPU
-if to.useGPU==0
+to.useGPU=1;            % Use GPU
+if to.useGPU==1
     reset(gpuDevice(1));    % Initialize GPU
 end
 
