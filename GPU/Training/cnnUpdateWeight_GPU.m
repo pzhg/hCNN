@@ -29,7 +29,7 @@ for iLayer=1:cnn.LNum
             % BLOB Layer
             for inet=1:cnn.Layers{iLayer}.NNum
                 tcnn=cnn.Layers{iLayer}.Nets{inet};
-                tcnn=cnnUpdateWeight(tcnn);
+                tcnn=cnnUpdateWeight_GPU(tcnn);
                 cnn.Layers{iLayer}.Nets{inet}=tcnn;
             end
         case 11
