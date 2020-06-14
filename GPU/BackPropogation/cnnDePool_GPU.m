@@ -7,7 +7,7 @@ numFilters=PLayer.FNum;
 DeltaUnpool=single(gpuArray.zeros(convDim(1), convDim(2), PLayer.FNum, numImages));       
 switch PLayer.poolMethod
     case 'mean'
-        parfor imNum=1:numImages
+        for imNum=1:numImages
             for filterNum=1:numFilters
                 unpool=DeltaPooled(:, :, filterNum, imNum);
                 DeltaUnpool(:, :, filterNum, imNum)=kron(unpool, single(gpuArray.ones(PLayer.poolDim)))./(PLayer.poolDim(1)*PLayer.poolDim(2)).*PLayer.poolLocation(:, :, filterNum, imNum);

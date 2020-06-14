@@ -5,7 +5,7 @@ numImages=size(images, 4);
 numFilters=CLayer.FNum;
 convolvedFeatures=single(gpuArray.zeros(CLayer.OutDim(1), CLayer.OutDim(2), CLayer.FNum, numImages));
 
-parfor i=1:numImages
+for i=1:numImages
     for fil2=1:numFilters
         convolvedImage=single(gpuArray.zeros(CLayer.OutDim));
         for fil1=1:numFilters1

@@ -7,7 +7,7 @@ ConvDim=size(activationsPooled)-size(DeltaConv)+1;
 
 Wc_grad=single(gpuArray.zeros(ConvDim(1), ConvDim(2), numFilters1, numFilters2));
 bc_grad=single(gpuArray.zeros(numFilters2, 1));
-parfor fil2=1:numFilters2
+for fil2=1:numFilters2
     for fil1=1:numFilters1
         for im=1:numImages
             Wc_grad(:, :, fil1, fil2)=Wc_grad(:, :, fil1, fil2)+conv2(activationsPooled(:, :, fil1, im), rot90(DeltaConv(:, :, fil2, im), 2), 'valid');

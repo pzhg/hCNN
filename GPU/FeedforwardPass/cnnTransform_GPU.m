@@ -9,7 +9,7 @@ switch CLayer.TName
         numImage=size(images, 4);
         numFilter=size(images, 3);
         out=single(gpuArray.zeros(size(images)));
-        parfor inum=1:numImage
+        for inum=1:numImage
             for iflt=1:numFilter
                 [U, S, V]=svd(double(images(:, :, iflt, inum)));
                 U=U(:, CLayer.PCADim);
