@@ -15,13 +15,13 @@ if cnn.to.useGPU==1
     end
     CLayer.B=single(gpuArray.zeros(FNum, FNum));
 else
-    CLayer.W=single(0.1*randn(FDim(1), FDim(2), cnn.Layers{cnn.LNum}.FNum, FNum));
+    CLayer.W=0.1*randn(FDim(1), FDim(2), cnn.Layers{cnn.LNum}.FNum, FNum);
     if comp=='c'
-        CLayer.W=single(CLayer.W+0.1*1j*randn(FDim(1), FDim(2), cnn.Layers{cnn.LNum}.FNum, FNum));
+        CLayer.W=CLayer.W+0.1*1j*randn(FDim(1), FDim(2), cnn.Layers{cnn.LNum}.FNum, FNum);
     end
-    CLayer.B=single(zeros(FNum, FNum));
+    CLayer.B=zeros(FNum, FNum);
 end
-CLayer.useGPU=cnn.to.useGPU;
+% CLayer.useGPU=cnn.to.useGPU;
 cnn.LNum=cnn.LNum+1;
 cnn.Layers{cnn.LNum}=CLayer;
 

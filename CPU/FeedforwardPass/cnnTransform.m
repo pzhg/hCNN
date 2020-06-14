@@ -8,18 +8,14 @@ switch CLayer.TName
     case 'PCA'
         numImage=size(images, 4);
         numFilter=size(images, 3);
-        if CLayer.useGPU==1
-            out=single(gpuArray.zeros(size(images)));
-        else
-            out=single(zeros(size(images)));
-        end
+        out=zeros(size(images));
         parfor inum=1:numImage
             for iflt=1:numFilter
                 [U, S, V]=svd(double(images(:, :, iflt, inum)));
                 U=U(:, CLayer.PCADim);
                 S=S(CLayer.PCADim, :);
                 PCAImage=U*S*V';
-                out(:, :, iflt, inum)=single(PCAImage);
+                out(:, :, iflt, inum)=PCAImage;
             end
         end
     case 'ABS'
@@ -36,4 +32,7 @@ switch CLayer.TName
     case 'MEANPOOL'
         CLayer.poolMethod='mean';
         [~, out]=cnnPool(CLayer, images);
+    case 'LOWPASS'
+    case 'HIGHPASS'
 end
+    

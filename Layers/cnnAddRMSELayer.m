@@ -1,5 +1,5 @@
-function cnn=cnnAddSoftMaxLayer(cnn)
-% SoftMax Output Layer
+function cnn=cnnAddRMSELayer(cnn)
+% RMSE Output Layer
 
 SLayer.type=8;
 SLayer.OutDim=cnn.Layers{cnn.LNum}.OutDim;

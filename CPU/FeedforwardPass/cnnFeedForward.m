@@ -8,11 +8,7 @@ for iLayer=1:cnn.LNum
     switch cnn.Layers{iLayer}.type
         case 0
             % Input Layer
-            if cnn.to.useGPU==1
-                cnn.OutData{iLayer}=gpuArray(single(images));
-            else
-                cnn.OutData{iLayer}=single(images);
-            end
+            cnn.OutData{iLayer}=single(images);
             if size(cnn.Layers{iLayer}.OutDim, 2)==1
                 cnn.OutData{iLayer}=squeeze(cnn.OutData{iLayer});
             end
@@ -45,20 +41,12 @@ for iLayer=1:cnn.LNum
             cnn.OutData{iLayer}=cnn.OutData{iLayer-1};
         case 9
             % (Deprecated) SP Filter Layer
-            if cnn.to.useGPU==1
-                cnn.OutData{iLayer}=single(gpuArray.zeros(cnn.Layers{iLayer}.OutDim, numImages));
-            else
-                cnn.OutData{iLayer}=single(zeros(cnn.Layers{iLayer}.OutDim, numImages));
-            end
+            cnn.OutData{iLayer}=zeros(cnn.Layers{iLayer}.OutDim, numImages);
             cnn.OutData{iLayer}(1:cnn.Layers{iLayer-1}.OutDim, :)=cnn.OutData{iLayer-1};
 %             OutData{iLayer}(cnn.Layers{iLayer-1}.OutDim+1:cnn.Layers{iLayer}.OutDim, :)=OptData;
         case 10
             % BLOB Layer
-            if cnn.to.useGPU==1
-                cnn.OutData{iLayer}=single(gpuArray.zeros(cnn.Layers{iLayer}.OutDim, numImages));
-            else
-                cnn.OutData{iLayer}=single(zeros(cnn.Layers{iLayer}.OutDim, numImages));
-            end
+            cnn.OutData{iLayer}=zeros(cnn.Layers{iLayer}.OutDim, numImages);
             if cnn.Layers{iLayer}.combineType==1
 %             offset=0;
                 for inet=1:cnn.Layers{iLayer}.NNum

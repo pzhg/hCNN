@@ -1,10 +1,9 @@
-function [ERR, cnn]=cnnTrainBP(cnn, X, Y)
+function [ERR, cnn]=cnnTrainBP_GPU(cnn, X, Y)
 % Train CNN using BP gradient descend method
 % Input:
 %   X: training data, [x-dim, y-dim, channel-num, batch-size,
 %                                batch-count]
 %   Y: label data, [1, batch-size, batch-count]
-%   to: training options
 % Output:
 %   ERR: array contains the accuracy and cost in each iteration
 %   cnn: the trained CNN
@@ -14,16 +13,12 @@ for e_count=1:cnn.to.epochs
     for b_count=1:cnn.to.batch
         %% Training Data
         mb_labels=squeeze(Y(:, :, b_count));
-        if cnn.to.useGPU==1
-            images=single(gpuArray(X(:, :, :, :, b_count)));
-        else
-            images=single(X(:, :, :, :, b_count));
-        end
+        images=single(gpuArray(X(:, :, :, :, b_count)));
         numImages=cnn.to.batch_size;
         % Momemtum
-        cnn.to.mom=single(cnn.to.mom);
+        cnn.to.mom=gpuArray(single(cnn.to.mom));
         if b_count==cnn.to.momIncrease
-            cnn.to.mom=single(cnn.to.momentum);
+            cnn.to.mom=gpuArray(single(cnn.to.momentum));
         end
 %         if to.PCAflag==1
 %             for iLayer=1:cnn.LNum
@@ -38,35 +33,27 @@ for e_count=1:cnn.to.epochs
 %         end
            
         %% Feedforward Pass
-        cnn=cnnFeedForward(cnn, images);
+        cnn=cnnFeedForward_GPU(cnn, images);
         
         %% Calculate Cost
         switch cnn.Layers{cnn.LNum}.type
             case 4
                 index=sub2ind([cnn.outputDim, cnn.to.batch_size], squeeze(mb_labels), 1:cnn.to.batch_size);
-                if cnn.to.useGPU==1
-                    outPut=single(gpuArray.zeros(cnn.outputDim, cnn.to.batch_size));
-                else
-                    outPut=single(zeros(cnn.outputDim, cnn.to.batch_size));
-                end
+                outPut=single(gpuArray.zeros(cnn.outputDim, cnn.to.batch_size));
                 outPut(index)=1;
                 ceCost=-sum(sum(1e-6+log(cnn.OutData{cnn.LNum}(index))));
             case 8
-                if cnn.to.useGPU==1
-                    outPut=gpuArray(single(squeeze(mb_labels)));
-                else
-                    outPut=single(squeeze(mb_labels));
-                end
+                outPut=gpuArray(single(squeeze(mb_labels)));
                 ceCost=1/2*sum((cnn.OutData{cnn.LNum}(:)-outPut(:)).^2);
         end
         wCost=cnn.to.lambda*cnn.wCost/2;
-        cost=gather(ceCost)/numImages+wCost;
+        cost=ceCost/numImages+wCost;
         
         %% BackPropagation
-        cnn=cnnBackPropagation(cnn, outPut);
+        cnn=cnnBackPropagation_GPU(cnn, outPut);
 
         %% Gradient Calculation and Update
-        cnn=cnnUpdateWeight(cnn);
+        cnn=cnnUpdateWeight_GPU(cnn);
         
         %% Monitor Accuracy and Cost
         gpu=gpuDevice;

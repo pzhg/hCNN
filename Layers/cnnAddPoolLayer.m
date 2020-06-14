@@ -15,6 +15,6 @@ else
 end
 PLayer.OutDim=floor(cnn.Layers{cnn.LNum}.OutDim./poolDim);
 PLayer.FNum=cnn.Layers{cnn.LNum}.FNum;
-PLayer.useGPU=cnn.to.useGPU;
+% PLayer.useGPU=cnn.to.useGPU;
 cnn.LNum=cnn.LNum+1;
 cnn.Layers{cnn.LNum}=PLayer;

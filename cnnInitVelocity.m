@@ -5,8 +5,13 @@ cnn.dB=cell(1, cnn.LNum);
 for iLayer=1:cnn.LNum
     switch cnn.Layers{iLayer}.type
         case {2, 3}
-            cnn.dW{iLayer}=single(zeros(size(cnn.Layers{iLayer}.W)));
-            cnn.dB{iLayer}=single(zeros(size(cnn.Layers{iLayer}.B)));
+            if cnn.to.useGPU==0
+                cnn.dW{iLayer}=zeros(size(cnn.Layers{iLayer}.W));
+                cnn.dB{iLayer}=zeros(size(cnn.Layers{iLayer}.B));
+            else
+                cnn.dW{iLayer}=single(gpuArray.zeros(size(cnn.Layers{iLayer}.W)));
+                cnn.dB{iLayer}=single(gpuArray.zeros(size(cnn.Layers{iLayer}.B)));
+            end
         case 1
             cnn.dW{iLayer}=struct;
             cnn.dW{iLayer}.Ka=0;

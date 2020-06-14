@@ -9,7 +9,7 @@ if cnn.to.useGPU==1
     mb_labels=gpuArray(VY(:, 1:numImages));
     cnn=cnnFeedForward_GPU(cnn, images);
 else
-    images=single(VX(:, :, :, 1:numImages));
+    images=VX(:, :, :, 1:numImages);
     mb_labels=VY(:, 1:numImages);
     cnn=cnnFeedForward(cnn, images);
 end

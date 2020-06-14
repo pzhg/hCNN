@@ -1,4 +1,4 @@
-function cnn=cnnBackPropagation(cnn, outPut)
+function cnn=cnnBackPropagation_GPU(cnn, outPut)
 
 cnn.W_grad=cell(1, cnn.LNum);
 cnn.B_grad=cell(1, cnn.LNum);
@@ -15,13 +15,13 @@ for iLayer=cnn.LNum:-1:1
             cnn.Delta{iLayer}=cnnDeFullConnected(cnn.Layers{iLayer}, cnn.Delta{iLayer+1});
         case 5
             % Error of Pooling Layer
-            cnn.Delta{iLayer}=cnnDePool(cnn.Layers{iLayer}, cnn.Delta{iLayer+1});
+            cnn.Delta{iLayer}=cnnDePool_GPU(cnn.Layers{iLayer}, cnn.Delta{iLayer+1});
         case 7
             % Error of Activation Layer
             cnn.Delta{iLayer}=cnnDeActivate(cnn.Layers{iLayer}, cnn.Delta{iLayer+1}, cnn.OutData{iLayer}, cnn.OutData{iLayer-1});
         case 2
             % Error of Convolution Layer
-            cnn.Delta{iLayer}=cnnDeConv(cnn.Layers{iLayer}, cnn.Delta{iLayer+1});
+            cnn.Delta{iLayer}=cnnDeConv_GPU(cnn.Layers{iLayer}, cnn.Delta{iLayer+1});
         case 6
             % Error of Reshape Layer
 %             if iLayer==cnn.LNum
@@ -31,7 +31,7 @@ for iLayer=cnn.LNum:-1:1
 %             end
         case 1
             % Error of Hybrid Convolution Layer
-            [Ka, Kr]=cnnDeconvolveRadar(cnn.Layers{iLayer}, cnn.Delta{iLayer+1}, cnn.OutData{iLayer-1});
+            [Ka, Kr]=cnnDeconvolveRadar_GPU(cnn.Layers{iLayer}, cnn.Delta{iLayer+1}, cnn.OutData{iLayer-1});
             cnn.Delta{iLayer}.Ka=Ka;
             cnn.Delta{iLayer}.Kr=Kr;
         case 9
@@ -46,7 +46,7 @@ for iLayer=cnn.LNum:-1:1
 %                 Delta=cnn.Delta{iLayer+1}(offset+1:offset+tcnn.Layers{tcnn.LNum}.OutDim, :);
 %                 offset=offset+tcnn.Layers{tcnn.LNum}.OutDim;
 %                 tcnn=cnnBackPropagation(tcnn, Delta);
-                    tcnn=cnnBackPropagation(tcnn, cnn.Delta{iLayer+1});
+                    tcnn=cnnBackPropagation_GPU(tcnn, cnn.Delta{iLayer+1});
                     if tcnn.Layers{1}.type<9
                         cnn.Delta{iLayer}=tcnn.Delta{1};
                     end
@@ -58,7 +58,7 @@ for iLayer=cnn.LNum:-1:1
                     tcnn=cnn.Layers{iLayer}.Nets{inet};
                     Delta=cnn.Delta{iLayer+1}(offset+1:offset+tcnn.Layers{tcnn.LNum}.OutDim, :);
                     offset=offset+tcnn.Layers{tcnn.LNum}.OutDim;
-                    tcnn=cnnBackPropagation(tcnn, Delta);
+                    tcnn=cnnBackPropagation_GPU(tcnn, Delta);
                     if tcnn.Layers{1}.type<9
                         cnn.Delta{iLayer}=tcnn.Delta{1};
                     end

@@ -7,7 +7,7 @@ CLayer.PCADim=PCADim;
 CLayer.PCAStep=PCAStep;
 CLayer.CorrType=CorrType;
 % CLayer.calced=0;
-CLayer.useGPU=cnn.to.useGPU;
+% CLayer.useGPU=cnn.to.useGPU;
 if CLayer.CorrType==1
     CLayer.FNum=cnn.Layers{cnn.LNum}.FNum;
 else

@@ -1,4 +1,4 @@
-function cnn=cnnUpdateWeight(cnn)
+function cnn=cnnUpdateWeight_GPU(cnn)
 
 for iLayer=1:cnn.LNum
     switch cnn.Layers{iLayer}.type
@@ -6,15 +6,15 @@ for iLayer=1:cnn.LNum
             % Fully Connected Layer
             cnn.W_grad{iLayer}=cnn.Delta{iLayer+1}*cnn.OutData{iLayer-1}';
             cnn.B_grad{iLayer}=sum(cnn.Delta{iLayer+1}, 2);
-            cnn.dW{iLayer}=cnn.to.mom*cnn.dW{iLayer}+cnn.to.alpha*gather(cnn.W_grad{iLayer})/cnn.to.batch_size+cnn.to.lambda*cnn.dW{iLayer};
-            cnn.dB{iLayer}=cnn.to.mom*cnn.dB{iLayer}+cnn.to.alpha*gather(cnn.B_grad{iLayer})/cnn.to.batch_size;
+            cnn.dW{iLayer}=cnn.to.mom*cnn.dW{iLayer}+cnn.to.alpha*cnn.W_grad{iLayer}/cnn.to.batch_size+cnn.to.lambda*cnn.dW{iLayer};
+            cnn.dB{iLayer}=cnn.to.mom*cnn.dB{iLayer}+cnn.to.alpha*cnn.B_grad{iLayer}/cnn.to.batch_size;
             cnn.Layers{iLayer}.W=cnn.Layers{iLayer}.W-cnn.dW{iLayer};
             cnn.Layers{iLayer}.B=cnn.Layers{iLayer}.B-cnn.dB{iLayer};
         case 2
             % Convolutional Layer
-            [cnn.W_grad{iLayer}, cnn.B_grad{iLayer}]=cnnConvGrad(cnn. OutData{iLayer-1}, cnn.Delta{iLayer+1}, cnn.to.useGPU);
-            cnn.dW{iLayer}=cnn.to.mom*cnn.dW{iLayer}+cnn.to.alpha*gather(cnn.W_grad{iLayer})/cnn.to.batch_size+cnn.to.lambda*cnn.dW{iLayer};
-            cnn.dB{iLayer}=cnn.to.mom*cnn.dB{iLayer}+cnn.to.alpha*gather(cnn.B_grad{iLayer})/cnn.to.batch_size;
+            [cnn.W_grad{iLayer}, cnn.B_grad{iLayer}]=cnnConvGrad_GPU(cnn. OutData{iLayer-1}, cnn.Delta{iLayer+1});
+            cnn.dW{iLayer}=cnn.to.mom*cnn.dW{iLayer}+cnn.to.alpha*cnn.W_grad{iLayer}/cnn.to.batch_size+cnn.to.lambda*cnn.dW{iLayer};
+            cnn.dB{iLayer}=cnn.to.mom*cnn.dB{iLayer}+cnn.to.alpha*cnn.B_grad{iLayer}/cnn.to.batch_size;
             cnn.Layers{iLayer}.W=cnn.Layers{iLayer}.W-cnn.dW{iLayer};
             cnn.Layers{iLayer}.B=cnn.Layers{iLayer}.B-cnn.dB{iLayer};
         case 1
@@ -34,8 +34,8 @@ for iLayer=1:cnn.LNum
             end
         case 11
 % %             % Batched Normalization Layer
-            cnn.dW{iLayer}.dgamma=cnn.to.mom*cnn.dW{iLayer}.dgamma+cnn.to.alpha*gather(cnn.W_grad{iLayer}.dgamma)/cnn.to.batch_size;
-            cnn.dW{iLayer}.dbeta=cnn.to.mom*cnn.dW{iLayer}.dbeta+cnn.to.alpha*gather(cnn.W_grad{iLayer}.dbeta)/cnn.to.batch_size;
+            cnn.dW{iLayer}.dgamma=cnn.to.mom*cnn.dW{iLayer}.dgamma+cnn.to.alpha*cnn.W_grad{iLayer}.dgamma/cnn.to.batch_size;
+            cnn.dW{iLayer}.dbeta=cnn.to.mom*cnn.dW{iLayer}.dbeta+cnn.to.alpha*cnn.W_grad{iLayer}.dbeta/cnn.to.batch_size;
             cnn.Layers{iLayer}.gamma=cnn.Layers{iLayer}.gamma-cnn.dW{iLayer}.dgamma;
             cnn.Layers{iLayer}.beta=cnn.Layers{iLayer}.beta-cnn.dW{iLayer}.dbeta;
     end
