@@ -60,7 +60,7 @@ for e_count=1:cnn.to.epochs
             case 4
                 [~, preds]=max(cnn.OutData{cnn.LNum}, [], 1);
                 acc=sum(preds==mb_labels)/numImages;
-                fprintf('Epoch %d: Cost on iteration %d is %f, accuracy is %f', e_count, b_count, cost, acc);
+                fprintf('Epoch %d: Cost on iteration %d is %f, accuracy is %f\n', e_count, b_count, cost, acc);
                 ERR=[ERR, [cost; acc]];
             case 8
                 fprintf('Epoch %d: Cost on iteration %d is %f\n', e_count, b_count, cost);
