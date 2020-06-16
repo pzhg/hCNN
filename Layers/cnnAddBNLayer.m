@@ -11,16 +11,16 @@ BLayer.FNum=cnn.Layers{cnn.LNum}.FNum;
 if BLayer.mode==1 && cnn.to.useGPU==1
     % CNN
     BLayer.FDim=cnn.Layers{cnn.LNum}.FDim;
-    BLayer.gamma=gpuArray.ones(1, 1, BLayer.FNum, 1, 'single');
-    BLayer.beta=gpuArray.zeros(1, 1, BLayer.FNum, 1, 'single');
-    BLayer.mean=gpuArray.zeros(1, 1, BLayer.FNum, 1, 'single');
-    BLayer.var=gpuArray.zeros(1, 1, BLayer.FNum, 1, 'single');
+    BLayer.gamma=ones(1, 1, BLayer.FNum, 1, 'single');
+    BLayer.beta=zeros(1, 1, BLayer.FNum, 1, 'single');
+    BLayer.mean=zeros(1, 1, BLayer.FNum, 1, 'single');
+    BLayer.var=zeros(1, 1, BLayer.FNum, 1, 'single');
 elseif BLayer.mode==2 && cnn.to.useGPU==1
     % FC
-    BLayer.gamma=gpuArray.ones(BLayer.OutDim, 1, 'single');
-    BLayer.beta=gpuArray.zeros(BLayer.OutDim, 1, 'single');
-    BLayer.mean=gpuArray.zeros(BLayer.OutDim, 1, 'single');
-    BLayer.var=gpuArray.zeros(BLayer.OutDim, 1, 'single');
+    BLayer.gamma=ones(BLayer.OutDim, 1, 'single');
+    BLayer.beta=zeros(BLayer.OutDim, 1, 'single');
+    BLayer.mean=zeros(BLayer.OutDim, 1, 'single');
+    BLayer.var=zeros(BLayer.OutDim, 1, 'single');
 elseif BLayer.mode==1 && cnn.to.useGPU==0
     % CNN
     BLayer.FDim=cnn.Layers{cnn.LNum}.FDim;

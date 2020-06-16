@@ -12,13 +12,13 @@ ERR=[];
 for e_count=1:cnn.to.epochs
     for b_count=1:cnn.to.batch
         %% Training Data
-        mb_labels=squeeze(Y(:, :, b_count));
-        images=gpuArray(single(X(:, :, :, :, b_count)));
+        mb_labels=single(Y(:, :, b_count));
+        images=single(X(:, :, :, :, b_count));
         numImages=cnn.to.batch_size;
         % Momemtum
-        cnn.to.mom=gpuArray(single(cnn.to.mom));
+        cnn.to.mom=single(cnn.to.mom);
         if b_count==cnn.to.momIncrease
-            cnn.to.mom=gpuArray(single(cnn.to.momentum));
+            cnn.to.mom=single(cnn.to.momentum);
         end
 %         if to.PCAflag==1
 %             for iLayer=1:cnn.LNum
@@ -39,11 +39,11 @@ for e_count=1:cnn.to.epochs
         switch cnn.Layers{cnn.LNum}.type
             case 4
                 index=sub2ind([cnn.outputDim, cnn.to.batch_size], squeeze(mb_labels), 1:cnn.to.batch_size);
-                outPut=gpuArray.zeros(cnn.outputDim, cnn.to.batch_size, 'single');
+                outPut=zeros(cnn.outputDim, cnn.to.batch_size, 'single');
                 outPut(index)=1;
                 ceCost=-sum(sum(1e-6+log(cnn.OutData{cnn.LNum}(index))));
             case 8
-                outPut=gpuArray(single(squeeze(mb_labels)));
+                outPut=single(squeeze(mb_labels));
                 ceCost=1/2*sum((cnn.OutData{cnn.LNum}(:)-outPut(:)).^2);
         end
         wCost=cnn.to.lambda*cnn.wCost/2;

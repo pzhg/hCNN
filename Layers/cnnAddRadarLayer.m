@@ -12,8 +12,8 @@ RLayer.FDim=FDim;
 RLayer.OutDim=cnn.Layers{cnn.LNum}.OutDim-FDim+1;
 RLayer.FNum=cnn.Layers{cnn.LNum}.FNum;
 if cnn.to.useGPU==1
-    RLayer.Fsr=gpuArray(single(Fsr));
-    RLayer.PRF=gpuArray(single(PRF));
+    RLayer.Fsr=single(Fsr);
+    RLayer.PRF=single(PRF);
 else
     RLayer.Fsr=Fsr;
     RLayer.PRF=PRF;

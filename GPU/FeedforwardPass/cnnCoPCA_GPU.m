@@ -2,11 +2,11 @@ function fltOutput=cnnCoPCA_GPU(images, CLayer)
 
 numImages=size(images, 4);
 numFilter=size(images, 3);
-fltOutput=gpuArray.zeros(CLayer.OutDim(1), CLayer.OutDim(2), CLayer.FNum, numImages, 'single');
+fltOutput=zeros(CLayer.OutDim(1), CLayer.OutDim(2), CLayer.FNum, numImages, 'single');
         
 if CLayer.CorrType==1 
     % Auto correlation
-    for inum=1:numImages
+    parfor inum=1:numImages
         for iflt=1:numFilter
             image=images(:, :, iflt, inum);
             x_num=size(images, 1)-CLayer.FDim(1)+1;
@@ -17,15 +17,15 @@ if CLayer.CorrType==1
                 for iy=1:CLayer.PCAStep(2):y_num
                     temp=image(ix:ix+CLayer.FDim(1)-1, iy:iy+CLayer.FDim(2)-1);
                     temp=temp(:)-mean(temp(:));
-                    X(:, y_index)=temp;
+                    X(:, y_index)=gpuArray(temp);
                     y_index=y_index+1;
                 end
             end
 %             X=gpuArray(single(X));
             X_cov=X'*X;
-            [U, S, V]=svds(double(X_cov), CLayer.PCADim);
+            [U, S, V]=svds(gather(X_cov), CLayer.PCADim);
             PCAImage=U*S*V';
-            fltOutput(:, :, iflt, inum)=gpuArray(single(PCAImage));
+            fltOutput(:, :, iflt, inum)=single(PCAImage);
         end
     end
 else
@@ -43,7 +43,7 @@ else
                     for iy=1:CLayer.PCAStep(2):y_num
                         temp=image(ix:ix+CLayer.FDim(1)-1, iy:iy+CLayer.FDim(2)-1);
                         temp=temp(:)-mean(temp(:));
-                        X(:, y_index)=temp;
+                        X(:, y_index)=gpuArray(temp);
                         y_index=y_index+1;
                     end
                 end
@@ -56,14 +56,14 @@ else
                     for iy=1:CLayer.PCAStep(2):y_num
                         temp=image(ix:ix+CLayer.FDim(1)-1, iy:iy+CLayer.FDim(2)-1);
                         temp=temp(:)-mean(temp(:));
-                        Y(:, y_index)=temp;
+                        Y(:, y_index)=gpuArray(temp);
                         y_index=y_index+1;
                     end
                 end
                 X_cov=X'*Y;
-                [U, S, V]=svds(double(X_cov), CLayer.PCADim);
+                [U, S, V]=svds(gather(X_cov), CLayer.PCADim);
                 PCAImage=U*S*V';
-                fltOutput(:, :, ofil, inum)=gpuArray(single(PCAImage));
+                fltOutput(:, :, ofil, inum)=single(PCAImage);
                 ofil=ofil+1;
             end
         end

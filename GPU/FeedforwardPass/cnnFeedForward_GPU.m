@@ -8,7 +8,7 @@ for iLayer=1:cnn.LNum
     switch cnn.Layers{iLayer}.type
         case 0
             % Input Layer
-            cnn.OutData{iLayer}=gpuArray(single(images));
+            cnn.OutData{iLayer}=images;
             if size(cnn.Layers{iLayer}.OutDim, 2)==1
                 cnn.OutData{iLayer}=squeeze(cnn.OutData{iLayer});
             end
@@ -22,7 +22,7 @@ for iLayer=1:cnn.LNum
         case 3
             % Fully Connected Layers
             cnn.wCost=cnn.wCost+sum(cnn.Layers{iLayer}.W(:).^2);
-            cnn.OutData{iLayer}=cnnFullConnected(cnn.Layers{iLayer}, cnn.OutData{iLayer-1});
+            cnn.OutData{iLayer}=cnnFullConnected_GPU(cnn.Layers{iLayer}, cnn.OutData{iLayer-1});
         case 4
             % Softmax Layer
             cnn.OutData{iLayer}=cnnSoftMax(cnn.OutData{iLayer-1});
@@ -41,12 +41,12 @@ for iLayer=1:cnn.LNum
             cnn.OutData{iLayer}=cnn.OutData{iLayer-1};
         case 9
             % (Deprecated) SP Filter Layer
-            cnn.OutData{iLayer}=gpuArray.zeros(cnn.Layers{iLayer}.OutDim, numImages, 'single');
+            cnn.OutData{iLayer}=zeros(cnn.Layers{iLayer}.OutDim, numImages, 'single');
             cnn.OutData{iLayer}(1:cnn.Layers{iLayer-1}.OutDim, :)=cnn.OutData{iLayer-1};
 %             OutData{iLayer}(cnn.Layers{iLayer-1}.OutDim+1:cnn.Layers{iLayer}.OutDim, :)=OptData;
         case 10
             % BLOB Layer
-            cnn.OutData{iLayer}=gpuArray.zeros(cnn.Layers{iLayer}.OutDim, numImages, 'single');
+            cnn.OutData{iLayer}=zeros(cnn.Layers{iLayer}.OutDim, numImages, 'single');
             if cnn.Layers{iLayer}.combineType==1
 %             offset=0;
                 for inet=1:cnn.Layers{iLayer}.NNum

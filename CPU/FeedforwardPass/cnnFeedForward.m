@@ -8,7 +8,7 @@ for iLayer=1:cnn.LNum
     switch cnn.Layers{iLayer}.type
         case 0
             % Input Layer
-            cnn.OutData{iLayer}=single(images);
+            cnn.OutData{iLayer}=images;
             if size(cnn.Layers{iLayer}.OutDim, 2)==1
                 cnn.OutData{iLayer}=squeeze(cnn.OutData{iLayer});
             end

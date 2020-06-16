@@ -12,7 +12,7 @@ for iLayer=cnn.LNum:-1:1
             cnn.Delta{iLayer}=cnn.OutData{iLayer}-outPut;
         case 3
             % Error of Fully Connected Layer
-            cnn.Delta{iLayer}=cnnDeFullConnected(cnn.Layers{iLayer}, cnn.Delta{iLayer+1});
+            cnn.Delta{iLayer}=cnnDeFullConnected_GPU(cnn.Layers{iLayer}, cnn.Delta{iLayer+1});
         case 5
             % Error of Pooling Layer
             cnn.Delta{iLayer}=cnnDePool_GPU(cnn.Layers{iLayer}, cnn.Delta{iLayer+1});

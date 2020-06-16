@@ -12,7 +12,7 @@ ERR=[];
 for e_count=1:cnn.to.epochs
     for b_count=1:cnn.to.batch
         %% Training Data
-        mb_labels=squeeze(Y(:, :, b_count));
+        mb_labels=Y(:, :, b_count);
         images=X(:, :, :, :, b_count);
         numImages=cnn.to.batch_size;
         % Momemtum

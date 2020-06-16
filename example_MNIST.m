@@ -8,14 +8,14 @@ tic;
 
 %% Load Data (MNIST)
 load MNIST.mat;
-% TrainData=reshape(TrainData, 28, 28, 1, 100, 600); 
-% LabelData=reshape(LabelData, 1, 100, 600);
-TrainData=TrainData(:, :, :, :, 1:20);
-LabelData=LabelData(:, :, 1:20);
+% TrainData=reshape(TrainData, 28, 28, 1, 10, 6000); 
+% LabelData=reshape(LabelData, 1, 10, 6000);
+TrainData=TrainData(:, :, :, :, 1:10);
+LabelData=LabelData(:, :, 1:10);
 
 %% Training Options
 to.epochs=1;            % Epoch number
-to.batch=20;           % Batch number
+to.batch=10;           % Batch number
 to.batch_size=150;      % Batch size
 to.alpha=0.1;           % Learning rate
 to.momentum=0.9;        % Momentum
@@ -60,9 +60,9 @@ cnn=cnnInitVelocity(cnn);
 
 %% Test CNN
 cnn.to.test=1;
-acc=cnnTestData(cnn, VData, VLabel, 1000);
-fprintf('Validation accuracy is: %f\n', acc);
-
+% acc=cnnTestData(cnn, VData, VLabel, 1000);
+% fprintf('Validation accuracy is: %f\n', acc);
+% 
 toc;
 profile viewer;
 

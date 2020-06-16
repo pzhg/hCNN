@@ -6,7 +6,7 @@ function fltOutput=cnnCoPCA(images, CLayer)
             
     if CLayer.CorrType==1 
         % Auto correlation
-        for inum=1:numImages
+        parfor inum=1:numImages
             for iflt=1:numFilter
                 image=images(:, :, iflt, inum);
                 x_num=size(images, 1)-CLayer.FDim(1)+1;
