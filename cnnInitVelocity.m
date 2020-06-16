@@ -9,8 +9,8 @@ for iLayer=1:cnn.LNum
                 cnn.dW{iLayer}=zeros(size(cnn.Layers{iLayer}.W));
                 cnn.dB{iLayer}=zeros(size(cnn.Layers{iLayer}.B));
             else
-                cnn.dW{iLayer}=single(gpuArray.zeros(size(cnn.Layers{iLayer}.W)));
-                cnn.dB{iLayer}=single(gpuArray.zeros(size(cnn.Layers{iLayer}.B)));
+                cnn.dW{iLayer}=zeros(size(cnn.Layers{iLayer}.W), 'single');
+                cnn.dB{iLayer}=zeros(size(cnn.Layers{iLayer}.B), 'single');
             end
         case 1
             cnn.dW{iLayer}=struct;
