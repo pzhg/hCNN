@@ -41,12 +41,12 @@ for iLayer=1:cnn.LNum
             cnn.OutData{iLayer}=cnn.OutData{iLayer-1};
         case 9
             % (Deprecated) SP Filter Layer
-            cnn.OutData{iLayer}=single(gpuArray.zeros(cnn.Layers{iLayer}.OutDim, numImages));
+            cnn.OutData{iLayer}=gpuArray.zeros(cnn.Layers{iLayer}.OutDim, numImages, 'single');
             cnn.OutData{iLayer}(1:cnn.Layers{iLayer-1}.OutDim, :)=cnn.OutData{iLayer-1};
 %             OutData{iLayer}(cnn.Layers{iLayer-1}.OutDim+1:cnn.Layers{iLayer}.OutDim, :)=OptData;
         case 10
             % BLOB Layer
-            cnn.OutData{iLayer}=single(gpuArray.zeros(cnn.Layers{iLayer}.OutDim, numImages));
+            cnn.OutData{iLayer}=gpuArray.zeros(cnn.Layers{iLayer}.OutDim, numImages, 'single');
             if cnn.Layers{iLayer}.combineType==1
 %             offset=0;
                 for inet=1:cnn.Layers{iLayer}.NNum

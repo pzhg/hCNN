@@ -2,7 +2,7 @@ function fltOutput=cnnCoPCA_GPU(images, CLayer)
 
 numImages=size(images, 4);
 numFilter=size(images, 3);
-fltOutput=single(gpuArray.zeros(CLayer.OutDim(1), CLayer.OutDim(2), CLayer.FNum, numImages));
+fltOutput=gpuArray.zeros(CLayer.OutDim(1), CLayer.OutDim(2), CLayer.FNum, numImages, 'single');
         
 if CLayer.CorrType==1 
     % Auto correlation
@@ -11,7 +11,7 @@ if CLayer.CorrType==1
             image=images(:, :, iflt, inum);
             x_num=size(images, 1)-CLayer.FDim(1)+1;
             y_num=size(images, 2)-CLayer.FDim(2)+1;
-            X=single(gpuArray.zeros(CLayer.FDim(1)*CLayer.FDim(2), floor((y_num-1)/CLayer.PCAStep(2))+1));
+            X=gpuArray.zeros(CLayer.FDim(1)*CLayer.FDim(2), floor((y_num-1)/CLayer.PCAStep(2))+1, 'single');
             for ix=1:CLayer.PCAStep(1):x_num
                 y_index=1;
                 for iy=1:CLayer.PCAStep(2):y_num
@@ -37,7 +37,7 @@ else
                 image=images(:, :, iflt1, inum);
                 x_num=size(images, 1)-CLayer.FDim(1)+1;
                 y_num=size(images, 2)-CLayer.FDim(2)+1;
-                X=single(gpuArray.zeros(CLayer.FDim(1)*CLayer.FDim(2), floor((y_num-1)/CLayer.PCAStep(2))+1));
+                X=gpuArray.zeros(CLayer.FDim(1)*CLayer.FDim(2), floor((y_num-1)/CLayer.PCAStep(2))+1, 'single');
                 for ix=1:CLayer.PCAStep(1):x_num
                     y_index=1;
                     for iy=1:CLayer.PCAStep(2):y_num
@@ -50,7 +50,7 @@ else
                 image=images(:, :, iflt2, inum);
                 x_num=size(images, 1)-CLayer.FDim(1)+1;
                 y_num=size(images, 2)-CLayer.FDim(2)+1;
-                Y=single(gpuArray.zeros(CLayer.FDim(1)*CLayer.FDim(2), floor((y_num-1)/CLayer.PCAStep(2))+1));
+                Y=gpuArray.zeros(CLayer.FDim(1)*CLayer.FDim(2), floor((y_num-1)/CLayer.PCAStep(2))+1, 'single');
                 for ix=1:CLayer.PCAStep(1):x_num
                     y_index=1;
                     for iy=1:CLayer.PCAStep(2):y_num

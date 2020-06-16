@@ -11,7 +11,7 @@ CLayer.FNum=cnn.Layers{cnn.LNum}.FNum;
 CLayer.OutDim=[OutDim, 1];
 % CLayer.useGPU=cnn.to.useGPU;
 if cnn.to.useGPU==1
-    CLayer.A=single(gpuArray.randn(CLayer.OutDim(1), cnn.Layers{cnn.LNum}.OutDim(1)*cnn.Layers{cnn.LNum}.OutDim(2)));
+    CLayer.A=gpuArray.randn(CLayer.OutDim(1), cnn.Layers{cnn.LNum}.OutDim(1)*cnn.Layers{cnn.LNum}.OutDim(2), 'single');
 else
     CLayer.A=randn(CLayer.OutDim(1), cnn.Layers{cnn.LNum}.OutDim(1)*cnn.Layers{cnn.LNum}.OutDim(2));
 end

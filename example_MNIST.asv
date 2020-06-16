@@ -4,18 +4,17 @@ close all;
 dbstop if error
 
 profile on;
-tic;
 
 %% Load Data (MNIST)
 load MNIST.mat;
 % TrainData=reshape(TrainData, 28, 28, 1, 100, 600); 
 % LabelData=reshape(LabelData, 1, 100, 600);
-TrainData=TrainData(:, :, :, :, 1:20);
-LabelData=LabelData(:, :, 1:20);
+TrainData=TrainData(:, :, :, :, 20);
+LabelData=LabelData(:, :, :, 20);
 
 %% Training Options
-to.epochs=1;            % Epoch number
-to.batch=20;           % Batch number
+to.epochs=3;            % Epoch number
+to.batch=400;           % Batch number
 to.batch_size=150;      % Batch size
 to.alpha=0.1;           % Learning rate
 to.momentum=0.9;        % Momentum
@@ -63,6 +62,5 @@ cnn.to.test=1;
 acc=cnnTestData(cnn, VData, VLabel, 1000);
 fprintf('Validation accuracy is: %f\n', acc);
 
-toc;
 profile viewer;
 
