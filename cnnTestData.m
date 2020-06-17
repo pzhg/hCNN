@@ -5,8 +5,8 @@ function [acc, e]=cnnTestData(cnn, VX, VY, numImages)
 %   numImages: number of images that want to validate
 
 if cnn.to.useGPU==1
-    images=gpuArray(single(VX(:, :, :, 1:numImages)));
-    mb_labels=gpuArray(VY(:, 1:numImages));
+    images=single(VX(:, :, :, 1:numImages));
+    mb_labels=single(VY(:, 1:numImages));
     cnn=cnnFeedForward_GPU(cnn, images);
 else
     images=VX(:, :, :, 1:numImages);
