@@ -5,6 +5,8 @@ numFilters2=size(CLayer.W, 4);
 numImages=size(DeltaConv, 4);
 ConvDim=CLayer.OutDim+CLayer.FDim-1;
 
+% W=gpuArray(CLayer.W);
+
 DeltaPooled=zeros(ConvDim(1), ConvDim(2), numFilters1, numImages, 'single');      
 parfor i=1:numImages
     for f1=1:numFilters1

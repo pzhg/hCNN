@@ -7,8 +7,8 @@ convolvedFeatures=zeros(RLayer.OutDim(1), RLayer.OutDim(2), 1, numImages, 'singl
 HFSize=floor((RLayer.FDim-1)./2);
 XFilter=gpuArray(single(exp(1j*pi*RLayer.Ka*(((-HFSize:HFSize).'/RLayer.PRF).^2))*exp(-1j*pi*RLayer.Kr*(((-HFSize:HFSize)/RLayer.Fsr).^2))));
 parfor i_img=1:numImages
-    convolvedImage=gpuArray.zeros(RLayer.OutDim, 'single');
+    convolvedImage=zeros(RLayer.OutDim, 'single');
     im=images(:, :, :, i_img);
-    convolvedImage=convolvedImage+conv2(gpuArray(im), XFilter, 'valid');
+    convolvedImage=convolvedImage+gather(conv2(gpuArray(im), XFilter, 'valid'));
     convolvedFeatures(:, :, 1, i_img)=convolvedImage;
 end
