@@ -2,7 +2,7 @@ function fltOutput=cnnCoPCA_GPU(images, CLayer)
 
 numImages=size(images, 4);
 numFilter=size(images, 3);
-fltOutput=gpuArray.zeros(CLayer.OutDim(1), CLayer.OutDim(2), CLayer.FNum, numImages, 'single');
+fltOutput_=zeros(CLayer.OutDim(1), CLayer.OutDim(2), CLayer.FNum, numImages, 'single');
         
 if CLayer.CorrType==1 
     % Auto correlation
@@ -25,7 +25,7 @@ if CLayer.CorrType==1
             X_cov=X'*X;
             [U, S, V]=svds(gather(X_cov), CLayer.PCADim);
             PCAImage=U*S*V';
-            fltOutput(:, :, iflt, inum)=gpuArray(single(PCAImage));
+            fltOutput_(:, :, iflt, inum)=single(PCAImage);
         end
     end
 else
@@ -63,9 +63,11 @@ else
                 X_cov=X'*Y;
                 [U, S, V]=svds(gather(X_cov), CLayer.PCADim);
                 PCAImage=U*S*V';
-                fltOutput(:, :, ofil, inum)=gpuArray(single(PCAImage));
+                fltOutput_(:, :, ofil, inum)=single(PCAImage);
                 ofil=ofil+1;
             end
         end
     end
 end
+
+fltOutput=gpuArray(fltOutput_);

@@ -8,16 +8,19 @@ switch CLayer.TName
     case 'PCA'
         numImage=size(images, 4);
         numFilter=size(images, 3);
-        out=zeros(size(images), 'single');
+        % out=gpuArray.zeros(size(images), 'single');
+        out_=zeros(size(images), 'single');
+        images_=gather(images);
         parfor inum=1:numImage
             for iflt=1:numFilter
-                [U, S, V]=svd(gather(images(:, :, iflt, inum)));
+                [U, S, V]=svd(images_(:, :, iflt, inum));
                 U=U(:, CLayer.PCADim);
                 S=S(CLayer.PCADim, :);
                 PCAImage=U*S*V';
-                out(:, :, iflt, inum)=gpuArray(single(PCAImage));
+                out_(:, :, iflt, inum)=single(PCAImage);
             end
         end
+        out=gpuArray(out_);
     case 'ABS'
         out=abs(images);
     case 'ARG'

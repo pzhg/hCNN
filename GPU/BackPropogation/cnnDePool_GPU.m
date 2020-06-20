@@ -4,9 +4,9 @@ numImages=size(DeltaPooled, 4);
 convDim=PLayer.OutDim.*PLayer.poolDim;
 numFilters=PLayer.FNum;
 
-DeltaUnpool=gpuArray.zeros(convDim(1), convDim(2), PLayer.FNum, numImages, 'single');       
 switch PLayer.poolMethod
     case 'mean'
+        DeltaUnpool=gpuArray.zeros(convDim(1), convDim(2), PLayer.FNum, numImages, 'single');  
         parfor imNum=1:numImages
             for filterNum=1:numFilters
                 unpool=DeltaPooled(:, :, filterNum, imNum);
@@ -15,13 +15,15 @@ switch PLayer.poolMethod
             end
         end
     case 'max'
+        DeltaUnpool_=zeros(convDim(1), convDim(2), PLayer.FNum, numImages, 'single');     
+        DeltaPooled_=gather(DeltaPooled);
         parfor imNum=1:numImages
             for filterNum=1:numFilters
                 temp=zeros(PLayer.poolDim(1)*PLayer.poolDim(2), PLayer.OutDim(1)*PLayer.OutDim(2), 'single');
-                m=gather(reshape(DeltaPooled(:, :, filterNum, imNum), 1, PLayer.OutDim(1)*PLayer.OutDim(2)));
+                m=reshape(DeltaPooled_(:, :, filterNum, imNum), 1, PLayer.OutDim(1)*PLayer.OutDim(2));
                 i=sub2ind(size(temp), PLayer.poolLocation(1, :, filterNum, imNum), 1:PLayer.OutDim(1)*PLayer.OutDim(2));
                 temp(i)=m;
-                DeltaUnpool(:, :, filterNum, imNum)=gpuArray(single(col2im(temp, [PLayer.poolDim(1), PLayer.poolDim(2)], [convDim(1), convDim(2)], 'distinct')));
+                DeltaUnpool_(:, :, filterNum, imNum)=single(col2im(temp, [PLayer.poolDim(1), PLayer.poolDim(2)], [convDim(1), convDim(2)], 'distinct'));
 %                 ckear temp, m;
 %                 for idx_j=1:PLayer.OutDim(1)
 %                     for idx_i=1:PLayer.OutDim(2)
@@ -34,4 +36,5 @@ switch PLayer.poolMethod
 %                 end
             end
         end
+        DeltaUnpool=gpuArray(DeltaUnpool_);
 end
