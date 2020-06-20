@@ -21,8 +21,8 @@ for iLayer=1:cnn.LNum
             % Hybrid Convolutional Layer
             cnn.W_grad{iLayer}.Ka=sum(cnn.Delta{iLayer}.Ka(:));
             cnn.W_grad{iLayer}.Kr=sum(cnn.Delta{iLayer}.Kr(:));
-            cnn.dW{iLayer}.Ka=to.mom*cnn.dW{iLayer}.Ka+cnn.to.alpha*cnn.W_grad{iLayer}.Ka/cnn.to.batch_size;
-            cnn.dW{iLayer}.Kr=to.mom*cnn.dW{iLayer}.Kr+cnn.to.alpha*cnn.W_grad{iLayer}.Kr/cnn.to.batch_size;
+            cnn.dW{iLayer}.Ka=cnn.to.mom*cnn.dW{iLayer}.Ka+cnn.to.alpha*cnn.W_grad{iLayer}.Ka/cnn.to.batch_size;
+            cnn.dW{iLayer}.Kr=cnn.to.mom*cnn.dW{iLayer}.Kr+cnn.to.alpha*cnn.W_grad{iLayer}.Kr/cnn.to.batch_size;
             cnn.Layers{iLayer}.Ka=cnn.Layers{iLayer}.Ka-cnn.dW{iLayer}.Ka;
             cnn.Layers{iLayer}.Kr=cnn.Layers{iLayer}.Kr-cnn.dW{iLayer}.Kr;
         case 10

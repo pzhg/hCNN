@@ -2,7 +2,7 @@ function fltOutput=cnnCoPCA_GPU(images, CLayer)
 
 numImages=size(images, 4);
 numFilter=size(images, 3);
-fltOutput=zeros(CLayer.OutDim(1), CLayer.OutDim(2), CLayer.FNum, numImages, 'single');
+fltOutput=gpuArray.zeros(CLayer.OutDim(1), CLayer.OutDim(2), CLayer.FNum, numImages, 'single');
         
 if CLayer.CorrType==1 
     % Auto correlation
@@ -17,7 +17,7 @@ if CLayer.CorrType==1
                 for iy=1:CLayer.PCAStep(2):y_num
                     temp=image(ix:ix+CLayer.FDim(1)-1, iy:iy+CLayer.FDim(2)-1);
                     temp=temp(:)-mean(temp(:));
-                    X(:, y_index)=gpuArray(temp);
+                    X(:, y_index)=temp;
                     y_index=y_index+1;
                 end
             end
@@ -25,7 +25,7 @@ if CLayer.CorrType==1
             X_cov=X'*X;
             [U, S, V]=svds(gather(X_cov), CLayer.PCADim);
             PCAImage=U*S*V';
-            fltOutput(:, :, iflt, inum)=single(PCAImage);
+            fltOutput(:, :, iflt, inum)=gpuArray(single(PCAImage));
         end
     end
 else
@@ -43,7 +43,7 @@ else
                     for iy=1:CLayer.PCAStep(2):y_num
                         temp=image(ix:ix+CLayer.FDim(1)-1, iy:iy+CLayer.FDim(2)-1);
                         temp=temp(:)-mean(temp(:));
-                        X(:, y_index)=gpuArray(temp);
+                        X(:, y_index)=temp;
                         y_index=y_index+1;
                     end
                 end
@@ -56,14 +56,14 @@ else
                     for iy=1:CLayer.PCAStep(2):y_num
                         temp=image(ix:ix+CLayer.FDim(1)-1, iy:iy+CLayer.FDim(2)-1);
                         temp=temp(:)-mean(temp(:));
-                        Y(:, y_index)=gpuArray(temp);
+                        Y(:, y_index)=temp;
                         y_index=y_index+1;
                     end
                 end
                 X_cov=X'*Y;
                 [U, S, V]=svds(gather(X_cov), CLayer.PCADim);
                 PCAImage=U*S*V';
-                fltOutput(:, :, ofil, inum)=single(PCAImage);
+                fltOutput(:, :, ofil, inum)=gpuArray(single(PCAImage));
                 ofil=ofil+1;
             end
         end

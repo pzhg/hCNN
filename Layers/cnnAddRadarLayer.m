@@ -6,17 +6,19 @@ function cnn=cnnAddRadarLayer(cnn, FDim, Fsr, PRF)
 
 RLayer=struct;
 RLayer.type=1;
-RLayer.Ka=50;
-RLayer.Kr=50;
 RLayer.FDim=FDim;
 RLayer.OutDim=cnn.Layers{cnn.LNum}.OutDim-FDim+1;
 RLayer.FNum=cnn.Layers{cnn.LNum}.FNum;
 if cnn.to.useGPU==1
-    RLayer.Fsr=single(Fsr);
-    RLayer.PRF=single(PRF);
+    RLayer.Fsr=gpuArray(single(Fsr));
+    RLayer.PRF=gpuArray(single(PRF));
+    RLayer.Ka=gpuArray(50);
+    RLayer.Kr=gpuArray(50);
 else
     RLayer.Fsr=Fsr;
     RLayer.PRF=PRF;
+    RLayer.Ka=50;
+    RLayer.Kr=50;
 end
 % RLayer.useGPU=cnn.to.useGPU;
 cnn.LNum=cnn.LNum+1;

@@ -11,11 +11,11 @@ switch CLayer.TName
         out=zeros(size(images), 'single');
         parfor inum=1:numImage
             for iflt=1:numFilter
-                [U, S, V]=svd(images(:, :, iflt, inum));
+                [U, S, V]=svd(gather(images(:, :, iflt, inum)));
                 U=U(:, CLayer.PCADim);
                 S=S(CLayer.PCADim, :);
                 PCAImage=U*S*V';
-                out(:, :, iflt, inum)=single(PCAImage);
+                out(:, :, iflt, inum)=gpuArray(single(PCAImage));
             end
         end
     case 'ABS'
