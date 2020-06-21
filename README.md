@@ -1,16 +1,21 @@
-# hCNN
-Hybrid CNN, a MATLAB CNN toolbox that supports complex valued data and insertion of Signal Processing Modules.
+# hCNN, Hybrid Neural Network Toolbox
+
+hCNN, Hybrid Neural Network, a MATLAB NN toolbox that supports complex valued data and insertion of Signal Processing Modules.
 
 **GPU supported. Please use a CUDA enabled device and `to.useGPU=1` if you want to enable it.**
 
 ## Supported Layers
 * Convolutional Layer
 
+`comp='c'` if you want the parameters to be complex.
+
 * Pooling Layer
 
 * Activation Layer
 
 * Fully Connected Layer
+
+`comp='c'` if you want the parameters to be complex.
 
 * Reshape Layer
 
@@ -22,19 +27,20 @@ Hybrid CNN, a MATLAB CNN toolbox that supports complex valued data and insertion
 
 * Multiple Channel (BLOB) Layer like this:
 
+```
          /--- sub NN ---\
         /                \
    NN-------- sub NN --------(Other structutres)--Output
         \                 /
 	     \--- sub NN ----/
-
+```
 	Each sub-NN can also be composed of such multiple channel (BLOB) Layer.
 
 * Transformation Layer
-	** CS Layer
-	** Covariance-PCA Layer
-	** FFT Layer
-	** PCA/FFT/DWT/ABS/ARG/REAL/IMAG/LOWPASS/HIPASS... Layer
+	* CS Layer
+	* Covariance-PCA Layer
+	* FFT Layer
+	* PCA/FFT/DWT/ABS/ARG/REAL/IMAG/LOWPASS/HIPASS... Layer
 
 ## Supported Pooling Methods
 * 'mean'
