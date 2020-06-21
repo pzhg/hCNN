@@ -82,9 +82,9 @@ Each sub-NN can also be composed of such multiple channel (BLOB) Layer.
 	Absolute value
 
 You can add more activation functions in
->	`cnnAddActionvationLayer.m`
->	`cnnActivate.m`
->	`cnnDeActivate.m`
+>	`cnnAddActionvationLayer.m` 
+>	`cnnActivate.m` 
+>	`cnnDeActivate.m` 
 
 ## Supported Output Layer
 * SoftMax
@@ -94,17 +94,18 @@ You can add more activation functions in
 
 ## Insertion of SP Modules
 See examples of radar data layer:
->	`cnnAddRadarLayer.m`
+>	`cnnAddRadarLayer.m` 
 >	`cnnConvolveRadar.m`  
->	`cnnDeconvolveRadar.m`
+>	`cnnDeconvolveRadar.m` 
 
 See examples of Transformation layer:
->	`cnnAddTransformLayer.m`
+>	`cnnAddTransformLayer.m` 
+
 >	`cnnTransform.m`
 
 ## Example
 See the following file as an example of utilizing this toolbox:
->	`example_MNIST.m`
+>	`example_MNIST.m` 
 
 ## Roadmap
 * RMSE output layer
