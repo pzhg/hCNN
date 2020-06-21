@@ -11,7 +11,7 @@ hCNN, Hybrid Neural Network, a MATLAB NN toolbox that supports complex valued da
 
 ```
 cnn = cnnAddConvLayer(cnn, [3, 3], 8, 'r');
-% Add a convolution layer with 3 $\times$ 3 filter and 8 channels, real ('c' for complex).
+% Add a convolution layer with 3*3 filter and 8 channels, real ('c' for complex).
 ```
 
 * Pooling Layer
