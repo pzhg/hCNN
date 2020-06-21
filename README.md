@@ -9,6 +9,11 @@ hCNN, Hybrid Neural Network, a MATLAB NN toolbox that supports complex valued da
 
 `comp='c'` if you want the parameters to be complex.
 
+```
+cnn = cnnAddConvLayer(cnn, [3, 3], 8, 'r');
+% Add a convolution layer with 3\times 3 filter and 8 channels, real ('c' for complex).
+```
+
 * Pooling Layer
 
 * Activation Layer
@@ -16,6 +21,11 @@ hCNN, Hybrid Neural Network, a MATLAB NN toolbox that supports complex valued da
 * Fully Connected Layer
 
 `comp='c'` if you want the parameters to be complex.
+
+```
+cnn = cnnAddFCLayer(cnn, 128, 'r');
+% Add a fully connected layer with 128 outputs, real ('c' for complex).
+```
 
 * Reshape Layer
 
@@ -34,6 +44,7 @@ hCNN, Hybrid Neural Network, a MATLAB NN toolbox that supports complex valued da
         \                 /
 	     \--- sub NN ----/
 ```
+
 	Each sub-NN can also be composed of such multiple channel (BLOB) Layer.
 
 * Transformation Layer
@@ -60,6 +71,8 @@ hCNN, Hybrid Neural Network, a MATLAB NN toolbox that supports complex valued da
 
 	Leaked ReLu
 
+	The leaky rate can be adjusted in `cnnAddActivationLayer.m`
+
 * 'Sigmoid'
 
 	Sigmoid
@@ -67,6 +80,11 @@ hCNN, Hybrid Neural Network, a MATLAB NN toolbox that supports complex valued da
 * 'ABS'
 
 	Absolute value
+
+You can add more activation functions in
+>	`cnnAddActionvationLayer.m`
+>	`cnnActivate.m`
+>	`cnnDeActivate.m`
 
 ## Supported Output Layer
 * SoftMax
@@ -76,17 +94,17 @@ hCNN, Hybrid Neural Network, a MATLAB NN toolbox that supports complex valued da
 
 ## Insertion of SP Modules
 See examples of radar data layer:
->	'cnnAddRadarLayer.m'  
->	'cnnConvolveRadar.m'  
->	'cnnDeconvolveRadar.m
+>	`cnnAddRadarLayer.m`
+>	`cnnConvolveRadar.m`  
+>	`cnnDeconvolveRadar.m`
 
 See examples of Transformation layer:
->	'cnnAddTransformLayer.m'
->	'cnnTransform.m'
+>	`cnnAddTransformLayer.m`
+>	`cnnTransform.m`
 
 ## Example
 See the following file as an example of utilizing this toolbox:
->	'example_MNIST.m'
+>	`example_MNIST.m`
 
 ## Roadmap
 * RMSE output layer
