@@ -100,7 +100,6 @@ See examples of radar data layer:
 
 See examples of Transformation layer:
 >	`cnnAddTransformLayer.m` 
-
 >	`cnnTransform.m`
 
 ## Example
