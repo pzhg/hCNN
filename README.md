@@ -45,7 +45,7 @@ cnn = cnnAddFCLayer(cnn, 128, 'r');
 	     \--- sub NN ----/
 ```
 
-	Each sub-NN can also be composed of such multiple channel (BLOB) Layer.
+Each sub-NN can also be composed of such multiple channel (BLOB) Layer.
 
 * Transformation Layer
 	* CS Layer
