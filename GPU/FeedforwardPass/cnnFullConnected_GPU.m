@@ -1,3 +1,5 @@
-function fullyConnected=cnnFullConnected_GPU(FLayer, images)
+function fullyConnected = cnnFullConnected_GPU(FLayer, images)
 
-fullyConnected=bsxfun(@plus, FLayer.W*images, FLayer.B);
+    fullyConnected = bsxfun(@plus, FLayer.W * images, FLayer.B);
+
+end
