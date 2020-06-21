@@ -82,8 +82,8 @@ Each sub-NN can also be composed of such multiple channel (BLOB) Layer.
 	Absolute value
 
 You can add more activation functions in
->	`cnnAddActionvationLayer.m` 
->	`cnnActivate.m` 
+>	`cnnAddActionvationLayer.m`  
+>	`cnnActivate.m`  
 >	`cnnDeActivate.m` 
 
 ## Supported Output Layer
@@ -94,12 +94,12 @@ You can add more activation functions in
 
 ## Insertion of SP Modules
 See examples of radar data layer:
->	`cnnAddRadarLayer.m` 
+>	`cnnAddRadarLayer.m`  
 >	`cnnConvolveRadar.m`  
->	`cnnDeconvolveRadar.m` 
+>	`cnnDeconvolveRadar.m`  
 
 See examples of Transformation layer:
->	`cnnAddTransformLayer.m` 
+>	`cnnAddTransformLayer.m`   
 >	`cnnTransform.m`
 
 ## Example
