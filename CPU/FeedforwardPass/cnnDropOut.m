@@ -7,7 +7,7 @@ function [dropOut, DLayer] = cnnDropOut(images, DLayer)
         dropOut = dropOut / (1 - DLayer.rate);
         DLayer.location = location;
     else
-        dropOut=images;
+        dropOut = images;
     end
 
 end

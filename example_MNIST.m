@@ -3,7 +3,7 @@ clear;
 close all;
 dbstop if error
 
-profile on;
+mpiprofile on;
 tic;
 
 %% Load Data (MNIST)
@@ -66,4 +66,4 @@ acc = cnnTestData(cnn, VData, VLabel, 1000);
 fprintf('Validation accuracy is: %f\n', acc);
 
 toc;
-profile viewer;
+mpiprofile viewer;
