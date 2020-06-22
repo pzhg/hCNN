@@ -15,6 +15,10 @@ function cnn = cnnAddTransformLayer(cnn, TName, varargin)
         case {'MAXPOOL', 'maxpool', 'MEANPOOL', 'meanpool'}
             CLayer.poolDim = varargin{1};
             CLayer.OutDim = CLayer.OutDim ./ CLayer.poolDim;
+        case {'DWT', 'dwt'}
+            CLayer.OutDim = cnn.Layers{cnn.LNum}.OutDim / 2;
+            CLayer.FNum = CLayer.FNum * 4;
+            CLayer.wname = varargin{1};
     end
 
     % CLayer.useGPU=cnn.to.useGPU;
