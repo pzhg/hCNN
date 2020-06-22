@@ -10,7 +10,7 @@ function cnn = cnnAddBNLayer(cnn, varargin)
     switch cnn.Layers{cnn.LNum}.type
         case {1, 2}
             BLayer.mode = 1;
-        case 3
+        case {3, 12}
             BLayer.mode = 2;
         otherwise
             BLayer.mode = varargin{1};
