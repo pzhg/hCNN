@@ -4,7 +4,22 @@ function out = cnnTransform(images, CLayer)
         case {'FFT', 'fft'}
             out = fft(fft(images, [], 1), [], 2);
         case {'DWT', 'dwt'}
-            % Not installed
+            numImage = size(images, 4);
+            numFilter = size(images, 3);
+            out_ = zeros(CLayer.OutDim(1), CLayer.OutDim(2), numFilter, 4, numImage);
+
+            parfor inum = 1:numImage
+                for iflt = 1:numFilter
+                    wOut = zeros(CLayer.OutDim(1), CLayer.OutDim(2), 4);
+                    [wOut(:, :, 1), wOut(:, :, 2), wOut(:, :, 3), wOut(:, :, 4)] = dwt2(images(:, :, iflt, inum));
+                    out_(:, :, iflt, :, inum) = wOut;
+                    % out_(:, :, (iflt - 1) * 4 + 2, inum) = LH;
+                    % out_(:, :, (iflt - 1) * 4 + 3, inum) = HL;
+                    % out_(:, :, (iflt - 1) * 4 + 4, inum) = HH;
+                end
+            end
+
+            out = reshape(out_, CLayer.OutDim(1), CLayer.OutDim(2), numFilter * 4, numImage);
         case {'PCA', 'pca'}
             numImage = size(images, 4);
             numFilter = size(images, 3);

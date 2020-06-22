@@ -1,4 +1,7 @@
 function cnn = cnnAddBLOBLayer(cnn, Nets, NNum, OutDim, combineType)
+    % Nets: cells of subnets
+    % NNum: number of subnets
+    % OutDim: dimension of output of this layer
     % combineType: 1 for addition, 2 for linking
 
     BLayer = struct;

@@ -4,14 +4,9 @@ close all;
 dbstop if error
 
 mpiprofile on;
-tic;
 
 %% Load Data (MNIST)
 load MNIST.mat;
-% TrainData=reshape(TrainData, 28, 28, 1, 10, 6000);
-% LabelData=reshape(LabelData, 1, 10, 6000);
-% TrainData=TrainData(:, :, :, :, 1:10);
-% LabelData=LabelData(:, :, 1:10);
 
 %% Training Options
 to.epochs = 3;              % Epoch number
@@ -49,21 +44,19 @@ cnn = cnnAddDropOutLayer(cnn, 0.3);
 cnn = cnnAddBNLayer(cnn);
 cnn = cnnAddActivationLayer(cnn, 'ReLu');
 cnn = cnnAddFCLayer(cnn, 10, 'r');
-% cnn=cnnAddBNLayer(cnn, 2);
 cnn = cnnAddSoftMaxLayer(cnn);
 
 %% Train CNN
 cnn = cnnInitVelocity(cnn); % Initial the NN Parameters
 [ERR, cnn] = cnnTrainBP(cnn, TrainData, LabelData);
-% figure;
-% plot(ERR(1, :));
-% figure;
-% plot(ERR(2, :));
+figure;
+plot(ERR(1, :));
+figure;
+plot(ERR(2, :));
 
 %% Test NN
 cnn.to.test = 1;            % Set the test flag to 1
 acc = cnnTestData(cnn, VData, VLabel, 1000);
 fprintf('Validation accuracy is: %f\n', acc);
 
-toc;
 mpiprofile viewer;

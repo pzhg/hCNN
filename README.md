@@ -38,20 +38,25 @@ cnn = cnnAddFCLayer(cnn, 128, 'r');
 * Multiple Channel (BLOB) Layer like this:
 
 ```
-         /--- sub NN ---\
-        /                \
-   NN-------- sub NN --------(Other structutres)--Output
-        \                 /
-	     \--- sub NN ----/
+           /--- sub NN ---\
+          /                \
+   Input------- sub NN --------(Other structutres)--Output
+          \                /
+	       \--- sub NN ---/
 ```
 
-Each sub-NN can also be composed of such multiple channel (BLOB) Layer.
+Each sub-NN can also be composed of such multiple channel (BLOB) Layer. See `example_MicroDoppler.m` for detail.
 
 * Transformation Layer
 	* CS Layer
 	* Covariance-PCA Layer
-	* FFT Layer
-	* PCA/FFT/DWT/ABS/ARG/REAL/IMAG/LOWPASS/HIPASS... Layer
+	* Transformation Layer
+		* PCA Layer
+		* FFT Layer
+		* DWT Layer
+		* ABS/ARG/REAL/IMAG Layer
+		* LOWPASS/HIPASS Layer
+		See `cnnAddTransformLayer.m` for detail. More transformation types can be added manually.
 
 ## Supported Pooling Methods
 * 'mean'
@@ -105,6 +110,11 @@ See examples of Transformation layer:
 ## Example
 See the following file as an example of utilizing this toolbox:
 >	`example_MNIST.m` 
+Dataset used in this example is from [here](http://yann.lecun.com/exdb/mnist/).
+
+See the following file as an example of utilization of Multiple channel (BLOB) layer:
+>	`example_MicroDoppler.m`
+Dataset used in this example is from [here](https://www.mathworks.com/help/phased/examples/pedestrian-and-bicyclist-classification-using-deep-learning.html?s_eid=PEP_16543).
 
 ## Roadmap
 * RMSE output layer
