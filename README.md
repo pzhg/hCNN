@@ -115,6 +115,7 @@ Dataset used in this example is from [here](http://yann.lecun.com/exdb/mnist/).
 See the following file as an example of utilization of Multiple channel (BLOB) layer:
 >	`example_MicroDoppler.m`
 Dataset used in this example is from [here](https://www.mathworks.com/help/phased/examples/pedestrian-and-bicyclist-classification-using-deep-learning.html?s_eid=PEP_16543).
+You can download the MAT file used in this example from [here](https://1drv.ms/u/s!Akr-loZjbPYVufFK8J6pAMtHi1fEyA?e=T6Vgss).
 
 ## Roadmap
 * RMSE output layer

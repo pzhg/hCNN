@@ -7,10 +7,7 @@ mpiprofile on;
 
 %% Load Data (MicroDoppler)
 load('MicroDoppler.mat');
-<<<<<<< HEAD
 % The MicroDoppler.mat file can be downloaded from https://1drv.ms/u/s!Akr-loZjbPYVufFK8J6pAMtHi1fEyA?e=T6Vgss
-=======
->>>>>>> 258406163fcd1cf81915789d0c7201c8ac68ab2b
 trainLabelNoCarRe = trainLabelNoCarRe + 1;
 testLabelNoCarRe = testLabelNoCarRe + 1;
 
