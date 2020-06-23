@@ -8,8 +8,6 @@ mpiprofile on -historysize 150000000;
 %% Load Data (MicroDoppler)
 load('MicroDoppler.mat');
 % The MicroDoppler.mat file can be downloaded from https://1drv.ms/u/s!Akr-loZjbPYVufFK8J6pAMtHi1fEyA?e=T6Vgss
-trainLabelNoCarRe = trainLabelNoCarRe + 1;
-testLabelNoCarRe = testLabelNoCarRe + 1;
 
 %% Training Options
 to.epochs = 5;              % Epoch number
