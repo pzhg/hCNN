@@ -35,31 +35,9 @@ cnn = cnnAddFCLayer(cnn, 128, 'r');
 
 * Drop Out Layer
 
-* Multiple Channel (BLOB) Layer like this:
+* Multiple Channel (BLOB) Layer
 
-```
-           /--- sub NN ---\
-          /                \
-   Input------- sub NN --------(Other structutres)--Output
-          \                /
-	       \--- sub NN ---/
-```
-
-Each sub-NN can also be composed of such multiple channel (BLOB) Layer. See `example_MicroDoppler.m` for detail.
-
-* Transformation Layer
-	* CS Layer
-	* Covariance-PCA Layer
-	* Transformation Layer
-		* PCA Layer
-		* FFT Layer
-		* DWT Layer
-		* ABS/ARG/REAL/IMAG Layer
-		* LOWPASS/HIPASS Layer
-
-		See `cnnAddTransformLayer.m` for detail. 
-		
-		More transformation types can be added manually.
+* Signal Processing Modules: Transformation Layer
 
 ## Supported Pooling Methods
 * 'mean'
@@ -98,19 +76,54 @@ You can add more activation functions in
 * SoftMax (Cross Entropy)
 * MSE
 
-## Supported Training Method
-* BP (Gradient descent)
+## Multiple Channel (BLOB) Layer
 
-## Insertion of SP Modules
-See examples of radar data layer:
+The layer is constructed of multiple sub-NNs as multiple channels as:
+
+```
+           /--- sub NN ---\
+          /                \
+   Input------- sub NN ---------Output
+          \                /
+	       \--- sub NN ---/
+```
+
+Each sub-NN can also contain of such BLOB Layer, resulting a nested structure. See `example_MicroDoppler.m` for detail.
+
+## Signal Processing (SP) Modules
+
+### General SP Layers: contain parameters that can be trained during the training of hybrid-NN.
+
+See the example of Radar Data Layer:
 >	`cnnAddRadarLayer.m`  
 >	`cnnConvolveRadar.m`  
 >	`cnnDeconvolveRadar.m`  
 
-See examples of Transformation layer:
->	`cnnAddTransformLayer.m`   
->	`cnnTransform.m`
+You can also add your own SP layers. Use the above examples as references.
 
+### Special SP Layers: does not contain trainable parameters
+
+* Compresse Sensing (CS) Layer
+* Covariance-PCA Layer
+* Transformation Layer
+	* PCA Layer
+	* FFT Layer
+	* DWT Layer
+	* ABS/ARG/REAL/IMAG Layer
+	* LOWPASS/HIPASS Layer
+
+	See `cnnAddTransformLayer.m` for detail. 
+	
+More special SP layers and transformation types can be added manually. 
+
+See examples of Special SP layer:
+>	`cnnAddCSLayer.m` `cnnCS.m`  
+>	`cnnAddCoPCALayer.m` `cnnCoPCA.m`  
+>	`cnnAddTransformLayer.m` `cnnTransform.m`
+
+## Supported Training Method
+* BP (Gradient descent)
+ 
 ## Example
 See the following file as an example of utilizing this toolbox:
 >	`example_MNIST.m` 
