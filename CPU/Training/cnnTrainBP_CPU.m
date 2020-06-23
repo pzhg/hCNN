@@ -15,7 +15,7 @@ function [ERR, cnn] = cnnTrainBP_CPU(cnn, X, Y)
         for b_count = 1:cnn.to.batch
             %% Training Data
             mb_labels = Y(:, :, b_count);
-            if size(cnn.Layers{iLayer}.OutDim, 2) == 1
+            if size(cnn.Layers{1}.OutDim, 2) == 1
                 % MSE input
                 images = squeeze(X(:, 1, :, b_count));
             else
