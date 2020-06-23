@@ -3,7 +3,7 @@ clear all;
 close all;
 dbstop if error
 
-mpiprofile on;
+mpiprofile on -historysize 150000000;
 
 %% Load Data (MicroDoppler)
 load('MicroDoppler.mat');

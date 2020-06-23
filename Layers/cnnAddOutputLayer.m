@@ -26,5 +26,6 @@ function cnn = cnnAddOutputLayer(cnn, OutType)
     ELayer.OutType = OutType;
     cnn.LNum = cnn.LNum + 1;
     cnn.Layers{cnn.LNum} = ELayer;
+    cnn.outputDim = ELayer.OutDim;
 
 end

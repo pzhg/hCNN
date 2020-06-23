@@ -3,7 +3,7 @@ clear;
 close all;
 dbstop if error
 
-mpiprofile on;
+mpiprofile on -historysize 150000000;
 
 %% Load Data (MNIST)
 load MNIST.mat;
