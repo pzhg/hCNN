@@ -44,7 +44,7 @@ cnn = cnnAddDropOutLayer(cnn, 0.3);
 cnn = cnnAddBNLayer(cnn);
 cnn = cnnAddActivationLayer(cnn, 'ReLu');
 cnn = cnnAddFCLayer(cnn, 10, 'r');
-cnn = cnnAddSoftMaxLayer(cnn);
+cnn = cnnAddOutputLayer(cnn, 'SoftMax');
 
 %% Train CNN
 cnn = cnnInitVelocity(cnn); % Initial the NN Parameters

@@ -15,7 +15,12 @@ function [ERR, cnn] = cnnTrainBP_GPU(cnn, X, Y)
         for b_count = 1:cnn.to.batch
             %% Training Data
             mb_labels = gpuArray(single(Y(:, :, b_count)));
-            images = gpuArray(single(X(:, :, :, :, b_count)));
+            if size(cnn.Layers{iLayer}.OutDim, 2) == 1
+                % MSE input
+                images = gpuArray(squeeze(single(X(:, 1, :, b_count))));
+            else
+                images = gpuArray(single(X(:, :, :, :, b_count)));
+            end
             numImages = cnn.to.batch_size;
             % Momemtum
             cnn.to.mom = single(cnn.to.mom);
@@ -50,7 +55,7 @@ function [ERR, cnn] = cnnTrainBP_GPU(cnn, X, Y)
                     outPut = gpuArray.single(squeeze(mb_labels));
                     ceCost = 1/2 * sum((cnn.OutData{cnn.LNum}(:) - outPut(:)).^2);
                 otherwise
-                    error('Illegal End Layer!');
+                    error('Illegal Output Layer Type!');
             end
 
             wCost = cnn.to.lambda * cnn.wCost / 2;

@@ -58,7 +58,7 @@ cnn = cnnAddInputLayer(cnn, [400, 144], 1);
     cnn1 = cnnAddReshapeLayer(cnn1);
     cnn1 = cnnAddFCLayer(cnn1, 64, 'r');
     cnn1 = cnnAddActivationLayer(cnn1, 'ReLu');
-    cnn1 = cnnAddEndLayer(cnn1);
+    cnn1 = cnnAddOutputLayer(cnn1, 'end_BLOB');
     cnn1 = cnnInitVelocity(cnn1);
 
     % subnet 2: PCA
@@ -84,7 +84,7 @@ cnn = cnnAddInputLayer(cnn, [400, 144], 1);
     cnn2 = cnnAddReshapeLayer(cnn2);
     cnn2 = cnnAddFCLayer(cnn2, 64, 'r');
     cnn2 = cnnAddActivationLayer(cnn2, 'ReLu');
-    cnn2 = cnnAddEndLayer(cnn2);
+    cnn2 = cnnAddOutputLayer(cnn2, 'end_BLOB');
     cnn2 = cnnInitVelocity(cnn2);
 
 % Combine
@@ -97,7 +97,7 @@ cnn = cnnAddFCLayer(cnn, 64, 'r');
 cnn = cnnAddBNLayer(cnn);
 cnn = cnnAddActivationLayer(cnn, 'ReLu');
 cnn = cnnAddFCLayer(cnn, 2, 'r');
-cnn = cnnAddSoftMaxLayer(cnn);
+cnn = cnnAddOutputLayer(cnn, 'SoftMax');
 cnn = cnnInitVelocity(cnn);
 
 %% Train CNN

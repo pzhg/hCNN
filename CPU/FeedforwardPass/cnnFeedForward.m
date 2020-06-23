@@ -89,7 +89,7 @@ function cnn = cnnFeedForward(cnn, images)
                 %                 cnn.Layers{iLayer}.calced=1;
                 %             end
             case 103
-                % End
+                % End_BLOB
                 cnn.OutData{iLayer} = cnn.OutData{iLayer - 1};
             case 104
                 % Transform

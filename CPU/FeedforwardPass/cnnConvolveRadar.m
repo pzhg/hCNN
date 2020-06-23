@@ -9,7 +9,7 @@ function convolvedFeatures = cnnConvolveRadar(RLayer, images)
 
     parfor i_img = 1:numImages
         convolvedImage = zeros(RLayer.OutDim);
-        im = images(:, :, :, i_img);
+        im = images(:, :, 1, i_img);
         convolvedImage = convolvedImage + conv2(im, XFilter, 'valid');
         convolvedFeatures(:, :, 1, i_img) = convolvedImage;
     end

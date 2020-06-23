@@ -6,11 +6,11 @@ function cnn = cnnBackPropagation(cnn, outPut)
     for iLayer = cnn.LNum:-1:1
 
         switch cnn.Layers{iLayer}.type
-            case 0
-                % Input
-                cnn.Delta{iLayer} = cnn.Delta{iLayer + 1};
+            % case 0
+            %     % Input
+            %     cnn.Delta{iLayer} = cnn.Delta{iLayer + 1};
             case {4, 8}
-                % Error of SoftMax Layer
+                % Error of Output Layer
                 cnn.Delta{iLayer} = cnn.OutData{iLayer} - outPut;
             case 3
                 % Error of Fully Connected Layer
