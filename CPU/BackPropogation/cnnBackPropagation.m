@@ -6,8 +6,8 @@ function cnn = cnnBackPropagation(cnn, outPut)
     for iLayer = cnn.LNum:-1:1
 
         switch cnn.Layers{iLayer}.type
-            % case 0
-            %     % Input
+            case 0
+                % Input
             %     cnn.Delta{iLayer} = cnn.Delta{iLayer + 1};
             case {4, 8}
                 % Error of Output Layer

@@ -12,7 +12,7 @@ function cnn = cnnFeedForward_GPU(cnn, images)
                 % Input Layer
                 cnn.OutData{iLayer} = images;
 
-                if size(cnn.Layers{iLayer}.OutDim, 2) == 1
+                if length(cnn.Layers{1}.OutDim) == 1
                     cnn.OutData{iLayer} = squeeze(cnn.OutData{iLayer});
                 end
 
