@@ -9,7 +9,7 @@ mpiprofile on;
 load MNIST.mat;
 
 %% Training Options
-to.epochs = 1;              % Epoch number
+to.epochs = 3;              % Epoch number
 to.batch = 400;             % Batch number
 to.batch_size = 150;        % Batch size
 to.alpha = 0.1;             % Learning rate
