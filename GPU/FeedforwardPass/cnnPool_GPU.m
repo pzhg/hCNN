@@ -19,9 +19,9 @@ function [PLayer, pooledFeatures] = cnnPool_GPU(PLayer, convolvedFeatures)
 
         case {'max', 'MAX', 'Max'}
             % Max Pooling
-            poolLocation = ones(1, PLayer.OutDim(1) * PLayer.OutDim(2), PLayer.FNum, numImages);
+            poolLocation = zeros(1, PLayer.OutDim(1) * PLayer.OutDim(2), PLayer.FNum, numImages);
             convolvedFeatures_ = gather(convolvedFeatures);
-            pooledFeatures_ = gpuArray.zeros(PLayer.OutDim(1), PLayer.OutDim(2), PLayer.FNum, numImages, 'single');
+            pooledFeatures_ = zeros(PLayer.OutDim(1), PLayer.OutDim(2), PLayer.FNum, numImages, 'single');
 
             parfor imageNum = 1:numImages
                 for featureNum = 1:numFilters

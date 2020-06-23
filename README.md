@@ -29,7 +29,7 @@ cnn = cnnAddFCLayer(cnn, 128, 'r');
 
 * Reshape Layer
 
-* SoftMax Layer
+* Output Layer
 
 * Batched Normalization Layer
 
@@ -95,7 +95,8 @@ You can add more activation functions in
 >	`cnnDeActivate.m` 
 
 ## Supported Output Layer
-* SoftMax
+* SoftMax (Cross Entropy)
+* MSE
 
 ## Supported Training Method
 * BP (Gradient descent)
@@ -116,7 +117,7 @@ See the following file as an example of utilizing this toolbox:
 
 Dataset used in this example is from [here](http://yann.lecun.com/exdb/mnist/).
 
-See the following file as an example of utilization of Multiple channel (BLOB) layer:
+See the following file as an example of utilization of Multiple channel (BLOB) layer and the insertion of SP Module:
 >	`example_MicroDoppler.m`
 
 Dataset used in this example is from [here](https://www.mathworks.com/help/phased/examples/pedestrian-and-bicyclist-classification-using-deep-learning.html?s_eid=PEP_16543).
@@ -124,7 +125,6 @@ Dataset used in this example is from [here](https://www.mathworks.com/help/phase
 You can download the MAT file used in this example from [here](https://1drv.ms/u/s!Akr-loZjbPYVufFK8J6pAMtHi1fEyA?e=T6Vgss).
 
 ## Roadmap
-* RMSE output layer
 * More training algorithms
 
 ## Reference

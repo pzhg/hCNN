@@ -75,7 +75,7 @@ function [ERR, cnn] = cnnTrainBP_GPU(cnn, X, Y)
                     fprintf('Epoch %d: Cost on iteration %d is %f\n', e_count, b_count, cost);
                     ERR = [ERR, cost];
                 otherwise
-                    error('Illegal End Layer!');
+                    error('Illegal Output Layer Type!');
             end
 
             %         reset(gpu);
