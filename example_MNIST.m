@@ -32,19 +32,19 @@ feature('SetPrecision', 24);
 cnn = cnnAddInputLayer(cnn, [28, 28], 1);
 cnn = cnnAddConvLayer(cnn, [3, 3], 8, 'r');
 cnn = cnnAddBNLayer(cnn);
-cnn = cnnAddActivationLayer(cnn, 'ReLu');
+cnn = cnnAddActivationLayer(cnn, 'relu');
 cnn = cnnAddPoolLayer(cnn, 'max', [2, 2]);
 cnn = cnnAddConvLayer(cnn, [4, 4], 8, 'r');
 cnn = cnnAddBNLayer(cnn);
-cnn = cnnAddActivationLayer(cnn, 'ReLu');
+cnn = cnnAddActivationLayer(cnn, 'relu');
 cnn = cnnAddPoolLayer(cnn, 'max', [2, 2]);
 cnn = cnnAddReshapeLayer(cnn);
 cnn = cnnAddFCLayer(cnn, 128, 'r');
 cnn = cnnAddDropOutLayer(cnn, 0.3);
 cnn = cnnAddBNLayer(cnn);
-cnn = cnnAddActivationLayer(cnn, 'ReLu');
+cnn = cnnAddActivationLayer(cnn, 'relu');
 cnn = cnnAddFCLayer(cnn, 10, 'r');
-cnn = cnnAddOutputLayer(cnn, 'SoftMax');
+cnn = cnnAddOutputLayer(cnn, 'softmax');
 
 %% Train CNN
 cnn = cnnInitVelocity(cnn); % Initial the NN Parameters
