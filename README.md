@@ -24,7 +24,7 @@ To usage of this toolbox has four steps, which is simple and intuitive:
 
 1. Define hyper parameters and initialize the NN
 
-	```
+	```matlab
 	to.epochs = 3;              % Epoch number
 	to.batch = 400;             % Batch number
 	to.batch_size = 150;        % Batch size
@@ -39,7 +39,7 @@ To usage of this toolbox has four steps, which is simple and intuitive:
 
 2. Define NN structure (Add layers)
 
-	```
+	```matlab
 	cnn = cnnAddInputLayer(cnn, [28, 28], 1);
 	cnn = cnnAddConvLayer(cnn, [3, 3], 8, 'r');
 	cnn = cnnAddBNLayer(cnn);
@@ -55,13 +55,13 @@ To usage of this toolbox has four steps, which is simple and intuitive:
 
 3. Train
 
-	```
+	```matlab
 	[ERR, cnn] = cnnTrainBP(cnn, TrainData, LabelData);
 	```
 
 4. Validate
 
-	```
+	```matlab
 	acc = cnnTestData(cnn, VData, VLabel, 1000);
 	```
 
@@ -83,63 +83,63 @@ You can download the MAT file used in this example from [here](https://1drv.ms/u
 ## Supported Layers
 * Convolutional Layer
 
-	```
+	```matlab
 	cnn = cnnAddConvLayer(NN_NAME, FILTER_SIZE, FILTER_NUM, COMPLEX_FLAG);
 	```
 
 	Set `COMPLEX_FLAG` to `'c'` if you want the parameters to be complex, otherwise use `'r'`.
 
 	Example:
-	```
+	```matlab
 	cnn = cnnAddConvLayer(cnn, [3, 3], 8, 'r');
 	% Add a convolution layer with 3*3 filter and 8 channels, real.
 	```
 
 * Pooling Layer
 
-	```
+	```matlab
 	cnn = cnnAddPoolLayer(NN_NAME, POOLING_METHOD, POOLING_SIZE);
 	```
 
 	See [Supported Pooling Methods Section](#supported-pooling-methods) for a list of supported pooling methods. 
 
 	Example:
-	```
+	```matlab
 	cnn = cnnAddPoolLayer(cnn, 'max', [2, 2]);
 	% Add a pooling layer with max pooling and 2*2 pooling size.
 	```
 
 * Activation Layer
 
-	```
+	```matlab
 	cnn = cnnAddActivationLayer(NN_NAME, ACTIVITAION_FUNCTION);
 	```
 
 	See [Supported Activation Functions Section](#supported-activation-functions) for a list of supported pooling methods. 	
 
 	Example:
-	```
+	```matlab
 	cnn = cnnAddActivationLayer(cnn, 'relu');
 	% Add an activation layer with 'reLu' activation function.
 	```
 
 * Fully Connected Layer
 
-	```
+	```matlab
 	cnn = cnnAddFCLayer(NN_NAME, OUTPUT_SIZE, COMPLEX_FLAG);
 	```
 
 	Set `COMPLEX_FLAG` to `'c'` if you want the parameters to be complex, otherwise use `'r'`.
 
 	Example:
-	```
+	```matlab
 	cnn = cnnAddFCLayer(cnn, 128, 'r');
 	% Add a fully connected layer with 128 outputs, real parameters.
 	```
 
 * Reshape Layer
 
-	```
+	```matlab
 	cnn = cnnAddReshapeLayer(NN_NAME);
 	```
 
@@ -147,21 +147,21 @@ You can download the MAT file used in this example from [here](https://1drv.ms/u
 
 * Output Layer
 
-	```
+	```matlab
 	cnn = cnnAddOutputLayer(NN_NAME, OUTPUT_METHOD);
 	```
 
 	See [Supported Output Methods Section](#supported-output-methods) for a list of supported output layer types. 	
 
 	Example:
-	```
+	```matlab
 	cnn = cnnAddOutputLayer(cnn, 'softmax');
 	% Add a SoftMax output layer.
 	```
 
 * Batched Normalization Layer
 
-	```
+	```matlab
 	cnn = cnnAddBNLayer(NN_NAME);
 	cnn = cnnAddBNLayer(NN_NAME, MODE)
 	```
@@ -170,14 +170,14 @@ You can download the MAT file used in this example from [here](https://1drv.ms/u
 
 * Drop Out Layer
 
-	```
+	```matlab
 	cnn = cnnAddDropOutLayer(NN_NAME, DROPOUT_RATE);
 	```
 
 	`DROPOUT_RATE` specifies the probability of removing neurons.
 
 	Example:
-	```
+	```matlab
 	cnn = cnnAddDropOutLayer(cnn, 0.3);
 	% Remove 30% neurons (i.e. keep 70% neurons).
 	```
@@ -254,7 +254,7 @@ Each sub-NN can also contain of such BLOB Layer, resulting a nested structure.
 
 Syntax:
 
-```
+```matlab
 	SUBNET_LIST = {SUBNN_1, SUBNN_2, ...}
 	cnn = cnnAddBLOBLayer(cnn, SUBNET_LIST, OUTPUT_DIM, COMBINE_TYPE);
 ```
@@ -264,7 +264,7 @@ Syntax:
 * `COMBINE_TYPE` specifies that how to combine the sub-NNs. See [Supported Combining Types](#supported-combining-types) for a list of supported combining types.
 
 Example:
-```
+```matlab
 	nets = {cnn1, cnn2};
 	cnn = cnnAddBLOBLayer(cnn, nets, 128, 2);
 	% The BLOB layer has two sub-NNs, the output dimension is 128, and the combining type is 'linking'.
@@ -303,7 +303,7 @@ Currently the following special SP layers are supported:
 
 * Compressed Sensing (CS) Layer
 
-	```
+	```matlab
 	cnn = cnnAddCSLayer(NN_NAME, OUTDIM, COMPLEX_FLAG);
 	```
 
@@ -311,7 +311,7 @@ Currently the following special SP layers are supported:
 
 * Covariance-PCA Layer
 
-	```
+	```matlab
 	cnn = cnnAddCoPCALayer(NN_NAME, FILTER_DIM, PCA_DIM, CORR_STEP, CORR_TYPE);
 	```
 
@@ -321,7 +321,7 @@ Currently the following special SP layers are supported:
 	* `CORR_TYPE`: `1` for auto-correlation and `2` for cross-correlation.
 
 	Example:
-	```
+	```matlab
 	cnn = cnnAddCoPCALayer(cnn, [3, 3], 1:3, [2, 2], 1);
 	% Add a CoPCA layer with correlation window 3*3, stide 2*2, PCA keeps the larget three singular
 	  values, and do auto-correlation.
@@ -331,14 +331,17 @@ Currently the following special SP layers are supported:
 
 	Add a layer which do transform to the input data. Syntax:
 
-	```
+	```matlab
 	cnn = cnnAddTransformLayer(NN_NAME, TRAMSFORM, ...)
 	```
 
 	Currently supported transforms:
 	* `'pca'`
 	
-		PCA Layer. Use syntax `cnnAddTransformLayer(NN_NAME, 'pca', PCA_DIM);` to specify the PCA dimension. 
+		PCA Layer. Use syntax 
+		```matlab
+		cnnAddTransformLayer(NN_NAME, 'pca', PCA_DIM);
+		``` to specify the PCA dimension. 
 
 	* `'fft'` 
 	
@@ -346,7 +349,10 @@ Currently the following special SP layers are supported:
 
 	* `'dwt'`
 
-		DWT Layer. Use syntax `cnnAddTransformLayer(NN_NAME, 'dwt', WAVELET_NAME);` to specify the wavelet name (must be supported by MATLAB Wavelet Toolbox). 
+		DWT Layer. Use syntax 
+		```matlab
+		cnnAddTransformLayer(NN_NAME, 'dwt', WAVELET_NAME);
+		``` to specify the wavelet name (must be supported by MATLAB Wavelet Toolbox). 
 	
 	*  `'abs'` `'arg'` `'real'` `'imag'`
 	
@@ -364,7 +370,7 @@ See examples of Special SP layer:
 ## Supported Training Method
 * BP (Gradient descent)
 
-	```
+	```matlab
 	[ERR, cnn] = cnnTrainBP(NN_NAME, TRAINING_DATA, TRAINING_LABEL);
 	```
 
@@ -374,7 +380,7 @@ See examples of Special SP layer:
 
 ## Validation
 
-```
+```matlab
 [acc, e] = cnnTestData(NN_NAME, TEST_DATA, TEST_LABEL, TEST_SIZE);
 ```
 
