@@ -87,7 +87,7 @@ To usage of this toolbox has for steps, which is simple and intuitive:
 	cnn = cnnAddPoolLayer(NN_NAME, POOLING_METHOD, POOLING_SIZE);
 	```
 
-	See [Supported Pooling Methods Section](#Supported Pooling Methods) for a list of supported pooling methods. 
+	See [Supported Pooling Methods Section](#supported-pooling-methods) for a list of supported pooling methods. 
 
 	Example:
 	```
@@ -101,7 +101,7 @@ To usage of this toolbox has for steps, which is simple and intuitive:
 	cnn = cnnAddActivationLayer(NN_NAME, ACTIVITAION_FUNCTION);
 	```
 
-	See [Supported Activation Functions Section](#Supported Activation Functions) for a list of supported pooling methods. 	
+	See [Supported Activation Functions Section](#supported-activation-functions) for a list of supported pooling methods. 	
 
 	Example:
 	```
@@ -137,7 +137,7 @@ To usage of this toolbox has for steps, which is simple and intuitive:
 	cnn = cnnAddOutputLayer(NN_NAME, OUTPUT_METHOD);
 	```
 
-	See [Supported Output Methods Section](#Supported Output Methods) for a list of supported output layer types. 	
+	See [Supported Output Methods Section](#supported-output-methods) for a list of supported output layer types. 	
 
 	Example:
 	```
@@ -170,11 +170,11 @@ To usage of this toolbox has for steps, which is simple and intuitive:
 
 * Multiple Channel (BLOB) Layer
 
-	We use this layer to support the multiple channel structure. See [Multiple Channel (BLOB) Layer Section](#Multiple Channel (BLOB) Layer) detail.
+	We use this layer to support the multiple channel structure. See [Multiple Channel (BLOB) Layer Section](#multiple-channel-blob-layer) detail.
 
 * Signal Processing Layers and Transform Layer
 
-	We use these layers to support the signal processing (SP) modules. See [Signal Processing (SP) Modules Section](#Signal Processing (SP) Modules) detail.
+	We use these layers to support the signal processing (SP) modules. See [Signal Processing (SP) Modules Section](#signal-processing-sp-modules) detail.
 
 ## Layer Options
 
@@ -247,7 +247,7 @@ Syntax:
 
 	* `SUBNET_LIST` is a cell of multiple sub-NNs. Eash sub-NN is a conventional NN defined as usual. You must use `end_BLOB` as its output layer type.
 	* `OUTPUT_DIM` is the dimention (number of neurons) of the output of this BLOB layer.
-	* `COMBINE_TYPE` specifies that how to combine the sub-NNs. See [Supported Combining Types](#Supported Combining Types) for a list of supported combining types.
+	* `COMBINE_TYPE` specifies that how to combine the sub-NNs. See [Supported Combining Types](#supported-combining-types) for a list of supported combining types.
 
 Example:
 	```
