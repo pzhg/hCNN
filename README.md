@@ -239,23 +239,22 @@ The layer is constructed of multiple sub-NNs as multiple channels as:
 Each sub-NN can also contain of such BLOB Layer, resulting a nested structure. 
 
 Syntax:
-	```
+
+```
 	SUBNET_LIST = {SUBNN_1, SUBNN_2, ...}
 	cnn = cnnAddBLOBLayer(cnn, SUBNET_LIST, OUTPUT_DIM, COMBINE_TYPE);
-	```
+```
 
-	* `SUBNET_LIST` is a cell of multiple sub-NNs. Eash sub-NN is a conventional NN defined as usual. 
-	   You must use `end_BLOB` as its output layer type.
-	* `OUTPUT_DIM` is the dimention (number of neurons) of the output of this BLOB layer.
-	* `COMBINE_TYPE` specifies that how to combine the sub-NNs. See [Supported Combining Types](#supported-combining-types)
-	   for a list of supported combining types.
+* `SUBNET_LIST` is a cell of multiple sub-NNs. Eash sub-NN is a conventional NN defined as usual. You must use `end_BLOB` as its output layer type.
+* `OUTPUT_DIM` is the dimention (number of neurons) of the output of this BLOB layer.
+* `COMBINE_TYPE` specifies that how to combine the sub-NNs. See [Supported Combining Types](#supported-combining-types) for a list of supported combining types.
 
 Example:
-	```
+```
 	nets = {cnn1, cnn2};
 	cnn = cnnAddBLOBLayer(cnn, nets, 128, 2);
 	% The BLOB layer has two sub-NNs, the output dimension is 128, and the combining type is 'linking'.
-	```
+```
 
 See `example_MicroDoppler.m` for detail usages.
 
@@ -351,16 +350,17 @@ See examples of Special SP layer:
 ## Supported Training Method
 * BP (Gradient descent)
 
-	```
+```
 	[ERR, cnn] = cnnTrainBP(NN_NAME, TRAINING_DATA, TRAINING_LABEL);
-	```
+```
 
 	* `ERR`: array contains training accuracies and costs.
 
 ## Validation
-	```
+
+```
 	[acc, e] = cnnTestData(NN_NAME, TEST_DATA, TEST_LABEL, TEST_SIZE);
-	```
+```
 
 	* `acc`: validation accuracy.
 	* `e`: validation result array.
