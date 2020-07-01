@@ -238,6 +238,7 @@ The layer is constructed of multiple sub-NNs as multiple channels as:
 
 Each sub-NN can also contain of such BLOB Layer, resulting a nested structure. 
 
+Syntax:
 	```
 	SUBNET_LIST = {SUBNN_1, SUBNN_2, ...}
 	cnn = cnnAddBLOBLayer(cnn, SUBNET_LIST, OUTPUT_DIM, COMBINE_TYPE);
@@ -300,16 +301,17 @@ Currently the following special SP layers are supported:
 	```
 	cnn = cnnAddCoPCALayer(NN_NAME, FILTER_DIM, PCA_DIM, CORR_STEP, CORR_TYPE);
 	```
-	** FILTER_DIM: dimension of the covariance window.
-	** PCA_DIM: the dimension of PCA.
-	** CORR_STEP: The stride of correlation.
-	** CORR_TYPE: `1` for auto-correlation and `2` for cross-correlation.
+
+	* FILTER_DIM: dimension of the covariance window.
+	* PCA_DIM: the dimension of PCA.
+	* CORR_STEP: The stride of correlation.
+	* CORR_TYPE: `1` for auto-correlation and `2` for cross-correlation.
 
 	Example:
 	```
 	cnn = cnnAddCoPCALayer(cnn, [3, 3], 1:3, [2, 2], 1);
-	% Add a CoPCA layer with correlation window 3*3, stide 2*2, PCA keeps the larget three singular values, 
-	  and do auto-correlation.
+	% Add a CoPCA layer with correlation window 3*3, stide 2*2, PCA keeps the larget three singular
+	  values, and do auto-correlation.
 	```
 
 * Transform Layer
@@ -353,17 +355,16 @@ See examples of Special SP layer:
 	[ERR, cnn] = cnnTrainBP(NN_NAME, TRAINING_DATA, TRAINING_LABEL);
 	```
 
-	** `ERR`: array contains training accuracies and costs.
+	* `ERR`: array contains training accuracies and costs.
 
 ## Validation
-
 	```
 	[acc, e] = cnnTestData(NN_NAME, TEST_DATA, TEST_LABEL, TEST_SIZE);
 	```
 
-	** `acc`: validation accuracy.
-	** `e`: validation result array.
-	** `TEST_SIZE`: use how many data to do the validation.
+	* `acc`: validation accuracy.
+	* `e`: validation result array.
+	* `TEST_SIZE`: use how many data to do the validation.
 
 
 ## Example
