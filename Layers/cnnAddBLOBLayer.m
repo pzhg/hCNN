@@ -1,4 +1,4 @@
-function cnn = cnnAddBLOBLayer(cnn, Nets, NNum, OutDim, combineType)
+function cnn = cnnAddBLOBLayer(cnn, Nets, OutDim, combineType)
     % Nets: cells of subnets
     % NNum: number of subnets
     % OutDim: dimension of output of this layer
@@ -7,7 +7,7 @@ function cnn = cnnAddBLOBLayer(cnn, Nets, NNum, OutDim, combineType)
     BLayer = struct;
     BLayer.type = 10;
     BLayer.Nets = Nets;
-    BLayer.NNum = NNum;
+    BLayer.NNum = length(Nets) ;
     BLayer.OutDim = OutDim;
     % for inet=1:BLayer.NNum
     %     tcnn=BLayer.Nets{inet};

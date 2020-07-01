@@ -58,7 +58,7 @@ function cnn = cnnBackPropagation(cnn, outPut)
                         cnn.Layers{iLayer}.Nets{inet} = tcnn;
                     end
 
-                else
+                elseif cnn.Layers{iLayer}.combineType == 2
                     offset = 0;
 
                     for inet = 1:cnn.Layers{iLayer}.NNum
@@ -73,6 +73,9 @@ function cnn = cnnBackPropagation(cnn, outPut)
 
                         cnn.Layers{iLayer}.Nets{inet} = tcnn;
                     end
+                    
+                else
+                    error('Unknown combing method!');
 
                 end
 

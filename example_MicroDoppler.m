@@ -87,7 +87,7 @@ cnn = cnnAddInputLayer(cnn, [400, 144], 1);
 
 % Combine
 nets = {cnn1, cnn2};
-cnn = cnnAddBLOBLayer(cnn, nets, 2, 128, 2);
+cnn = cnnAddBLOBLayer(cnn, nets, 128, 2);
 cnn = cnnAddFCLayer(cnn, 128, 'r');
 cnn = cnnAddBNLayer(cnn);
 cnn = cnnAddActivationLayer(cnn, 'relu');

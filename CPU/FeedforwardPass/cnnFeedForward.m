@@ -63,7 +63,7 @@ function cnn = cnnFeedForward(cnn, images)
                         cnn.Layers{iLayer}.Nets{inet} = tcnn;
                     end
 
-                else
+                elseif cnn.Layers{iLayer}.combineType == 2
                     offset = 0;
 
                     for inet = 1:cnn.Layers{iLayer}.NNum
@@ -73,6 +73,9 @@ function cnn = cnnFeedForward(cnn, images)
                         offset = offset + tcnn.Layers{tcnn.LNum}.OutDim;
                         cnn.Layers{iLayer}.Nets{inet} = tcnn;
                     end
+                    
+                else
+                    error('Unknown combing method!');
 
                 end
 
