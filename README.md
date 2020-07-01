@@ -66,6 +66,21 @@ To usage of this toolbox has for steps, which is simple and intuitive:
 	acc = cnnTestData(cnn, VData, VLabel, 1000);
 	```
 
+## Example
+See the following file as an example of utilizing this toolbox:
+>	`example_MNIST.m` 
+
+Dataset used in this example is from [here](http://yann.lecun.com/exdb/mnist/).
+
+See the following file as an example of utilization of Multiple channel (BLOB) layer and the insertion of SP Module:
+>	`example_MicroDoppler.m`
+
+Dataset used in this example is from [here](https://www.mathworks.com/help/phased/examples/pedestrian-and-bicyclist-classification-using-deep-learning.html?s_eid=PEP_16543).
+
+You can download the MAT file used in this example from [here](https://1drv.ms/u/s!Akr-loZjbPYVufFK8J6pAMtHi1fEyA?e=T6Vgss).
+
+# Toolbox Manual
+
 ## Supported Layers
 * Convolutional Layer
 
@@ -245,7 +260,7 @@ Syntax:
 	cnn = cnnAddBLOBLayer(cnn, SUBNET_LIST, OUTPUT_DIM, COMBINE_TYPE);
 ```
 
-* `SUBNET_LIST` is a cell of multiple sub-NNs. Eash sub-NN is a conventional NN defined as usual. You must use `end_BLOB` as its output layer type.
+* `SUBNET_LIST` is a cell array of multiple sub-NNs. Eash sub-NN is a conventional NN defined as usual. You must use `end_BLOB` as its output layer type.
 * `OUTPUT_DIM` is the dimention (number of neurons) of the output of this BLOB layer.
 * `COMBINE_TYPE` specifies that how to combine the sub-NNs. See [Supported Combining Types](#supported-combining-types) for a list of supported combining types.
 
@@ -330,11 +345,11 @@ Currently the following special SP layers are supported:
 	
 		FFT Layer.
 
-	* `dwt`
+	* `'dwt'`
 
 		DWT Layer. Use syntax `cnnAddTransformLayer(NN_NAME, 'dwt', WAVELET_NAME);` to specify the wavelet name (must be supported by MATLAB Wavelet Toolbox). 
 	
-	*  `abs` `arg` `real` `imag`
+	*  `'abs'` `'arg'` `'real'` `'imag'`
 	
 		ABS/ARG/REAL/IMAG Layer for complex input.
 	
@@ -350,35 +365,23 @@ See examples of Special SP layer:
 ## Supported Training Method
 * BP (Gradient descent)
 
-```
+	```
 	[ERR, cnn] = cnnTrainBP(NN_NAME, TRAINING_DATA, TRAINING_LABEL);
-```
+	```
 
-* `ERR`: array contains training accuracies and costs.
+	* `ERR`: array contains training accuracies and costs.
+
+* More training methods (e.g. SGD) on the way.
 
 ## Validation
 
 ```
-	[acc, e] = cnnTestData(NN_NAME, TEST_DATA, TEST_LABEL, TEST_SIZE);
+[acc, e] = cnnTestData(NN_NAME, TEST_DATA, TEST_LABEL, TEST_SIZE);
 ```
 
 * `acc`: validation accuracy.
 * `e`: validation result array.
 * `TEST_SIZE`: use how many data to do the validation.
-
-
-## Example
-See the following file as an example of utilizing this toolbox:
->	`example_MNIST.m` 
-
-Dataset used in this example is from [here](http://yann.lecun.com/exdb/mnist/).
-
-See the following file as an example of utilization of Multiple channel (BLOB) layer and the insertion of SP Module:
->	`example_MicroDoppler.m`
-
-Dataset used in this example is from [here](https://www.mathworks.com/help/phased/examples/pedestrian-and-bicyclist-classification-using-deep-learning.html?s_eid=PEP_16543).
-
-You can download the MAT file used in this example from [here](https://1drv.ms/u/s!Akr-loZjbPYVufFK8J6pAMtHi1fEyA?e=T6Vgss).
 
 ## Roadmap
 * [x] CPU Training support.
