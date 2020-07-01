@@ -245,9 +245,11 @@ Syntax:
 	cnn = cnnAddBLOBLayer(cnn, SUBNET_LIST, OUTPUT_DIM, COMBINE_TYPE);
 	```
 
-	* `SUBNET_LIST` is a cell of multiple sub-NNs. Eash sub-NN is a conventional NN defined as usual. You must use `end_BLOB` as its output layer type.
+	* `SUBNET_LIST` is a cell of multiple sub-NNs. Eash sub-NN is a conventional NN defined as usual. 
+	You must use `end_BLOB` as its output layer type.
 	* `OUTPUT_DIM` is the dimention (number of neurons) of the output of this BLOB layer.
-	* `COMBINE_TYPE` specifies that how to combine the sub-NNs. See [Supported Combining Types](#supported-combining-types) for a list of supported combining types.
+	* `COMBINE_TYPE` specifies that how to combine the sub-NNs. See [Supported Combining Types](#supported-combining-types)
+	 for a list of supported combining types.
 
 Example:
 	```
