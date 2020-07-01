@@ -308,7 +308,8 @@ Currently the following special SP layers are supported:
 	Example:
 	```
 	cnn = cnnAddCoPCALayer(cnn, [3, 3], 1:3, [2, 2], 1);
-	% Add a CoPCA layer with correlation window 3*3, stide 2*2, PCA keeps the larget three singular values, and do auto-correlation.
+	% Add a CoPCA layer with correlation window 3*3, stide 2*2, PCA keeps the larget three singular values, 
+	  and do auto-correlation.
 	```
 
 * Transform Layer
@@ -322,19 +323,19 @@ Currently the following special SP layers are supported:
 	Currently supported transforms:
 	* `'pca'`
 	
-	PCA Layer. Use syntax `cnnAddTransformLayer(NN_NAME, 'pca', PCA_DIM);` to specify the PCA dimension. 
+		PCA Layer. Use syntax `cnnAddTransformLayer(NN_NAME, 'pca', PCA_DIM);` to specify the PCA dimension. 
 
 	* `'fft'` 
 	
-	FFT Layer.
+		FFT Layer.
 
 	* `dwt`
 
-	DWT Layer. Use syntax `cnnAddTransformLayer(NN_NAME, 'dwt', WAVELET_NAME);` to specify the wavelet name (must be supported by MATLAB Wavelet Toolbox). 
+		DWT Layer. Use syntax `cnnAddTransformLayer(NN_NAME, 'dwt', WAVELET_NAME);` to specify the wavelet name (must be supported by MATLAB Wavelet Toolbox). 
 	
 	*  `abs` `arg` `real` `imag`
 	
-	ABS/ARG/REAL/IMAG Layer for complex input.
+		ABS/ARG/REAL/IMAG Layer for complex input.
 	
 	See `cnnAddTransformLayer.m` for detail. 
 	
