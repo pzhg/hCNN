@@ -14,7 +14,7 @@ Here we proposed a hybrid neural network (Hybrid-NN) as a novel scheme to improv
 
 An example of overall architecture of a hybrid-NN is shown in as follows:
 
-![Architecture of an example hybrid-NN](https://pzhg.github.io/hCNN/hybrid-nn-example.png)
+<img src="https://pzhg.github.io/hCNN/hybrid-nn-example.png" width=40% align=center alt="Architecture of an example hybrid-NN">
  
 This example hybrid-NN has three parallel subnetworks as three channels. The `sub-NN 1` and `sub-NN 2` has a PCA layer at the very beginning as the SP module for some specific objectives, and the `sub-NN 3` is constructed as a traditional CNN which is intended to detect all general targets. The three subnetworks are combined with two fully connected layers.
 
