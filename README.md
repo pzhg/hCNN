@@ -315,10 +315,10 @@ Currently the following special SP layers are supported:
 	cnn = cnnAddCoPCALayer(NN_NAME, FILTER_DIM, PCA_DIM, CORR_STEP, CORR_TYPE);
 	```
 
-	* FILTER_DIM: dimension of the covariance window.
-	* PCA_DIM: the dimension of PCA.
-	* CORR_STEP: The stride of correlation.
-	* CORR_TYPE: `1` for auto-correlation and `2` for cross-correlation.
+	* `FILTER_DIM`: dimension of the covariance window.
+	* `PCA_DIM`: the dimension of PCA.
+	* `CORR_STEP`: The stride of correlation.
+	* `CORR_TYPE`: `1` for auto-correlation and `2` for cross-correlation.
 
 	Example:
 	```
