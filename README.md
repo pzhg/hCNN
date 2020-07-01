@@ -152,7 +152,7 @@ To usage of this toolbox has for steps, which is simple and intuitive:
 	cnn = cnnAddBNLayer(NN_NAME, MODE)
 	```
 
-	If can manually define `MODE` as `1` for 2-D layers (e.g. convolutional layers) and `2` for 1-D layers (e.g. fully connected layers). If not specified, it is automatically decided by its preceding layer.
+	You can manually define `MODE` as `1` for 2-D layers (e.g. convolutional layers) and `2` for 1-D layers (e.g. fully connected layers). If not specified, it is automatically decided by its preceding layer.
 
 * Drop Out Layer
 
