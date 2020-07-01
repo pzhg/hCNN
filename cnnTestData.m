@@ -4,6 +4,8 @@ function [acc, e] = cnnTestData(cnn, VX, VY, numImages)
     %   VLabel: validation label, [1, data-count]
     %   numImages: number of images that want to validate
 
+    cnn.to.test = 1;
+
     if cnn.to.useGPU == 1
         images = gpuArray(single(VX(:, :, :, 1:numImages)));
         mb_labels = gpuArray(single(VY(:, 1:numImages)));

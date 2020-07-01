@@ -17,7 +17,6 @@ to.momentum = 0.9;          % Momentum
 to.mom = 0.5;               % Initial momentum
 to.momIncrease = 20;        % Momemtum change iteration count
 to.lambda = 0.0001;         % Weight decay parameter (a.k.a. L2 regularization parameter)
-to.test = 0;                % Flag for training or test
 to.useGPU = 1;              % Use GPU
 
 if to.useGPU == 1
@@ -45,9 +44,9 @@ cnn = cnnAddBNLayer(cnn);
 cnn = cnnAddActivationLayer(cnn, 'relu');
 cnn = cnnAddFCLayer(cnn, 10, 'r');
 cnn = cnnAddOutputLayer(cnn, 'softmax');
+cnn = cnnInitVelocity(cnn); % Initial the NN Parameters
 
 %% Train CNN
-cnn = cnnInitVelocity(cnn); % Initial the NN Parameters
 [ERR, cnn] = cnnTrainBP(cnn, TrainData, LabelData);
 figure;
 plot(ERR(1, :));
@@ -55,7 +54,6 @@ figure;
 plot(ERR(2, :));
 
 %% Test NN
-cnn.to.test = 1;            % Set the test flag to 1
 acc = cnnTestData(cnn, VData, VLabel, 1000);
 fprintf('Validation accuracy is: %f\n', acc);
 

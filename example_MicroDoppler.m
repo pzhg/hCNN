@@ -24,8 +24,6 @@ if to.useGPU == 1
     reset(gpuDevice(1));    % Initialize GPU
 end
 
-to.test = 0;
-
 %% Initialize CNN
 cnn = cnnInit(to);
 feature('SetPrecision', 24);
@@ -106,7 +104,6 @@ figure;
 plot(ERR(2, :));
 
 %% Test CNN
-cnn.to.test = 1;
 [acc, e] = cnnTestData(cnn, testDataNoCarRe, testLabelNoCarRe, 75);
 fprintf('Validation accuracy is: %f\n', acc);
 mpiprofile viewer;

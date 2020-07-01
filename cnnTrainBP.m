@@ -8,6 +8,8 @@ function [ERR, cnn] = cnnTrainBP(cnn, X, Y)
     %   ERR: array contains the accuracy and cost in each iteration
     %   cnn: the trained CNN
 
+    cnn.to.test = 0;
+
     if cnn.to.useGPU == 1
         [ERR, cnn] = cnnTrainBP_GPU(cnn, X, Y);
     else

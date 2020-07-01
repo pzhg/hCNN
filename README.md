@@ -38,7 +38,7 @@ To usage of this toolbox has for steps, which is simple and intuitive:
 	cnn = cnnInit(to);
 	```
 
-2. Define NN structure
+2. Define NN structure (Add layers)
 
 	```
 	cnn = cnnAddInputLayer(cnn, [28, 28], 1);
@@ -51,19 +51,18 @@ To usage of this toolbox has for steps, which is simple and intuitive:
 	cnn = cnnAddDropOutLayer(cnn, 0.3);
 	cnn = cnnAddBNLayer(cnn);
 	cnn = cnnAddOutputLayer(cnn, 'softmax');
+	cnn = cnnInitVelocity(cnn); 	% Initial the NN Parameters
 	```
 
 3. Train
 
 	```
-	cnn = cnnInitVelocity(cnn); % Initial the NN Parameters
 	[ERR, cnn] = cnnTrainBP(cnn, TrainData, LabelData);
 	```
 
 4. Validate
 
 	```
-	cnn.to.test = 1;            % Set the test flag to 1
 	acc = cnnTestData(cnn, VData, VLabel, 1000);
 	```
 
@@ -348,7 +347,6 @@ See examples of Special SP layer:
 
 Syntax:
 	```
-	to.test = 0;                % Flag for training or test
 	[ERR, cnn] = cnnTrainBP(NN_NAME, TRAINING_DATA, TRAINING_LABEL);
 	```
 
@@ -358,7 +356,6 @@ Syntax:
 
 Syntax:
 	```
-	to.test = 1;                % Flag for training or test
 	[acc, e] = cnnTestData(NN_NAME, TEST_DATA, TEST_LABEL, TEST_SIZE);
 	```
 
