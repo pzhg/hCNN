@@ -338,10 +338,13 @@ Currently the following special SP layers are supported:
 	Currently supported transforms:
 	* `'pca'`
 	
-		PCA Layer. Use syntax 
+		PCA Layer. 
+		
+		Use syntax 
 		```matlab
 		cnnAddTransformLayer(NN_NAME, 'pca', PCA_DIM);
-		``` to specify the PCA dimension. 
+		``` 
+		to specify the PCA dimension. 
 
 	* `'fft'` 
 	
@@ -349,10 +352,13 @@ Currently the following special SP layers are supported:
 
 	* `'dwt'`
 
-		DWT Layer. Use syntax 
+		DWT Layer. 
+		
+		Use syntax 
 		```matlab
 		cnnAddTransformLayer(NN_NAME, 'dwt', WAVELET_NAME);
-		``` to specify the wavelet name (must be supported by MATLAB Wavelet Toolbox). 
+		``` 
+		to specify the wavelet name (must be supported by MATLAB Wavelet Toolbox). 
 	
 	*  `'abs'` `'arg'` `'real'` `'imag'`
 	
