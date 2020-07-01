@@ -354,7 +354,7 @@ See examples of Special SP layer:
 	[ERR, cnn] = cnnTrainBP(NN_NAME, TRAINING_DATA, TRAINING_LABEL);
 ```
 
-	* `ERR`: array contains training accuracies and costs.
+* `ERR`: array contains training accuracies and costs.
 
 ## Validation
 
@@ -362,9 +362,9 @@ See examples of Special SP layer:
 	[acc, e] = cnnTestData(NN_NAME, TEST_DATA, TEST_LABEL, TEST_SIZE);
 ```
 
-	* `acc`: validation accuracy.
-	* `e`: validation result array.
-	* `TEST_SIZE`: use how many data to do the validation.
+* `acc`: validation accuracy.
+* `e`: validation result array.
+* `TEST_SIZE`: use how many data to do the validation.
 
 
 ## Example
