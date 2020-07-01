@@ -11,5 +11,5 @@ function cnn = cnnInit(to)
     cnn.W_grad = {};
     cnn.B_grad = {};
     cnn.to = to;
-
+    
 end

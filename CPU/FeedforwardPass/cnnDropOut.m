@@ -1,6 +1,6 @@
-function [dropOut, DLayer] = cnnDropOut(images, DLayer)
+function [dropOut, DLayer] = cnnDropOut(images, DLayer, test)
 
-    if DLayer.test == 0
+    if test == 0
         dim = size(images, 1);
         location = binornd(ones(dim, 1), (1 - DLayer.rate));
         dropOut = images .* location;

@@ -20,7 +20,7 @@ This example hybrid-NN has three parallel subnetworks as three channels. The `su
 
 ## Usage
 
-To usage of this toolbox has for steps, which is simple and intuitive:
+To usage of this toolbox has four steps, which is simple and intuitive:
 
 1. Define hyper parameters and initialize the NN
 
@@ -34,7 +34,6 @@ To usage of this toolbox has for steps, which is simple and intuitive:
 	to.momIncrease = 20;        % Momemtum change iteration count
 	to.lambda = 0.0001;         % Weight decay parameter (a.k.a. L2 regularization parameter)
 	to.useGPU = 1;              % Use GPU
-
 	cnn = cnnInit(to);
 	```
 
@@ -51,7 +50,7 @@ To usage of this toolbox has for steps, which is simple and intuitive:
 	cnn = cnnAddDropOutLayer(cnn, 0.3);
 	cnn = cnnAddBNLayer(cnn);
 	cnn = cnnAddOutputLayer(cnn, 'softmax');
-	cnn = cnnInitVelocity(cnn); 	% Initial the NN Parameters
+	cnn = cnnInitVelocity(cnn); 					% Initial the NN Parameters
 	```
 
 3. Train

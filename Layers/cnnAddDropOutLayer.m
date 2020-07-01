@@ -10,7 +10,7 @@ function cnn = cnnAddDropOutLayer(cnn, rate)
         DLayer.rate = rate;
     end
 
-    DLayer.test = cnn.to.test;
+%     DLayer.test = cnn.to.test;
     DLayer.OutDim = cnn.Layers{cnn.LNum}.OutDim;
     DLayer.FNum = cnn.Layers{cnn.LNum}.FNum;
     DLayer.Location = [];

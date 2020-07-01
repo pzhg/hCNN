@@ -102,7 +102,7 @@ function cnn = cnnFeedForward_GPU(cnn, images)
                 [cnn.OutData{iLayer}, cnn.Layers{iLayer}] = cnnBatchedNormalization(cnn.Layers{iLayer}, cnn.OutData{iLayer - 1}, cnn.to.test);
             case 12
                 % Dropout Layer
-                [cnn.OutData{iLayer}, cnn.Layers{iLayer}] = cnnDropOut(cnn.OutData{iLayer - 1}, cnn.Layers{iLayer});
+                [cnn.OutData{iLayer}, cnn.Layers{iLayer}] = cnnDropOut(cnn.OutData{iLayer - 1}, cnn.Layers{iLayer}, cnn.to.test);
             otherwise
                 error('Unknown Layer Type!');
         end
