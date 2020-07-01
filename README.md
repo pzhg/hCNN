@@ -87,7 +87,7 @@ To usage of this toolbox has for steps, which is simple and intuitive:
 	cnn = cnnAddPoolLayer(NN_NAME, POOLING_METHOD, POOLING_SIZE);
 	```
 
-	See [Supported Pooling Methods Section](### Supported Pooling Methods) for a list of supported pooling methods. 
+	See [Supported Pooling Methods Section](###Supported Pooling Methods) for a list of supported pooling methods. 
 	Example:
 	```
 	cnn = cnnAddPoolLayer(cnn, 'max', [2, 2]);
