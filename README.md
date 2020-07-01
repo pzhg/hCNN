@@ -196,7 +196,7 @@ To usage of this toolbox has for steps, which is simple and intuitive:
 
 	Leaked ReLu activation.
 
-	The leaky rate can be adjusted in `cnnAddActivationLayer.m`
+	The leaky rate can be adjusted in `cnnAddActivationLayer.m`.
 
 * `'sigmoid'`
 
@@ -238,18 +238,16 @@ The layer is constructed of multiple sub-NNs as multiple channels as:
 
 Each sub-NN can also contain of such BLOB Layer, resulting a nested structure. 
 
-Syntax:
-
 	```
 	SUBNET_LIST = {SUBNN_1, SUBNN_2, ...}
 	cnn = cnnAddBLOBLayer(cnn, SUBNET_LIST, OUTPUT_DIM, COMBINE_TYPE);
 	```
 
 	* `SUBNET_LIST` is a cell of multiple sub-NNs. Eash sub-NN is a conventional NN defined as usual. 
-	You must use `end_BLOB` as its output layer type.
+	   You must use `end_BLOB` as its output layer type.
 	* `OUTPUT_DIM` is the dimention (number of neurons) of the output of this BLOB layer.
 	* `COMBINE_TYPE` specifies that how to combine the sub-NNs. See [Supported Combining Types](#supported-combining-types)
-	 for a list of supported combining types.
+	   for a list of supported combining types.
 
 Example:
 	```
@@ -350,7 +348,6 @@ See examples of Special SP layer:
 ## Supported Training Method
 * BP (Gradient descent)
 
-Syntax:
 	```
 	[ERR, cnn] = cnnTrainBP(NN_NAME, TRAINING_DATA, TRAINING_LABEL);
 	```
@@ -359,7 +356,6 @@ Syntax:
 
 ## Validation
 
-Syntax:
 	```
 	[acc, e] = cnnTestData(NN_NAME, TEST_DATA, TEST_LABEL, TEST_SIZE);
 	```
