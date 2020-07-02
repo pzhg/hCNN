@@ -88,10 +88,10 @@ Dataset used in this example is from [here](https://www.mathworks.com/help/phase
 	Set `COMPLEX_FLAG` to `'c'` if you want the parameters to be complex, otherwise use `'r'`.
 
 	Example:
-	```matlab
-	cnn = cnnAddConvLayer(cnn, [3, 3], 8, 'r');
-	% Add a convolution layer with 3*3 filter and 8 channels, real.
-	```
+	>	```matlab
+	>	cnn = cnnAddConvLayer(cnn, [3, 3], 8, 'r');
+	>	% Add a convolution layer with 3*3 filter and 8 channels, real.
+	>	```
 
 * Pooling Layer
 
@@ -102,10 +102,10 @@ Dataset used in this example is from [here](https://www.mathworks.com/help/phase
 	See [Supported Pooling Methods Section](#supported-pooling-methods) for a list of supported pooling methods. 
 
 	Example:
-	```matlab
-	cnn = cnnAddPoolLayer(cnn, 'max', [2, 2]);
-	% Add a pooling layer with max pooling and 2*2 pooling size.
-	```
+	>	```matlab
+	>	cnn = cnnAddPoolLayer(cnn, 'max', [2, 2]);
+	>	% Add a pooling layer with max pooling and 2*2 pooling size.
+	>	```
 
 * Activation Layer
 
@@ -116,10 +116,10 @@ Dataset used in this example is from [here](https://www.mathworks.com/help/phase
 	See [Supported Activation Functions Section](#supported-activation-functions) for a list of supported pooling methods. 	
 
 	Example:
-	```matlab
-	cnn = cnnAddActivationLayer(cnn, 'relu');
-	% Add an activation layer with 'reLu' activation function.
-	```
+	>	```matlab
+	>	cnn = cnnAddActivationLayer(cnn, 'relu');
+	>	% Add an activation layer with 'reLu' activation function.
+	>	```
 
 * Fully Connected Layer
 
@@ -130,10 +130,10 @@ Dataset used in this example is from [here](https://www.mathworks.com/help/phase
 	Set `COMPLEX_FLAG` to `'c'` if you want the parameters to be complex, otherwise use `'r'`.
 
 	Example:
-	```matlab
-	cnn = cnnAddFCLayer(cnn, 128, 'r');
-	% Add a fully connected layer with 128 outputs, real parameters.
-	```
+	>	```matlab
+	>	cnn = cnnAddFCLayer(cnn, 128, 'r');
+	>	% Add a fully connected layer with 128 outputs, real parameters.
+	>	```
 
 * Reshape Layer
 
@@ -152,10 +152,10 @@ Dataset used in this example is from [here](https://www.mathworks.com/help/phase
 	See [Supported Output Methods Section](#supported-output-methods) for a list of supported output layer types. 	
 
 	Example:
-	```matlab
-	cnn = cnnAddOutputLayer(cnn, 'softmax');
-	% Add a SoftMax output layer.
-	```
+	>	```matlab
+	>	cnn = cnnAddOutputLayer(cnn, 'softmax');
+	>	% Add a SoftMax output layer.
+	>	```
 
 * Batched Normalization Layer
 
@@ -175,10 +175,10 @@ Dataset used in this example is from [here](https://www.mathworks.com/help/phase
 	`DROPOUT_RATE` specifies the probability of removing neurons.
 
 	Example:
-	```matlab
-	cnn = cnnAddDropOutLayer(cnn, 0.3);
-	% Remove 30% neurons (i.e. keep 70% neurons).
-	```
+	>	```matlab
+	>	cnn = cnnAddDropOutLayer(cnn, 0.3);
+	>	% Remove 30% neurons (i.e. keep 70% neurons).
+	>	```
 
 * Multiple Channel (BLOB) Layer
 
@@ -262,11 +262,11 @@ Syntax:
 * `COMBINE_TYPE` specifies that how to combine the sub-NNs. See [Supported Combining Types](#supported-combining-types) for a list of supported combining types.
 
 Example:
-```matlab
-	nets = {cnn1, cnn2};
-	cnn = cnnAddBLOBLayer(cnn, nets, 128, 2);
-	% The BLOB layer has two sub-NNs, the output dimension is 128, and the combining type is 'linking'.
-```
+>	```matlab
+>	nets = {cnn1, cnn2};
+>	cnn = cnnAddBLOBLayer(cnn, nets, 128, 2);
+>	% The BLOB layer has two sub-NNs, the output dimension is 128, and the combining type is 'linking'.
+>	```
 
 See `example_MicroDoppler.m` for detail usages.
 
@@ -319,11 +319,11 @@ Currently the following special SP layers are supported:
 	* `CORR_TYPE`: `1` for auto-correlation and `2` for cross-correlation.
 
 	Example:
-	```matlab
-	cnn = cnnAddCoPCALayer(cnn, [3, 3], 1:3, [2, 2], 1);
-	% Add a CoPCA layer with correlation window 3*3, stide 2*2, PCA keeps the larget three singular
-	% values, and do auto-correlation.
-	```
+	>	```matlab
+	>	cnn = cnnAddCoPCALayer(cnn, [3, 3], 1:3, [2, 2], 1);
+	>	% Add a CoPCA layer with correlation window 3*3, stide 2*2, PCA keeps the larget three singular
+	>	% values, and do auto-correlation.
+	>	```
 
 * Transform Layer
 
