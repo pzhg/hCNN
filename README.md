@@ -324,7 +324,7 @@ Currently the following special SP layers are supported:
 	```matlab
 	cnn = cnnAddCoPCALayer(cnn, [3, 3], 1:3, [2, 2], 1);
 	% Add a CoPCA layer with correlation window 3*3, stide 2*2, PCA keeps the larget three singular
-	  values, and do auto-correlation.
+	% values, and do auto-correlation.
 	```
 
 * Transform Layer
