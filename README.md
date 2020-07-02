@@ -392,7 +392,7 @@ See examples of Special SP layer:
 * `e`: validation result array.
 * `TEST_SIZE`: use how many data to do the validation.
 
-## Roadmap
+# Roadmap
 * [x] CPU Training support.
 * [x] Batched Normalization Layer.
 * [x] Dropout Layer.
@@ -401,7 +401,7 @@ See examples of Special SP layer:
 * [ ] More training methods.
 * [ ] RNN support.
 
-## Reference
+# Reference
 
 - [1] Zhang, Z., Jian, M., Lu, Z., Chen, H., James, S., Wang, C., & Gentile, R. (2020, April). Embedded Micro Radar for Pedestrian Detection in Clutter. In 2020 IEEE International Radar Conference (RADAR) (pp. 368-372). IEEE.
 
