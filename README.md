@@ -39,19 +39,19 @@ To usage of this toolbox has four steps, which is simple and intuitive:
 
 2. Define NN structure (Add layers)
 
-	```matlab
-	cnn = cnnAddInputLayer(cnn, [28, 28], 1);
-	cnn = cnnAddConvLayer(cnn, [3, 3], 8, 'r');
-	cnn = cnnAddBNLayer(cnn);
-	cnn = cnnAddActivationLayer(cnn, 'relu');
-	cnn = cnnAddPoolLayer(cnn, 'max', [2, 2]);
-	cnn = cnnAddReshapeLayer(cnn);
-	cnn = cnnAddFCLayer(cnn, 128, 'r');
-	cnn = cnnAddDropOutLayer(cnn, 0.3);
-	cnn = cnnAddBNLayer(cnn);
-	cnn = cnnAddOutputLayer(cnn, 'softmax');
-	cnn = cnnInitVelocity(cnn); 					% Initial the NN Parameters
-	```
+>	```matlab
+>	cnn = cnnAddInputLayer(cnn, [28, 28], 1);
+>	cnn = cnnAddConvLayer(cnn, [3, 3], 8, 'r');
+>	cnn = cnnAddBNLayer(cnn);
+>	cnn = cnnAddActivationLayer(cnn, 'relu');
+>	cnn = cnnAddPoolLayer(cnn, 'max', [2, 2]);
+>	cnn = cnnAddReshapeLayer(cnn);
+>	cnn = cnnAddFCLayer(cnn, 128, 'r');
+>	cnn = cnnAddDropOutLayer(cnn, 0.3);
+>	cnn = cnnAddBNLayer(cnn);
+>	cnn = cnnAddOutputLayer(cnn, 'softmax');
+>	cnn = cnnInitVelocity(cnn); 					% Initial the NN Parameters
+>	```
 
 3. Train
 
