@@ -69,14 +69,12 @@ To usage of this toolbox has four steps, which is simple and intuitive:
 See the following file as an example of utilizing this toolbox:
 >	`example_MNIST.m` 
 
-Dataset used in this example is from [here](http://yann.lecun.com/exdb/mnist/).
+Dataset used in this example is from [here](http://yann.lecun.com/exdb/mnist/). The MAT file is included in this project.
 
 See the following file as an example of utilization of Multiple channel (BLOB) layer and the insertion of SP Module:
 >	`example_MicroDoppler.m`
 
-Dataset used in this example is from [here](https://www.mathworks.com/help/phased/examples/pedestrian-and-bicyclist-classification-using-deep-learning.html?s_eid=PEP_16543).
-
-You can download the MAT file used in this example from [here](https://1drv.ms/u/s!Akr-loZjbPYVufFK8J6pAMtHi1fEyA?e=T6Vgss).
+Dataset used in this example is from [here](https://www.mathworks.com/help/phased/examples/pedestrian-and-bicyclist-classification-using-deep-learning.html?s_eid=PEP_16543). You can download the MAT file used in this example from [here](https://1drv.ms/u/s!Akr-loZjbPYVufFK8J6pAMtHi1fEyA?e=T6Vgss).
 
 # Toolbox Manual
 
