@@ -24,46 +24,46 @@ To usage of this toolbox has four steps, which is simple and intuitive:
 
 1. Define hyper parameters and initialize the NN
 
-	```matlab
-	to.epochs = 3;              % Epoch number
-	to.batch = 400;             % Batch number
-	to.batch_size = 150;        % Batch size
-	to.alpha = 0.1;             % Learning rate
-	to.momentum = 0.9;          % Momentum
-	to.mom = 0.5;               % Initial momentum
-	to.momIncrease = 20;        % Momemtum change iteration count
-	to.lambda = 0.0001;         % Weight decay parameter (a.k.a. L2 regularization parameter)
-	to.useGPU = 1;              % Use GPU
-	cnn = cnnInit(to);
-	```
+	>	```matlab
+	>	to.epochs = 3;              % Epoch number
+	>	to.batch = 400;             % Batch number
+	>	to.batch_size = 150;        % Batch size
+	>	to.alpha = 0.1;             % Learning rate
+	>	to.momentum = 0.9;          % Momentum
+	>	to.mom = 0.5;               % Initial momentum
+	>	to.momIncrease = 20;        % Momemtum change iteration count
+	>	to.lambda = 0.0001;         % Weight decay parameter (a.k.a. L2 regularization parameter)
+	>	to.useGPU = 1;              % Use GPU
+	>	cnn = cnnInit(to);
+	>	```
 
 2. Define NN structure (Add layers)
 
->	```matlab
->	cnn = cnnAddInputLayer(cnn, [28, 28], 1);
->	cnn = cnnAddConvLayer(cnn, [3, 3], 8, 'r');
->	cnn = cnnAddBNLayer(cnn);
->	cnn = cnnAddActivationLayer(cnn, 'relu');
->	cnn = cnnAddPoolLayer(cnn, 'max', [2, 2]);
->	cnn = cnnAddReshapeLayer(cnn);
->	cnn = cnnAddFCLayer(cnn, 128, 'r');
->	cnn = cnnAddDropOutLayer(cnn, 0.3);
->	cnn = cnnAddBNLayer(cnn);
->	cnn = cnnAddOutputLayer(cnn, 'softmax');
->	cnn = cnnInitVelocity(cnn); 					% Initial the NN Parameters
->	```
+	>	```matlab
+	>	cnn = cnnAddInputLayer(cnn, [28, 28], 1);
+	>	cnn = cnnAddConvLayer(cnn, [3, 3], 8, 'r');
+	>	cnn = cnnAddBNLayer(cnn);
+	>	cnn = cnnAddActivationLayer(cnn, 'relu');
+	>	cnn = cnnAddPoolLayer(cnn, 'max', [2, 2]);
+	>	cnn = cnnAddReshapeLayer(cnn);
+	>	cnn = cnnAddFCLayer(cnn, 128, 'r');
+	>	cnn = cnnAddDropOutLayer(cnn, 0.3);
+	>	cnn = cnnAddBNLayer(cnn);
+	>	cnn = cnnAddOutputLayer(cnn, 'softmax');
+	>	cnn = cnnInitVelocity(cnn); 					% Initial the NN Parameters
+	>	```
 
 3. Train
 
-	```matlab
-	[ERR, cnn] = cnnTrainBP(cnn, TrainData, LabelData);
-	```
+	>	```matlab
+	>	[ERR, cnn] = cnnTrainBP(cnn, TrainData, LabelData);
+	>	```
 
 4. Validate
 
-	```matlab
-	acc = cnnTestData(cnn, VData, VLabel, 1000);
-	```
+	>	```matlab
+	>	acc = cnnTestData(cnn, VData, VLabel, 1000);
+	>	```
 
 ## Example
 See the following file as an example of utilizing this toolbox:
