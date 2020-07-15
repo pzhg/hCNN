@@ -4,7 +4,7 @@ hCNN, Hybrid Neural Network, a MATLAB NN toolbox that supports complex valued da
 
 **GPU supported. Please use a CUDA enabled device and `to.useGPU=1` if you want to enable it.**
 
-## Overview
+## 1. Overview
 
 During the recent decade, deep learning technology, particularly deep neural network (DNN), has gained tremendous popularity in various fields including signal processing (SP). As a data-driven framework, DNN treats the learning problem as a “black-box” that extracts useful features directly from data. With sufficient training, DNN does not rely on any special structure or property of the processed data, making it universally applicable to diverse problem models. As such, DNN can help to expand the functionality of SP to handle problems that cannot be well-modeled.
 
@@ -18,7 +18,7 @@ An example of overall architecture of a hybrid-NN is shown in as follows:
  
 This example hybrid-NN has three parallel subnetworks as three channels. The `sub-NN 1` and `sub-NN 2` has a PCA layer at the very beginning as the SP module for some specific objectives, and the `sub-NN 3` is constructed as a traditional CNN which is intended to detect all general targets. The three subnetworks are combined with two fully connected layers.
 
-## Usage
+### 1.1 Usage
 
 To usage of this toolbox has four steps, which is simple and intuitive:
 
@@ -65,7 +65,7 @@ To usage of this toolbox has four steps, which is simple and intuitive:
 	>	acc = cnnTestData(cnn, VData, VLabel, 1000);
 	>	```
 
-## Example
+### 1.2 Example
 See the following file as an example of utilizing this toolbox:
 >	`example_MNIST.m` 
 
@@ -76,9 +76,9 @@ See the following file as an example of utilization of Multiple channel (BLOB) l
 
 Dataset used in this example is from [here](https://www.mathworks.com/help/phased/examples/pedestrian-and-bicyclist-classification-using-deep-learning.html?s_eid=PEP_16543). You can download the MAT file used in this example from [here](https://1drv.ms/u/s!Akr-loZjbPYVufFK8J6pAMtHi1fEyA?e=T6Vgss).
 
-# Toolbox Manual
+## 2. Toolbox Manual
 
-## Supported Layers
+### 2.1 Supported Layers
 * Convolutional Layer
 
 	```matlab
@@ -188,9 +188,9 @@ Dataset used in this example is from [here](https://www.mathworks.com/help/phase
 
 	We use these layers to support the signal processing (SP) modules. See [Signal Processing (SP) Modules Section](#signal-processing-sp-modules) detail.
 
-## Layer Options
+### 2.2 Layer Options
 
-### Supported Pooling Methods
+#### 2.2.1 Supported Pooling Methods
 * `'mean'`
 
 	Mean pooling.
@@ -199,7 +199,7 @@ Dataset used in this example is from [here](https://www.mathworks.com/help/phase
 
 	Max pooling.
 
-### Supported Activation Functions
+#### 2.2.2 Supported Activation Functions
 * `'relu'`
 
 	ReLu activation.
@@ -223,7 +223,7 @@ If your desired activation function is not listed above, you can easily add more
 >	`cnnActivate.m`  
 >	`cnnDeActivate.m` 
 
-### Supported Output Methods
+#### 2.2.3 Supported Output Methods
 * `'softmax'`
 	
 	SoftMax (Cross Entropy) output.
@@ -236,7 +236,7 @@ If your desired activation function is not listed above, you can easily add more
 
 	End layer of sub-NN in a Multiple Channel (BLOB) layer.
 
-## Multiple Channel (BLOB) Layer
+### 2.3 Multiple Channel (BLOB) Layer
 
 The layer is constructed of multiple sub-NNs as multiple channels as:
 
@@ -270,7 +270,7 @@ Example:
 
 See `example_MicroDoppler.m` for detail usages.
 
-### Supported Combining Types
+#### 2.3.1 Supported Combining Types
 
 * `COMBINE_TYPE = 1` 
 
@@ -284,9 +284,9 @@ See `example_MicroDoppler.m` for detail usages.
 	
 	In this case, the `OUTPUT_DIM` should be the same as the summation of output dimensions of sub-NNs.
 
-## Signal Processing (SP) Modules
+### 2.4 Signal Processing (SP) Modules
 
-### General SP Layers: contain parameters that can be trained during the training of hybrid-NN.
+#### 2.4.1 General SP Layers: contain parameters that can be trained during the training of hybrid-NN.
 
 See the example of Radar Data Layer:
 >	`cnnAddRadarLayer.m`  
@@ -295,7 +295,7 @@ See the example of Radar Data Layer:
 
 You can also add your own SP layers. Use the above examples as references.
 
-### Special SP Layers: does not contain trainable parameters
+#### 2.4.2 Special SP Layers: does not contain trainable parameters
 
 Currently the following special SP layers are supported:
 
@@ -371,7 +371,7 @@ See examples of Special SP layer:
 >	`cnnAddCoPCALayer.m` `cnnCoPCA.m`  
 >	`cnnAddTransformLayer.m` `cnnTransform.m`
 
-## Supported Training Method
+### 2.5 Supported Training Method
 * BP (Gradient descent)
 
 	```matlab
@@ -382,7 +382,7 @@ See examples of Special SP layer:
 
 * More training methods (e.g. SGD) on the way.
 
-## Validation
+### 2.6 Validation
 
 ```matlab
 [acc, e] = cnnTestData(NN_NAME, TEST_DATA, TEST_LABEL, TEST_SIZE);
@@ -392,7 +392,7 @@ See examples of Special SP layer:
 * `e`: validation result array.
 * `TEST_SIZE`: use how many data to do the validation.
 
-# Roadmap
+## 3. Roadmap
 * [x] CPU Training support.
 * [x] Batched Normalization Layer.
 * [x] Dropout Layer.
@@ -401,7 +401,7 @@ See examples of Special SP layer:
 * [ ] More training methods.
 * [ ] RNN support.
 
-# Reference
+## 4. Reference
 
 - [1] Zhang, Z., Jian, M., Lu, Z., Chen, H., James, S., Wang, C., & Gentile, R. (2020, April). Embedded Micro Radar for Pedestrian Detection in Clutter. In 2020 IEEE International Radar Conference (RADAR) (pp. 368-372). IEEE.
 
