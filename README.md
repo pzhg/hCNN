@@ -99,7 +99,7 @@ Dataset used in this example is from [here](https://www.mathworks.com/help/phase
 	cnn = cnnAddPoolLayer(NN_NAME, POOLING_METHOD, POOLING_SIZE);
 	```
 
-	See [Supported Pooling Methods Section](#supported-pooling-methods) for a list of supported pooling methods. 
+	See [Supported Pooling Methods Section](#221-supported-pooling-methods) for a list of supported pooling methods. 
 
 	Example:
 	>	```matlab
@@ -113,7 +113,7 @@ Dataset used in this example is from [here](https://www.mathworks.com/help/phase
 	cnn = cnnAddActivationLayer(NN_NAME, ACTIVITAION_FUNCTION);
 	```
 
-	See [Supported Activation Functions Section](#supported-activation-functions) for a list of supported pooling methods. 	
+	See [Supported Activation Functions Section](#222-supported-activation-functions) for a list of supported pooling methods. 	
 
 	Example:
 	>	```matlab
@@ -149,7 +149,7 @@ Dataset used in this example is from [here](https://www.mathworks.com/help/phase
 	cnn = cnnAddOutputLayer(NN_NAME, OUTPUT_METHOD);
 	```
 
-	See [Supported Output Methods Section](#supported-output-methods) for a list of supported output layer types. 	
+	See [Supported Output Methods Section](#223-supported-output-methods) for a list of supported output layer types. 	
 
 	Example:
 	>	```matlab
@@ -182,11 +182,11 @@ Dataset used in this example is from [here](https://www.mathworks.com/help/phase
 
 * Multiple Channel (BLOB) Layer
 
-	We use this layer to support the multiple channel structure. See [Multiple Channel (BLOB) Layer Section](#multiple-channel-blob-layer) detail.
+	We use this layer to support the multiple channel structure. See [Multiple Channel (BLOB) Layer Section](#23-multiple-channel-blob-layer) detail.
 
 * Signal Processing Layers and Transform Layer
 
-	We use these layers to support the signal processing (SP) modules. See [Signal Processing (SP) Modules Section](#signal-processing-sp-modules) detail.
+	We use these layers to support the signal processing (SP) modules. See [Signal Processing (SP) Modules Section](#24-signal-processing-sp-modules) detail.
 
 ### 2.2 Layer Options
 
@@ -259,7 +259,7 @@ Syntax:
 
 * `SUBNET_LIST` is a cell array of multiple sub-NNs. Eash sub-NN is a conventional NN defined as usual. You must use `end_BLOB` as its output layer type.
 * `OUTPUT_DIM` is the dimention (number of neurons) of the output of this BLOB layer.
-* `COMBINE_TYPE` specifies that how to combine the sub-NNs. See [Supported Combining Types](#supported-combining-types) for a list of supported combining types.
+* `COMBINE_TYPE` specifies that how to combine the sub-NNs. See [Supported Combining Types](#231-supported-combining-types) for a list of supported combining types.
 
 Example:
 >	```matlab
