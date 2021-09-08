@@ -9,8 +9,8 @@ function cnn = cnnInitVelocity(cnn)
             case {2, 3}
 
                 if cnn.to.useGPU == 0
-                    cnn.dW{iLayer} = gpuArray.zeros(size(cnn.Layers{iLayer}.W));
-                    cnn.dB{iLayer} = gpuArray.zeros(size(cnn.Layers{iLayer}.B));
+                    cnn.dW{iLayer} = zeros(size(cnn.Layers{iLayer}.W));
+                    cnn.dB{iLayer} = zeros(size(cnn.Layers{iLayer}.B));
                 else
                     cnn.dW{iLayer} = gpuArray.zeros(size(cnn.Layers{iLayer}.W), 'single');
                     cnn.dB{iLayer} = gpuArray.zeros(size(cnn.Layers{iLayer}.B), 'single');
