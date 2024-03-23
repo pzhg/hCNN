@@ -56,6 +56,7 @@ function cnn = cnnFeedForward(cnn, images)
                     %             offset=0;
                     for inet = 1:cnn.Layers{iLayer}.NNum
                         tcnn = cnn.Layers{iLayer}.Nets{inet};
+                        tcnn.to.test = cnn.to.test;
                         tcnn = cnnFeedForward(tcnn, cnn.OutData{iLayer - 1});
                         %                 cnn.OutData{iLayer}(offset+1:offset+tcnn.Layers{tcnn.LNum}.OutDim, :)=tcnn.OutData{tcnn.LNum};
                         %                 offset=offset+tcnn.Layers{tcnn.LNum}.OutDim;
@@ -68,6 +69,7 @@ function cnn = cnnFeedForward(cnn, images)
 
                     for inet = 1:cnn.Layers{iLayer}.NNum
                         tcnn = cnn.Layers{iLayer}.Nets{inet};
+                        tcnn.to.test = cnn.to.test;
                         tcnn = cnnFeedForward(tcnn, cnn.OutData{iLayer - 1});
                         cnn.OutData{iLayer}(offset + 1:offset + tcnn.Layers{tcnn.LNum}.OutDim, :) = tcnn.OutData{tcnn.LNum};
                         offset = offset + tcnn.Layers{tcnn.LNum}.OutDim;
